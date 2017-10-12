@@ -1,0 +1,38 @@
+// Comments from beginning
+table input_department {
+    fields: [
+        input_id: string, must, [1,40]  // comments at line end
+        name_zh: string, [0,4000]
+        name_en: string, [0,4000]
+        province: string, [0,100]
+        city: string, [0,100]
+        type: enum, CU_985 || CU_211 || CU_OTHER_COMMON || OTHER_NOT_CU
+        unique_name: string, must, [10,100]
+    ]
+}
+// single line comments after contents
+
+table input_paper {
+    fields: [
+        input_id: string, must, [1,40]
+        title: string, must, [1, 400]
+        title_md5: string, must, [32]
+        abstract: text
+        content: text, must
+        publishtime: date
+    ]
+}
+
+table input_users {
+    fields: [
+        input_id: int, must,
+        name_zh: string, [0,400]
+        name_en: string, [0,400]
+        department_zh: string, [0,4000]
+        department_en: string, [0,4000]
+        department_type: enum, CU_985 || CU_211 || CU_OTHER_COMMON || OTHER_NOT_CU
+        email: string, must, verifyRule(email,not_google)
+        province: string, [0,100]
+        city: string, [0,100]
+    ]
+}

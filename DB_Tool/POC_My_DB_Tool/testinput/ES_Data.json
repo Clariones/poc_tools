@@ -1,0 +1,41 @@
+{
+    _id: 字符串. 使用‘课题组的唯一名称’
+    name_zh: 字符串，中文名
+    name_en: 字符串, 英文名
+    location_region: 字符串，中文地理区域名
+    institute: 嵌套对象，研究机构{
+        name_zh: 字符串，中文名
+        name_en: 字符串, 英文名
+        city: 字符串, 中文城市名
+        province：字符串，中文省名
+    }
+    tutor：嵌套对象数组，导师: [{ 注：这个字段不索引。
+        name_zh: 字符串，中文名
+        name_en: 字符串, 英文名
+        photo：字符串，照片图像的URI。 
+        position_title: 字符串，职称。 
+        educational_background：字符串，学历。 
+        landline_phone：字符串，座机
+        cell_phone：字符串：手机
+        postal_address：字符串，通讯地址
+        email: 字符串数组，1到2个email地址
+    }]
+    research_area: 长文本，研究方向
+    national_natural_endowment： 长文本，自然基金信息
+    projects_undertaken：文本，承担项目介绍
+    research_production：文本，研究成果介绍
+    has_ad_machine: 整形数。有多少台已投放的广告机
+    ad_machines: 嵌套对象数组，已投放的广告机:[{
+        id：字符串，广告机ID
+        location_room: 字符串，楼层房间号
+    }]
+    has_paper: 整形数，有多少篇文献
+    paper: 嵌套对象数组，文献:[{
+        id：文献ID
+        title: 文本，文献标题
+        abstract: 文本，文献摘要
+        content：文本，文献内容。这个字段只索引不存储。
+        url：文本，文献原始链接
+    }]
+    
+}
