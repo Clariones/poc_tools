@@ -2,6 +2,7 @@ package viewcomponent;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import sample.shuxiang.customer.MapUtil;
 import static sample.shuxiang.customer.MapUtil.$;
@@ -42,8 +43,15 @@ public class CarouselViewComponent extends BaseViewComponent {
     }
 
     public void addItem(String image, String url, String tips) {
+	if(image == null || url == null) {
+	    throw new IllegalArgumentException("image and url must have value.");
+	}
 	List<Object> list = ensureContent();
-	list.add(MapUtil.newMap($("link", url), $("image", image), $("tips", tips)));
+	Map<String, Object> item = MapUtil.newMap($("link", url), $("image", image));
+	if (tips != null) {
+	    item.put("tips", tips);
+	}
+	list.add(item);
     }
 
     private List<Object> ensureContent() {
