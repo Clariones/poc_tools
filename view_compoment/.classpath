@@ -2,9 +2,12 @@
 <classpath>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8"/>
 	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="src" path="test"/>
 	<classpathentry kind="lib" path="/web-code-generator/WEB-INF/lib/gson-2.2.4.jar"/>
 	<classpathentry kind="lib" path="/SpringBeanManager/lib/jackson-annotations-2.8.0.jar"/>
 	<classpathentry kind="lib" path="/SpringBeanManager/lib/jackson-databind-2.8.6.jar"/>
 	<classpathentry kind="lib" path="/SpringBeanManager/lib/jackson-core-2.8.6.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/web-code-generator"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

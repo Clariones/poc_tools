@@ -1,11 +1,6 @@
 package sample.shuxiang.customer;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-
 import sample.shuxiang.ViewPageFactory;
-import sample.shuxiang.deprecatedcomponent.LinkViewComponent;
 import viewcomponent.BaseViewComponent;
 import viewcomponent.CarouselViewComponent;
 import viewcomponent.ContainerViewComponent;
