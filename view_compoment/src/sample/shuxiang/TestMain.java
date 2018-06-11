@@ -3,7 +3,7 @@ package sample.shuxiang;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import sample.shuxiang.customer.*;
+import sample.shuxiang.customer.TestSite1;
 import viewcomponent.PageViewComponent;
 
 public class TestMain {

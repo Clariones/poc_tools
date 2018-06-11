@@ -1,11 +1,12 @@
 package viewcomponent;
 
+import static sample.shuxiang.customer.MapUtil.$;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 import sample.shuxiang.customer.MapUtil;
-import static sample.shuxiang.customer.MapUtil.$;
 
 /**
  * Carousel 组件.

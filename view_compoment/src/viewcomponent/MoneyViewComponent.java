@@ -1,7 +1,5 @@
 package viewcomponent;
 
-import java.util.Date;
-
 /**
  * 货币组件。
  * <p>

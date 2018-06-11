@@ -10,7 +10,6 @@ import java.util.Map;
 import com.terapico.util.FileUtils;
 import com.terapico.util.XMLDecodeUtils;
 
-import uispec.parser.datasource.DataSourceInfo;
 import uispec.parser.specelement.BaseUiSpecElement;
 import uispec.parser.specelement.DataSourceUiSpec;
 import uispec.parser.specelement.PageUiSpec;
@@ -71,6 +70,9 @@ public class XMLSpecParser extends BaseSpecParser {
 	List<BaseUiSpecElement> childSpecs = new ArrayList<BaseUiSpecElement>();
 	for (Map<String, Object> child : children) {
 	    BaseUiSpecElement childSpec = parseUiSpecElement(root, child);
+	    if (childSpec == null) {
+		continue;
+	    }
 	    childSpecs.add(childSpec);
 	}
 	uiSpecElement.setChildren(childSpecs);
@@ -124,21 +126,6 @@ public class XMLSpecParser extends BaseSpecParser {
 	String setterName = toSetterName(propertyName);
 	Method setterMethod = uiSpecElement.getClass().getMethod(setterName, field.getType());
 	setterMethod.invoke(uiSpecElement, propertyValue);
-    }
-
-    public DataSourceInfo collectDataSources(PageUiSpec pageUiSpec) {
-	DataSourceInfo pageDataSrcInfo = new DataSourceInfo();
-	pageDataSrcInfo.setVariableName(this.toJavaVariableName(pageUiSpec.getName()));
-	pageDataSrcInfo.setDeclaredTypeName(getViewModelPackageName() + "." + toJavaClassName(pageUiSpec.getName()) +"ViewModel");
-	pageDataSrcInfo.setType(DataSourceInfo.TYPE_VIEW_MODEL);
-	
-	handleUiSpecDataSrc(pageDataSrcInfo, pageUiSpec);
-	return pageDataSrcInfo;
-    }
-
-    private void handleUiSpecDataSrc(DataSourceInfo resultDataSrc, BaseUiSpecElement curUiSpec) {
-	List<String> dataSrcExpressionList = curUiSpec.getDataSourceExpressionList();
-	// TODO
     }
 
 }

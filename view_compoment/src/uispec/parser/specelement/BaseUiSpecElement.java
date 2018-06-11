@@ -2,6 +2,9 @@ package uispec.parser.specelement;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
+
+import uispec.parser.datasource.DataSourceInfo;
 
 public class BaseUiSpecElement {
     protected String elementTypeName;
@@ -17,7 +20,8 @@ public class BaseUiSpecElement {
     protected String cssClass;
 
     protected List<BaseUiSpecElement> children;
-    
+    protected Map<String, Object> jobInfo;
+    protected DataSourceInfo bindedDataSourceInfo;
     
     public String getElementTextContent() {
         return elementTextContent;
@@ -96,13 +100,40 @@ public class BaseUiSpecElement {
         this.cssClass = cssClass;
     }
     
+    /**
+     * 有多个数据源表达式的组件，需要重载这个函数，例如 carouselUiSpec
+     * @return
+     */
     public List<String> getDataSourceExpressionList() {
 	if (dataSource != null) {
 	    return Arrays.asList(dataSource);
 	}
 	return null;
     }
+    /**
+     * 有多个数据源表达式的组件，需要重载这个函数，例如 carouselUiSpec
+     * @return
+     */
+    public void setDataSourceExpressionResultList(List<DataSourceInfo> dataSourceInfoList) {
+	if (dataSourceInfoList == null  || dataSourceInfoList.isEmpty()) {
+	    bindedDataSourceInfo = null;
+	    return;
+	}
+	bindedDataSourceInfo = dataSourceInfoList.get(0);
+    }
     
+    public Map<String, Object> getJobInfo() {
+        return jobInfo;
+    }
+    public void setJobInfo(Map<String, Object> jobInfo) {
+        this.jobInfo = jobInfo;
+    }
+    public DataSourceInfo getBindedDataSourceInfo() {
+        return bindedDataSourceInfo;
+    }
+    public void setBindedDataSourceInfo(DataSourceInfo bindedDataSourceInfo) {
+        this.bindedDataSourceInfo = bindedDataSourceInfo;
+    }
     
     
 }

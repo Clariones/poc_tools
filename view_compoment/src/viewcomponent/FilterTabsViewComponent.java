@@ -1,10 +1,11 @@
 package viewcomponent;
 
+import static sample.shuxiang.customer.MapUtil.$;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import sample.shuxiang.customer.MapUtil;
-import static sample.shuxiang.customer.MapUtil.$;
 
 /**
  * Tabs 组件.
