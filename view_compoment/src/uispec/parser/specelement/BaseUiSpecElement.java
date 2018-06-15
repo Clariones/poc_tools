@@ -1,9 +1,14 @@
 package uispec.parser.specelement;
 
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.terapico.util.MapUtil;
+
+import poc.utils.TextUtil;
 import uispec.parser.datasource.DataSourceInfo;
 
 public class BaseUiSpecElement {
@@ -18,11 +23,37 @@ public class BaseUiSpecElement {
     protected String id;
     protected String tag;
     protected String cssClass;
+    protected boolean selfHanleListInput = false;
 
     protected List<BaseUiSpecElement> children;
     protected Map<String, Object> jobInfo;
+    @JsonIgnore
     protected DataSourceInfo bindedDataSourceInfo;
+    @JsonIgnore
+    protected DataSourceInfo ancestDataSourceInfo;
+    protected String linkToUrl;
+    @JsonIgnore
+    protected DataSourceInfo linkToDataSourceInfo;
     
+    
+    public boolean isSelfHanleListInput() {
+        return selfHanleListInput;
+    }
+    public void setSelfHanleListInput(boolean selfHanleListInput) {
+        this.selfHanleListInput = selfHanleListInput;
+    }
+    public DataSourceInfo getLinkToDataSourceInfo() {
+        return linkToDataSourceInfo;
+    }
+    public void setLinkToDataSourceInfo(DataSourceInfo linkToDataSourceInfo) {
+        this.linkToDataSourceInfo = linkToDataSourceInfo;
+    }
+    public DataSourceInfo getAncestDataSourceInfo() {
+        return ancestDataSourceInfo;
+    }
+    public void setAncestDataSourceInfo(DataSourceInfo ancestDataSourceInfo) {
+        this.ancestDataSourceInfo = ancestDataSourceInfo;
+    }
     public String getElementTextContent() {
         return elementTextContent;
     }
@@ -100,6 +131,12 @@ public class BaseUiSpecElement {
         this.cssClass = cssClass;
     }
     
+    public String getLinkToUrl() {
+        return linkToUrl;
+    }
+    public void setLinkToUrl(String linkToUrl) {
+        this.linkToUrl = linkToUrl;
+    }
     /**
      * 有多个数据源表达式的组件，需要重载这个函数，例如 carouselUiSpec
      * @return
@@ -135,5 +172,21 @@ public class BaseUiSpecElement {
         this.bindedDataSourceInfo = bindedDataSourceInfo;
     }
     
+    public Map<String, String> getAdditonalExpressions(){
+	if (TextUtil.isBlank(this.getLinkToUrl())) {
+	    return null;
+	}
+	Map<String, String> result = new HashMap<String, String>();
+	result.put("linkToUrl", this.getLinkToUrl());
+	return result;
+    }
+    
+    public boolean setAdditionalDataSourceInfo(String key, DataSourceInfo dsInfo) {
+	if (key.equals("linkToUrl")) {
+	    this.setLinkToDataSourceInfo(dsInfo);
+	    return true;
+	}
+	return false;
+    }
     
 }

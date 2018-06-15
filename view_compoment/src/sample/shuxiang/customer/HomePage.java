@@ -2,17 +2,18 @@ package sample.shuxiang.customer;
 
 import java.util.Date;
 
+import com.terapico.caf.viewcomponent.BaseViewComponent;
+import com.terapico.caf.viewcomponent.CarouselViewComponent;
+import com.terapico.caf.viewcomponent.ContainerViewComponent;
+import com.terapico.caf.viewcomponent.ImageViewComponent;
+import com.terapico.caf.viewcomponent.PageViewComponent;
+import com.terapico.caf.viewcomponent.SearchViewComponent;
+import com.terapico.caf.viewcomponent.TextViewComponent;
+
 import sample.shuxiang.ViewPageFactory;
 import sample.shuxiang.deprecatedcomponent.HorizontalContainerViewComponent;
 import sample.shuxiang.deprecatedcomponent.LinkViewComponent;
 import sample.shuxiang.deprecatedcomponent.VerticalContainerViewComponent;
-import viewcomponent.BaseViewComponent;
-import viewcomponent.CarouselViewComponent;
-import viewcomponent.ContainerViewComponent;
-import viewcomponent.ImageViewComponent;
-import viewcomponent.PageViewComponent;
-import viewcomponent.SearchViewCompoenet;
-import viewcomponent.TextViewComponent;
 
 public class HomePage implements ViewPageFactory {
 
@@ -49,7 +50,7 @@ public class HomePage implements ViewPageFactory {
 		.addChild(new LinkViewComponent("/shuxiang/storeManager/selectStores/customer0001/", "btn btn-primary")
 			.addChild(new TextViewComponent("切换")))
 		.addChild(
-			new SearchViewCompoenet("搜索", "/shuxiang/storeManager/searchStore/", "search-bar pull-right"));
+			new SearchViewComponent("搜索", "/shuxiang/storeManager/searchStore/", "search-bar pull-right"));
     }
 
     private BaseViewComponent productCampaignHeader(PageViewComponent me) {

@@ -2,15 +2,16 @@ package sample.shuxiang;
 
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.terapico.caf.viewcomponent.PageViewComponent;
 
-import sample.shuxiang.customer.TestSite1;
-import viewcomponent.PageViewComponent;
+import sample.shuxiang.customer.TestSite2;
 
 public class TestMain {
 
     public static void main(String[] args) throws Exception {
 	//ViewPageFactory factory = new BookSharing();
-	ViewPageFactory factory = new TestSite1();
+//	ViewPageFactory factory = new TestSite1();
+	ViewPageFactory factory = new TestSite2();
 //	ViewPageFactory factory = new HomePage();
 	PageViewComponent page = factory.produce();
 	page.fixLayoutTypeNames();

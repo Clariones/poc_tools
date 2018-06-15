@@ -1,6 +1,6 @@
 package sample.shuxiang.deprecatedcomponent;
 
-import viewcomponent.BaseViewComponent;
+import com.terapico.caf.viewcomponent.BaseViewComponent;
 
 /**
  * 

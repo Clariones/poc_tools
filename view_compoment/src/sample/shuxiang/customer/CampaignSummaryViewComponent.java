@@ -1,6 +1,6 @@
 package sample.shuxiang.customer;
 
-import viewcomponent.BaseViewComponent;
+import com.terapico.caf.viewcomponent.BaseViewComponent;
 
 /**
  * 

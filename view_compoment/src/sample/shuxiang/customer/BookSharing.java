@@ -1,16 +1,17 @@
 package sample.shuxiang.customer;
 
+import com.terapico.caf.viewcomponent.BaseViewComponent;
+import com.terapico.caf.viewcomponent.ContainerViewComponent;
+import com.terapico.caf.viewcomponent.FormActionViewComponent;
+import com.terapico.caf.viewcomponent.FormFieldViewComponent;
+import com.terapico.caf.viewcomponent.FormViewComponent;
+import com.terapico.caf.viewcomponent.ImageViewComponent;
+import com.terapico.caf.viewcomponent.PageViewComponent;
+import com.terapico.caf.viewcomponent.TextViewComponent;
+
 import sample.shuxiang.ViewPageFactory;
 import sample.shuxiang.deprecatedcomponent.LinkViewComponent;
 import sample.shuxiang.deprecatedcomponent.VerticalContainerViewComponent;
-import viewcomponent.BaseViewComponent;
-import viewcomponent.ContainerViewComponent;
-import viewcomponent.FormActionViewComponent;
-import viewcomponent.FormFieldViewComponent;
-import viewcomponent.FormViewComponent;
-import viewcomponent.ImageViewComponent;
-import viewcomponent.PageViewComponent;
-import viewcomponent.TextViewComponent;
 
 public class BookSharing implements ViewPageFactory {
 

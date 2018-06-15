@@ -1,6 +1,6 @@
 package sample.shuxiang.deprecatedcomponent;
 
-import viewcomponent.ContainerViewComponent;
+import com.terapico.caf.viewcomponent.ContainerViewComponent;
 
 /**
  * 

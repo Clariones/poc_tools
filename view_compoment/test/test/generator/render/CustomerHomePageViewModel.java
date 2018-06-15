@@ -4,14 +4,15 @@ import com.terapico.shuxiang.customer.Customer;
 import com.terapico.shuxiang.store.Store;
 
 public class CustomerHomePageViewModel {
-    protected Store store;
+    protected Store shop;
     protected Customer user;
     protected boolean hasPersonalization;
-    public Store getStore() {
-        return store;
+    
+    public Store getShop() {
+        return shop;
     }
-    public void setStore(Store store) {
-        this.store = store;
+    public void setShop(Store shop) {
+        this.shop = shop;
     }
     public Customer getUser() {
         return user;

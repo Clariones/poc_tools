@@ -1,14 +1,16 @@
 package sample.shuxiang.customer;
 
+import com.terapico.caf.viewcomponent.BaseViewComponent;
+import com.terapico.caf.viewcomponent.CarouselViewComponent;
+import com.terapico.caf.viewcomponent.CodeScannerComponent;
+import com.terapico.caf.viewcomponent.ContainerViewComponent;
+import com.terapico.caf.viewcomponent.FormActionViewComponent;
+import com.terapico.caf.viewcomponent.FormFieldViewComponent;
+import com.terapico.caf.viewcomponent.FormViewComponent;
+import com.terapico.caf.viewcomponent.PageViewComponent;
+import com.terapico.caf.viewcomponent.TextViewComponent;
+
 import sample.shuxiang.ViewPageFactory;
-import viewcomponent.BaseViewComponent;
-import viewcomponent.CarouselViewComponent;
-import viewcomponent.ContainerViewComponent;
-import viewcomponent.FormActionViewComponent;
-import viewcomponent.FormFieldViewComponent;
-import viewcomponent.FormViewComponent;
-import viewcomponent.PageViewComponent;
-import viewcomponent.TextViewComponent;
 
 public class TestSite1 implements ViewPageFactory {
     private static int cnt = 0;
@@ -18,7 +20,12 @@ public class TestSite1 implements ViewPageFactory {
 	PageViewComponent me = new PageViewComponent("试验场1");
 	produceHeadCarousel(me);
 	productForm(me);
+	//productScanner(me);
 	return me;
+    }
+
+    private void productScanner(PageViewComponent parent) {
+	parent.addChild(new CodeScannerComponent("./wxaService/scanToBorrow/", "full-screen-scanner"));
     }
 
     private BaseViewComponent productForm(PageViewComponent parent) {
@@ -71,12 +78,13 @@ public class TestSite1 implements ViewPageFactory {
 	me.newChild(new TextViewComponent("书香用户协议", "my_css_agreement_link")
 		.assignLinkToUrl("./wxaService/viewCustomerAgreement/fromTestSite1/"));
 
-	form.addChild(new FormActionViewComponent("./wxaService/saveQuestionnaires/C000001/Q000002/", "提交", "info")
+	form.newChild(new ContainerViewComponent("vertical-layout")).addChild(new FormActionViewComponent("./wxaService/saveQuestionnaires/C000001/Q000002/", "提交", "info")
 		.assignClasses("btn btn-full"))
+		.newChild(new ContainerViewComponent("horizontal-layout")
 		.addChild(new FormActionViewComponent("./wxaService/cancelQuestionnaires/C000001/Q000002/", "撤回",
 			"default").assignClasses("btn btn-half"))
 		.addChild(new FormActionViewComponent("./wxaService/complaintQuestionnaires/C000001/Q000002/", "投诉",
-			"warning").assignClasses("btn btn-half"));
+			"warning").assignClasses("btn btn-half")));
 	return form;
     }
 

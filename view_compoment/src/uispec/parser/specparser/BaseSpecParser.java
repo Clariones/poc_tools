@@ -44,6 +44,7 @@ public abstract class BaseSpecParser {
     }
 
     protected Field findField(String propertyName, Class clazz) throws NoSuchFieldException {
+	System.out.println("==> try to find " + propertyName +" in " + clazz);
         Class curClass = clazz;
         NoSuchFieldException e = null;
         while (!curClass.equals(Object.class)) {

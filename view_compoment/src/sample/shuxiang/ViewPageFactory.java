@@ -1,6 +1,6 @@
 package sample.shuxiang;
 
-import viewcomponent.PageViewComponent;
+import com.terapico.caf.viewcomponent.PageViewComponent;
 
 public interface ViewPageFactory {
     public PageViewComponent produce();
