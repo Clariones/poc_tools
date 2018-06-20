@@ -28,6 +28,7 @@ public class RenderTemplateGenerator {
     protected List<PageUiSpec> pages;
     protected File templateBaseFolder;
     protected String templateFileName = "renderTemplate.java.ftl";
+    protected String customTemplateFileName = "renderCustomTemplate.java.ftl";
 
     public File getTemplateBaseFolder() {
         return templateBaseFolder;
@@ -35,6 +36,14 @@ public class RenderTemplateGenerator {
 
     public void setTemplateBaseFolder(File templateBaseFolder) {
         this.templateBaseFolder = templateBaseFolder;
+    }
+
+    public String getCustomTemplateFileName() {
+        return customTemplateFileName;
+    }
+
+    public void setCustomTemplateFileName(String customTemplateFileName) {
+        this.customTemplateFileName = customTemplateFileName;
     }
 
     public String getTemplateFileName() {
@@ -283,10 +292,12 @@ public class RenderTemplateGenerator {
         config.setDirectoryForTemplateLoading(getTemplateBaseFolder());
         config.setDefaultEncoding("UTF-8");
         Template template = config.getTemplate(getTemplateFileName());
+        Template template4Custom = config.getTemplate(this.getCustomTemplateFileName());
 
         List<Object> pages = (List<Object>) data.get("pages");
         boolean writeToSeperateFile = out == null;
         for (Object page : pages) {
+            // base render
             data.put("pageSpec", page);
             if (writeToSeperateFile) {
                 Map<String, Object> pageJob = (Map<String, Object>) page;
@@ -297,6 +308,21 @@ public class RenderTemplateGenerator {
                 out = new OutputStreamWriter(fPrinter);
             }
             template.process(data, out);
+            out.flush();
+            if (writeToSeperateFile) {
+                out.close();
+            }
+            
+            // custom render
+            if (writeToSeperateFile) {
+                Map<String, Object> pageJob = (Map<String, Object>) page;
+                String fileName = pageJob.get("className") + "Render.java";
+                File outputFile = new File(this.getOutputBaseFolder(), fileName);
+                System.out.println("==> Will write to " + outputFile.getAbsolutePath());
+                PrintStream fPrinter = FileUtils.createFileForPrint(outputFile);
+                out = new OutputStreamWriter(fPrinter);
+            }
+            template4Custom.process(data, out);
             out.flush();
             if (writeToSeperateFile) {
                 out.close();

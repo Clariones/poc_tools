@@ -1,4 +1,6 @@
+package com.terapico.shuxiang.wxalayout;
 
+import com.terapico.caf.viewcomponent.PageViewComponent;
 <#import "lib/utils.ftl" as utils>
 <#include "lib/component_temp.java.ftl" />
 package com.terapico.shuxiang.wxalayout;
@@ -11,11 +13,6 @@ import com.terapico.shuxiang.campaign.Campaign;
 import com.terapico.shuxiang.store.Store;
 import com.terapico.shuxiang.storeslide.StoreSlide;
 
-
-import viewcomponent.*;
-
-//import ${pageSpec.className}ViewModel;
-//import ${pageSpec.className}ViewModelFactory;
 
 public class ${pageSpec.className}BaseRender extends BasicRender{
     protected ${pageSpec.viewModelName} viewModel;

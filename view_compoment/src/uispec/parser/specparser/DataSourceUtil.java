@@ -185,9 +185,7 @@ public class DataSourceUtil {
             return;
         }
         // TODO, POC, hard code model file
-        String fileName = "shuxiang";
-        System.setProperty("skynet.model", "shuxiang");
-        System.setProperty("skynet.output.basefolder", "/works/jobs/sx_shequ/workspace");
+        String fileName = System.getProperty("skynet.model");
         oc = ObjectCollectionHome.getHome(fileName);
     }
 

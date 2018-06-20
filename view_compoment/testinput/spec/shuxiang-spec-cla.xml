@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root xmlns:c="http://clariones.doublechaintech.com/uischema.xml"
+    template="mobile" >
+    <c:page name="customer-buy-book" title="买书">
+        
+        <c:container class="container-vertical align-center" >
+        	<c:scanner name="buy-book" class="wxa-scanner" api-url="/wxaService/customerBuyBook/"></c:scanner>
+        	<c:text name="bottom-line" class="text-size-note text-color-note">请将要购买书籍的二维码放入框内，即可扫描购买</c:text>
+        </c:container>
+
+    </c:page>
+
+
+</root>
