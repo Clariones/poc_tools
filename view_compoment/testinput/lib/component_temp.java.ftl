@@ -59,19 +59,6 @@
         <@gen_component_chidren_ifhas uiSpec/>
 </#macro>
 
-<#macro gen_component_field uiSpec>
-        FormFieldViewComponent me = new FormFieldViewComponent();
-        <@gen_component_common_part uiSpec/>
-        <#if uiSpec.name?has_content>me.setParameterName("${uiSpec.name}");</#if>
-        <#if uiSpec.label?has_content>me.setLabel("${uiSpec.label}");</#if>
-        <#if uiSpec.type?has_content>me.setType("${uiSpec.type}");</#if>
-        <#if uiSpec.placeholder?has_content>me.setPlaceholder("${uiSpec.placeholder}");</#if>
-        me.setRequired(${uiSpec.required?c});
-        me.setDisabled(${uiSpec.disabled?c});
-        // candidate values are complex, you should override this method if you need candidate values
-        <@gen_component_chidren_ifhas uiSpec/>
-</#macro>
-
 <#macro gen_component_search uiSpec>
         SearchViewComponent me = new SearchViewComponent();
         <@gen_component_common_part uiSpec/>
@@ -110,4 +97,55 @@
     	</#if>
     </#if>
         <@gen_component_chidren_ifhas uiSpec/>
+</#macro>
+
+<#macro gen_component_action uiSpec>
+        FormActionViewComponent me = new FormActionViewComponent();
+        <@gen_component_common_part uiSpec/>
+	<#if uiSpec.bindedDataSourceInfo??>
+        me.setContent(data);
+	<#else>
+        me.setContent("${uiSpec.elementTextContent}");
+	</#if>
+		<#if uiSpec.level??>
+		me.setLevel("${uiSpec.level}");
+		</#if>
+        <@gen_component_chidren_ifhas uiSpec/>
+</#macro>
+
+<#macro gen_component_field uiSpec>
+        FormFieldViewComponent me = new FormFieldViewComponent();
+    <#if !uiSpec.type??>
+        me.setType(FormFieldViewComponent.TYPE_TEXT);
+    <#elseif uiSpec.type?contains("_")>
+        me.setType(FormFieldViewComponent.TYPE_${uiSpec.type?upper_case});
+    <#else>
+        me.setType("${uiSpec.type}");
+    </#if>
+        <@gen_component_common_part uiSpec/>
+        <#if uiSpec.name?has_content>me.setParameterName("${uiSpec.name}");</#if><#if uiSpec.label?has_content>
+        me.setLabel("${uiSpec.label}");</#if><#if uiSpec.placeholder?has_content>
+        me.setPlaceholder("${uiSpec.placeholder}");</#if><#if uiSpec.minValue?has_content>
+        me.setMinValue("${uiSpec.minValue}");</#if><#if uiSpec.maxValue?has_content>
+        me.setMaxValue("${uiSpec.maxValue}");</#if><#if uiSpec.maxLine gt 0 >
+        me.setMaxLine(${uiSpec.maxLine});</#if><#if !uiSpec.required >
+        me.setRequired(${uiSpec.required?c});</#if><#if uiSpec.disabled >
+        me.setDisabled(${uiSpec.disabled?c});</#if>
+        <@gen_field_candidate_values uiSpec/>
+        <#-- 
+        	form-field 应该没有子对象，碰到了再说
+          <@gen_component_chidren_ifhas uiSpec/>
+        
+          -->
+</#macro>
+
+<#macro gen_field_candidate_values uiSpec>
+	<#if ! uiSpec.children?has_content>
+	<#return>
+	</#if>
+	<#list uiSpec.children as optionSpec>
+		<#if optionSpec.elementTypeName == "option">
+		me.addCandidateValue("${optionSpec.value}","${optionSpec.displayText}"<#if optionSpec.checked??>, ${optionSpec.checked?c}</#if>);
+		</#if>
+	</#list>
 </#macro>

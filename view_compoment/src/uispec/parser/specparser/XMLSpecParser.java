@@ -126,7 +126,7 @@ public class XMLSpecParser extends BaseSpecParser {
         Field field = findField(toClassMemberName(propertyName), uiSpecElement.getClass());
         propertyValue = preprocessPropertyValue(uiSpecElement, propertyName, propertyValue, field);
         String setterName = toSetterName(propertyName);
-        Method setterMethod = uiSpecElement.getClass().getMethod(setterName, field.getType());
+        Method setterMethod = uiSpecElement.getClass().getMethod(setterName, field.getType() );
         setterMethod.invoke(uiSpecElement, propertyValue);
     }
 

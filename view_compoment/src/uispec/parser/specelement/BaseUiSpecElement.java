@@ -20,6 +20,7 @@ public class BaseUiSpecElement {
     protected String showIf;
     protected String dataSource;
     protected boolean ignoreWhenGeneration;
+    protected boolean shouldBeRender = true;
     protected String id;
     protected String tag;
     protected String cssClass;
@@ -36,6 +37,12 @@ public class BaseUiSpecElement {
     protected DataSourceInfo linkToDataSourceInfo;
     
     
+    public boolean isShouldBeRender() {
+        return shouldBeRender;
+    }
+    public void setShouldBeRender(boolean shouldBeRender) {
+        this.shouldBeRender = shouldBeRender;
+    }
     public boolean isSelfHanleListInput() {
         return selfHanleListInput;
     }

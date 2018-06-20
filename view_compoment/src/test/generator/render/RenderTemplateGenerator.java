@@ -208,7 +208,7 @@ public class RenderTemplateGenerator {
     private void createUiSpecElementTask(RenderTemplatePreprocessContext jobContext,
             List<BaseUiSpecElement> memberElements, PageUiSpec page, BaseUiSpecElement element) {
         DebugUtil.dumpObjectToJson("当前处理的的元素：", element);
-        if (element instanceof DataSourceUiSpec) {
+        if (!element.isShouldBeRender()) {
             return;
         }
         String renderMethodName = RUtils.calcElementRenderName(jobContext, element);
@@ -318,7 +318,11 @@ public class RenderTemplateGenerator {
                 Map<String, Object> pageJob = (Map<String, Object>) page;
                 String fileName = pageJob.get("className") + "Render.java";
                 File outputFile = new File(this.getOutputBaseFolder(), fileName);
-                System.out.println("==> Will write to " + outputFile.getAbsolutePath());
+                if (outputFile.exists()) {
+                    System.out.println("==> File existes, skip: " + outputFile.getAbsolutePath());
+                    continue;
+                }
+                System.out.println("==> Will into " + outputFile.getAbsolutePath());
                 PrintStream fPrinter = FileUtils.createFileForPrint(outputFile);
                 out = new OutputStreamWriter(fPrinter);
             }

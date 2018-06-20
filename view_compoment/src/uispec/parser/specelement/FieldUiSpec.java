@@ -4,10 +4,32 @@ public class FieldUiSpec extends BaseUiSpecElement {
     protected String label;
     protected String type;
     protected String placeholder;
-    protected boolean required;
-    protected boolean disabled;
+    protected boolean required = true;
+    protected boolean disabled = false;
+    protected int maxLine;
+    protected String minValue;
+    protected String maxValue;
     protected String name;
     
+    
+    public int getMaxLine() {
+        return maxLine;
+    }
+    public void setMaxLine(int maxLine) {
+        this.maxLine = maxLine;
+    }
+    public String getMinValue() {
+        return minValue;
+    }
+    public void setMinValue(String minValue) {
+        this.minValue = minValue;
+    }
+    public String getMaxValue() {
+        return maxValue;
+    }
+    public void setMaxValue(String maxValue) {
+        this.maxValue = maxValue;
+    }
     public String getLabel() {
         return label;
     }

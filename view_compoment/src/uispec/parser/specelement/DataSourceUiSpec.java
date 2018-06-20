@@ -3,7 +3,7 @@ package uispec.parser.specelement;
 public class DataSourceUiSpec extends BaseUiSpecElement {
     protected String variableName;
     protected String dataSourceExpression;
-    
+
     public String getVariableName() {
         return variableName;
     }
@@ -21,8 +21,9 @@ public class DataSourceUiSpec extends BaseUiSpecElement {
     }
 
     public void handlePropertyAssignment(String propertyName, Object propertyValue) {
-	this.setVariableName(propertyName);
-	this.setDataSourceExpression(String.valueOf(propertyValue));
+        this.setVariableName(propertyName);
+        this.setDataSourceExpression(String.valueOf(propertyValue));
+        this.setIgnoreWhenGeneration(true);
     }
 
 }

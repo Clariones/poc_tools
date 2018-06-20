@@ -50,7 +50,7 @@ public class ${pageSpec.className}BaseRender extends BasicRender{
         	return;
         }
         for(int i=0;i<dataList.size();i++){
-            parent.addChild(renderEach${uiSpec.jobInfo.methodName}(<@utils.makeRenderMethodCallParameters uiSpec/>, i, dataList.get(i)));
+            renderEach${uiSpec.jobInfo.methodName}(<@utils.makeRenderMethodCallParameters uiSpec/>, i, dataList.get(i));
         }
     }
     protected BaseViewComponent renderEach${uiSpec.jobInfo.methodName} (<@utils.makeRenderMethodCallParametersDeclaration uiSpec/>, int index, ${uiSpec.bindedDataSourceInfo.javaTypeName} inputData) throws Exception {
