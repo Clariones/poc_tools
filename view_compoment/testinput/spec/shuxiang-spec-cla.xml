@@ -140,10 +140,8 @@
         	<c:text name="agreement" data-source="$(book_sharing_agreement)">协议内容</c:text>
         </c:container>
     </c:page>
--->
+
 	<c:page name="book-sharing-form" title="共享图书">
-    	
-    	
     	<c:image class="image-size-banner" src-url="/images/book-sharing-banner.jpeg" />
     	<c:container class="container-vertical">
     		<c:container>
@@ -167,6 +165,20 @@
     			<c:action name="submitBookShareForm" level="primary" link-to-url="/wxaService/shareBook/">提交</c:action>
     		</c:form>
     	</c:container>
-        
+    </c:page>
+    -->
+    
+    <c:page name="book-sharing-success" title="共享图书">
+    	<c:data-source shop="$(store)"/>
+    	
+    	<c:image class="image-size-banner" src-url="/images/book-sharing-banner.jpeg" />
+    	<c:container class="container-vertical">
+    		<c:text class="text-size-article-title text-color-main">提交成功</c:text>
+    	</c:container>
+    	<c:text class="text-size-main">感谢您的共享！</c:text>
+		<c:text class="text-size-main">我们已经收到您的共享申请，我们会尽快与您联系</c:text>
+		<c:container>
+			<c:text class="btn btn-info" link-to-url="/wxaService/viewHomePage/$(shop.id)/true/">回到主页</c:text>
+		</c:container>
     </c:page>
 </root>

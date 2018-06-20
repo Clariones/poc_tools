@@ -24,6 +24,7 @@ public class DataSourceUiSpec extends BaseUiSpecElement {
         this.setVariableName(propertyName);
         this.setDataSourceExpression(String.valueOf(propertyValue));
         this.setIgnoreWhenGeneration(true);
+        this.setShouldBeRender(false);
     }
 
 }
