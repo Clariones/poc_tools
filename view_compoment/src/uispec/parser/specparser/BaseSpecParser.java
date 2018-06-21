@@ -36,8 +36,12 @@ public abstract class BaseSpecParser {
     }
 
     protected Object preprocessPropertyValue(BaseUiSpecElement uiSpecElement, String propertyName, Object propertyValue, Field field) throws Exception {
-        if (field.getType().equals(Boolean.TYPE) || field.getType().equals(boolean.class)) {
+        if (field.getType().equals(Boolean.TYPE) || field.getType().equals(Boolean.class) || field.getType().equals(boolean.class)) {
             Boolean newValue = Boolean.valueOf(String.valueOf(propertyValue));
+            return newValue;
+        }
+        if (field.getType().equals(Integer.TYPE) || field.getType().equals(Integer.TYPE) || field.getType().equals(int.class)) {
+            Integer newValue = Integer.valueOf(String.valueOf(propertyValue));
             return newValue;
         }
         return propertyValue;

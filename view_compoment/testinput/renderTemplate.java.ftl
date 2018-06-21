@@ -1,6 +1,9 @@
+package com.terapico.shuxiang.wxalayout;
 
+import com.terapico.caf.viewcomponent.PageViewComponent;
 <#import "lib/utils.ftl" as utils>
 <#include "lib/component_temp.java.ftl" />
+<#assign java_primitive_types=["boolean","int","long","double"]/>
 package com.terapico.shuxiang.wxalayout;
 
 import java.util.List;
@@ -11,11 +14,6 @@ import com.terapico.shuxiang.campaign.Campaign;
 import com.terapico.shuxiang.store.Store;
 import com.terapico.shuxiang.storeslide.StoreSlide;
 
-
-import viewcomponent.*;
-
-//import ${pageSpec.className}ViewModel;
-//import ${pageSpec.className}ViewModelFactory;
 
 public class ${pageSpec.className}BaseRender extends BasicRender{
     protected ${pageSpec.viewModelName} viewModel;
@@ -53,7 +51,7 @@ public class ${pageSpec.className}BaseRender extends BasicRender{
         	return;
         }
         for(int i=0;i<dataList.size();i++){
-            parent.addChild(renderEach${uiSpec.jobInfo.methodName}(<@utils.makeRenderMethodCallParameters uiSpec/>, i, dataList.get(i)));
+            renderEach${uiSpec.jobInfo.methodName}(<@utils.makeRenderMethodCallParameters uiSpec/>, i, dataList.get(i));
         }
     }
     protected BaseViewComponent renderEach${uiSpec.jobInfo.methodName} (<@utils.makeRenderMethodCallParametersDeclaration uiSpec/>, int index, ${uiSpec.bindedDataSourceInfo.javaTypeName} inputData) throws Exception {
@@ -65,7 +63,7 @@ public class ${pageSpec.className}BaseRender extends BasicRender{
     </#if>
     <#-- 下面是 判断是否需要渲染的部分-->
     <@utils.gen_check_need_render_part uiSpec/>
-    <#assign component_render_macro="gen_component_"+uiSpec.elementTypeName />
+    <#assign component_render_macro="gen_component_"+uiSpec.elementTypeName?replace("-","_") />
     <#if .vars[component_render_macro]??>
         <@.vars[component_render_macro] uiSpec/>
     <#else>
@@ -82,7 +80,7 @@ public class ${pageSpec.className}BaseRender extends BasicRender{
         return viewModel.get${uiSpec.bindedDataSourceInfo.variableName?cap_first}();
         <#elseif uiSpec.bindedDataSourceInfo.type == "string_concat_function">
         StringBuilder sb = new StringBuilder();
-        <#list uiSpec.jobInfo.linkTo.children as segDsInfo>
+        <#list uiSpec.bindedDataSourceInfo.children as segDsInfo>
             <#if segDsInfo.type="const_string">
         sb.append("${segDsInfo.dataSourceExpression}");
                 <#continue>
@@ -136,11 +134,17 @@ public class ${pageSpec.className}BaseRender extends BasicRender{
     <#-- 判断元素是否需要渲染的函数 -->
     protected boolean isNeedRender${uiSpec.jobInfo.methodName}(<@utils.makeRenderMethodCallParametersDeclaration uiSpec/>${uiSpec.jobInfo.localDataCheckDeclare}) {
         <#if uiSpec.elementTypeName != "field" && uiSpec.jobInfo.hasLocalVariable >
+        	<#if java_primitive_types?seq_contains(uiSpec.jobInfo.localDataTypeName)>
+        return true;
+        	<#else>
         if (data == null){
             return false;
         }
-        </#if>
         return true;
+        	</#if>
+        <#else>
+        return true;
+        </#if>
     }
 </#list>
 }

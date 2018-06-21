@@ -1,0 +1,344 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root xmlns:c="http://clariones.doublechaintech.com/uischema.xml"
+    template="mobile" >
+<!--
+	<c:page name="customer-home-page" title="书香社区">
+        <c:data-source user="$(customer)"/>
+        <c:data-source shop="$(store)"/>
+
+        <c:container class="container-horizontal" name="header-block">
+          	<c:text class="text-size-section-title text-color-marked-main" name="header-title">书香社区</c:text>
+        </c:container>
+        <c:container class="container-horizontal" name="header-bar">
+        	<c:container class="container-horizontal align-left">
+            	<c:text data-source="$(shop.store_name)">香榭国际2期店</c:text>
+            	<c:text link-to-url="/wxaService/storeList/"><![CDATA[<切换>]]></c:text>
+            </c:container>
+            <c:container class="container-horizontal align-right">
+            	<c:search api-url="/wxaService/searchInHomePage/">搜索</c:search>
+            </c:container>
+        </c:container>
+        <c:carousel name="ad-block"
+              data-source="$(shop.store_slide)"
+              data-source-link="$(wxa_link_url)"
+              data-source-image="$(wxa_link_url)"
+              data-source-tips="$(wxa_link_url)">
+                <c:image src-url="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTL0zJ2f6DwWOw6xkuc16pDAyxfGv5_udkV1c0VbAUctmFULbbD"/>
+                <c:image src-url="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQY2RLztnCf306MdR4wm9RUTJy2r0HHc0c3HY2oQyjXLUR9nBZ9"/>
+                <c:image src-url="https://i0.hdslb.com/bfs/article/4486e9c92b7add273a5b55f86a816d0603c1313f.jpg"/>
+        </c:carousel>
+        <c:container class="container-horizontal text-size-main text-color-main" name="action-bar">
+             <c:container class="container-vertical" >
+             	<c:image src-url="/images/borrowBook.png" class="image-size-icon"/>
+             	<c:text link-to-url="/wxaService/wantBorrowBook/scanCode/">借书</c:text>
+             </c:container>
+             <c:container class="container-vertical" >
+             	<c:image src-url="/images/buyBook.png" class="image-size-icon"/>
+             	<c:text link-to-url="/wxaService/wantBuyBook/">买书</c:text>
+             </c:container>
+             <c:container class="container-vertical" >
+             	<c:image src-url="/images/shareBook.png" class="image-size-icon"/>
+             	<c:text link-to-url="/wxaService/wantShareBook/$(shop.id)/">共享</c:text>
+             </c:container>
+             <c:container class="container-vertical" >
+             	<c:image src-url="/images/myMessages.png" class="image-size-icon"/>
+             	<c:text link-to-url="/wxaService/myMessageList/">提醒</c:text>
+             </c:container>
+        </c:container>
+        <c:container class="container-horizontal" name="campagin-header">
+        	<c:container class="container-horizontal align-left">
+        		<c:text class="text-size-section-title">活动</c:text>
+        	</c:container>
+        	<c:container class="container-horizontal align-right">
+        		<c:text class="text-size-main btn btn-primary"
+        				link-to-url="./wxaService/storeCampaignList/$(shop.id)/">
+        			查看全部&gt;&gt;
+        		</c:text>
+        	</c:container>
+        </c:container>
+        <c:container class="container-vertical">
+        	<c:text class="text-size-subscript text-color-note">这块的布局有交错重叠，复杂。所以我要动用coder.less了。此块内布局不用调。</c:text>
+        	<c:container class="container-horizontal" data-source="$(shop.campaign)">
+        		<c:container class="campaign-info-left">
+        			<c:image class="image-size-thumbnail campaign-image" src-url="$(campaign_image)"></c:image>
+        			<c:text class="text-color-marked-note text-size-main campaign-status" data-source="$(campaign_status)">状态</c:text>
+        		</c:container>
+        		<c:container class="container-vertical campaign-info-center" name="campaign-info-block">
+        			<c:text class="text-color-marked-main text-size-main" data-source="$(campaign_name)">标题</c:text>
+        			<c:text name="campaign-hold-time" class="text-color-main text-size-main" data-source="$(campaign_start_time)">时间</c:text>
+        			<c:text class="text-color-main text-size-main" data-source="$(campaign_hold_address)">地点</c:text>
+        		</c:container>
+        		<c:container class="container-horizontal align-right">
+        			<c:text name="register-info" data-source="$(campaign_name)">报名情况</c:text>
+        		</c:container>
+        	</c:container>
+        </c:container>
+    </c:page>
+
+
+	<c:page name="customer-store-list" title="门店列表">
+        <c:data-source user="$(customer)"/>
+        <c:data-source plateform="$(book_sharing_platform)"/>
+        <c:container class="container-horizontal">
+        	<c:text class="text-size-section-title text-color-marked-main">附近的门店</c:text>
+        </c:container>
+        <c:container class="container-vertical">
+        	<c:container class="container-horizontal"  name="store-info-block" link-to-url="/wxaService/viewStore/$(id)/" data-source="$(plateform.store)">
+        		<c:image class="image-size-thumbnail" src-url="$(store_image)"></c:image>
+        		<c:container class="container-vertical" name="store-desc-block">
+        			<c:text class="text-size-main text-color-marked-main" data-source="$(store_name)">名称</c:text>
+        			<c:container>
+        				<c:text class="text-size-main" data-source="$(store_address)">地址</c:text>
+        				<c:text class="text-size-main" data-source="$(store_room_number)">房间号</c:text>
+        			</c:container>
+        			<c:text class="text-size-main" data-source="$(store_open_time)">营业时间</c:text>
+        		</c:container>
+        		<c:container class="container-horizontal align-right">
+        			<c:text name="store-distance" class="text-size-main text-color-marked-note" data-source="$(_by_key_distance)">状态</c:text>
+        		</c:container>
+        	</c:container>
+        </c:container>
+    </c:page>
+
+    <c:page name="customer-borrow-book" title="借书">
+        <c:data-source text-message-1="var: string"/>
+        <c:data-source text-message-2="var: string"/>
+        <c:data-source user="$(customer)"/>
+
+        <c:container class="container-vertical align-center" >
+        	<c:text name="first-line" class="text-size-section-title text-color-marked-main" data-source="$(user._by_key_borrowed)">第一行</c:text>
+        	<c:text name="second-line" class="text-size-section-title text-color-marked-main" data-source="$(user._by_key_total_allowed)">第二行</c:text>
+        	<c:text name="view-borrow-history" class="btn btn-primary" link-to-url="/wxaService/viewBorrowHistory/$(user.id)/">查看借阅详情</c:text>
+        	<c:bar_or_qr_code name="my-code" class="image-size-main" data-source="$(user.id)">我的二维码</c:bar_or_qr_code>
+        	<c:text name="bottom-line" class="text-size-note text-color-note" data-source="$(user._by_key_scene)">底行</c:text>
+        	<c:scanner name="BorrowBook" class="wxa-scanner" api-url="/wxaService/customerBorrowBook/"></c:scanner>
+        	<c:container class="container-horizontal">
+        		<c:container name="showQrCode" class="container-vertical" link-to-url="/wxaService/wantBorrowBook/showCode/">
+        			<c:image class="image-size-icon" src-url="/images/showMyQrCode.png"></c:image>
+        			<c:text class="text-size-main">我的借书码</c:text>
+        		</c:container>
+        		<c:container name="scanToBorrow" class="container-vertical" link-to-url="/wxaService/wantBorrowBook/scanCode/">
+        			<c:image class="image-size-icon" src-url="/images/scanner.png"></c:image>
+        			<c:text class="text-size-main">自助借书</c:text>
+        		</c:container>
+        	</c:container>
+        </c:container>
+
+    </c:page>
+ 
+    
+    <c:page name="customer-buy-book" title="买书">
+        <c:container class="container-vertical align-center" >
+        	<c:scanner name="buy-book" class="wxa-scanner" api-url="/wxaService/customerBuyBook/"></c:scanner>
+        	<c:text name="bottom-line" class="text-size-note text-color-note">请将要购买书籍的二维码放入框内，即可扫描购买</c:text>
+        </c:container>
+    </c:page>
+
+    <c:page name="book-sharing-agreement" title="共享图书协议">
+    	<c:data-source config="$(platform_configuration)"/>
+        <c:container>
+        	<c:text name="agreement" data-source="$(book_sharing_agreement)">协议内容</c:text>
+        </c:container>
+    </c:page>
+
+	<c:page name="book-sharing-form" title="共享图书">
+    	<c:image class="image-size-banner" src-url="/images/book-sharing-banner.jpeg" />
+    	<c:container class="container-vertical">
+    		<c:container>
+    			<c:text class="text-size-article-title text-color-main">图书共享申请</c:text>
+    		</c:container>
+    		<c:text class="text-size-main">书香社区欢迎广大社区成员共享/捐赠图书，您可以将您要共享/捐赠的图书送到您身边的【书香社区门店】，如果需要上门取件，请填写下面表单，我们将尽快与您联系。</c:text>
+    		<c:form name="share-book">
+    			<c:field name="quantityLevel" label="共享数量" type="select" placeholder="请选择数量级别">
+    				<c:option value="little" display-text="少于10本" checked="true"/>
+    				<c:option value="many" display-text="超过10本"/>
+    			</c:field>
+    			<c:field name="contactName" label="联系人" type="text" placeholder="请输入取件联系人" min-value="1" max-value="20" />
+    			<c:field name="contactMobile" label="联系电话" type="text" placeholder="请输入取件联系人的电话" min-value="11" max-value="11"/>
+    			<c:field name="contactAddress" label="联系地址" type="text" placeholder="请输入您的取件地址" min-value="1" max-value="100" max-line="2"/>
+    			<c:container class="container-horizontal">
+    				<c:container class="text-size-note">
+    					<c:field type="check_box" name="agreed" label="我同意" />
+    					<c:text link-to-url="/wxaService/bookSharingAgreement/">《书香社区共享图书条款》</c:text>
+    				</c:container>
+    			</c:container>
+    			<c:action name="submitBookShareForm" level="primary" link-to-url="/wxaService/shareBook/">提交</c:action>
+    		</c:form>
+    	</c:container>
+    </c:page>
+    
+    <c:page name="book-sharing-success" title="共享图书">
+    	<c:data-source shop="$(store)"/>
+    	
+    	<c:image class="image-size-banner" src-url="/images/book-sharing-banner.jpeg" />
+    	<c:container class="container-vertical">
+    		<c:text class="text-size-article-title text-color-main">提交成功</c:text>
+    	</c:container>
+    	<c:text class="text-size-main">感谢您的共享！</c:text>
+		<c:text class="text-size-main">我们已经收到您的共享申请，我们会尽快与您联系</c:text>
+		<c:container>
+			<c:text class="btn btn-info" link-to-url="/wxaService/viewHomePage/$(shop.id)/true/">回到主页</c:text>
+		</c:container>
+    </c:page>
+    
+    <c:page name="view-customer-profile" title="个人信息">
+    	<c:data-source user="$(customer)"/>
+    	<c:container class="container-vertical">
+    		<c:container class="container-horizontal text-size-main text-color-main">
+    			<c:container class="align-left">
+    				<c:text>头像</c:text>
+    			</c:container>
+    			<c:container class="align-rigth">
+    				<c:image src-url="$(user.logo_image)">头像图片</c:image>
+    			</c:container>
+    		</c:container>
+    		<c:container class="container-horizontal">
+    			<c:container class="align-left">
+    				<c:text>昵称</c:text>
+    			</c:container>
+    			<c:container class="align-rigth">
+    				<c:text data-source="$(user.nick_name)">昵称</c:text>
+    			</c:container>
+    		</c:container>
+    		<c:container class="container-horizontal">
+    			<c:container class="align-left">
+    				<c:text>性别</c:text>
+    			</c:container>
+    			<c:container class="align-rigth">
+    				<c:text data-source="$(user.sexuality)">性别</c:text>
+    			</c:container>
+    		</c:container>
+    		<c:container class="container-horizontal">
+    			<c:container class="align-left">
+    				<c:text>生日</c:text>
+    			</c:container>
+    			<c:container class="align-rigth">
+    				<c:date data-source="$(user.birthday)" format="yyyy年MM月dd日">生日</c:date>
+    			</c:container>
+    		</c:container>
+    		<c:container class="container-horizontal">
+    			<c:container class="align-left">
+    				<c:text>真实姓名</c:text>
+    			</c:container>
+    			<c:container class="align-rigth">
+    				<c:text data-source="$(user.real_name)">真实姓名</c:text>
+    			</c:container>
+    		</c:container>
+    		<c:container class="container-horizontal">
+    			<c:container class="align-left">
+    				<c:text>手机号码</c:text>
+    			</c:container>
+    			<c:container class="align-rigth">
+    				<c:text data-source="$(user.mobile_number)">手机号码</c:text>
+    			</c:container>
+    		</c:container>
+    		<c:container class="container-horizontal">
+    			<c:container class="align-left">
+    				<c:text>身份证号码</c:text>
+    			</c:container>
+    			<c:container class="align-rigth">
+    				<c:text data-source="$(user.identity_card_number)">身份证号码</c:text>
+    			</c:container>
+    		</c:container>
+    		<c:container class="container-horizontal">
+    			<c:container class="align-left">
+    				<c:text>家庭地址</c:text>
+    			</c:container>
+    			<c:container class="align-rigth">
+    				<c:text data-source="$(user.family_address)">家庭地址</c:text>
+    			</c:container>
+    		</c:container>
+    		<c:container class="container-horizontal">
+    			<c:text link-to-url="/wxaService/editCustomerProfile/">修改个人信息</c:text>
+    		</c:container>
+    	</c:container>
+    </c:page>
+
+    <c:page name="edit-customer-profile" title="个人信息">
+    	<c:data-source user="$(customer)"/>
+    	<c:container class="container-vertical">
+    		<c:container class="container-horizontal text-size-main text-color-main">
+    			<c:container class="align-left">
+    				<c:text>头像</c:text>
+    			</c:container>
+    			<c:container class="align-rigth">
+    				<c:image src-url="$(user.logo_image)">头像图片</c:image>
+    			</c:container>
+    		</c:container>
+    		<c:container class="container-horizontal">
+    			<c:container class="align-left">
+    				<c:text>昵称</c:text>
+    			</c:container>
+    			<c:container class="align-rigth">
+    				<c:text data-source="$(user.nick_name)">昵称</c:text>
+    			</c:container>
+    		</c:container>
+    		<c:form>
+    			<c:field label="性别" type="select" name="sexuality" data-source="$(user.sexuality)">
+    				<c:option value="男" display-text="男"/>
+    				<c:option value="女" display-text="女"/>
+    			</c:field>
+    			<c:field label="生日" type="date" name="birthday" data-source="$(user.birthday)"/>
+    			<c:field label="真实姓名" type="date" name="real_name" data-source="$(user.real_name)" max-value="80"/>
+    			<c:field label="手机号码" type="vcode" name="mobile_number" link-to-url="/wxaService/sendVCodeToUpdateProfile/" data-source="$(user.mobile_number)" max-value="11"/>
+    			<c:field label="校验码" type="text" name="sms_verify_code" max-value="8"/>
+    			<c:field label="身份证号" type="text" name="identity_card_number" data-source="$(user.identity_card_number)" max-value="18"/>
+    			<c:field label="家庭地址" type="longtext" name="family_address" data-source="$(user.family_address)" max-value="200"/>
+    			<c:action link-to-url="/wxaService/updateCustomerProfile/">保存</c:action>
+    		</c:form>
+    	</c:container>
+    </c:page>
+ -->
+    <c:page name="customer-campaign-list" title="我的活动">
+    	<c:data-source user="$(customer)"/>
+    	<c:container class="container-vertical">
+    		<c:container class="container-horizontal" data-source="$(user.campaign_register_history)" >
+    			<c:container class="campaign-info-left" link-to-url="/wxaService/campaignDetail/$(campaign.id)/">
+        			<c:image class="image-size-thumbnail campaign-image" src-url="$(campaign.campaign_image)"></c:image>
+        			<c:text class="text-color-marked-note text-size-main campaign-status" data-source="$(campaign.campaign_status)">状态</c:text>
+        		</c:container>
+        		<c:container class="container-vertical campaign-info-center" name="campaign-info-block" link-to-url="/wxaService/campaignDetail/$(campaign.id)/">
+        			<c:text class="text-color-marked-main text-size-main" data-source="$(campaign.campaign_name)">标题</c:text>
+        			<c:container>
+        				<c:font-icon class="text-size-main">clock-o</c:font-icon>
+        				<c:text name="campaign-hold-time" class="text-color-main text-size-main" data-source="$(campaign.campaign_start_time)">时间</c:text>
+        			</c:container>
+        			<c:container>
+        				<c:font-icon class="text-size-main">map-marker</c:font-icon>
+        				<c:text class="text-color-main text-size-main" data-source="$(campaign.campaign_hold_address)">地点</c:text>
+        			</c:container>
+        			<c:date class="text-color-note text-size-note" data-source="$(register_datetime)" format="MM-dd HH:mm">更新时间</c:date>
+        			<c:text name="register-status" data-source="$(cancelled)">报名情况</c:text>
+        		</c:container>
+    		</c:container>
+    	</c:container>
+    </c:page>
+           
+    <c:page name="customer-borrow-list" title="我的借阅">
+    	<c:data-source user="$(customer)"/>
+    	<c:container class="container-vertical">
+    		<c:container class="container-horizontal align-center">
+    			<c:text class="text-size-section-title text-color-marked-main" data-source="您当前有$(user._by_key_inBorrwingCount)本书在借">借书数量</c:text>
+    		</c:container>
+    		<c:container data-source="$(user.borrowing_history)" name="borrow-info">
+    			<c:container class="container-horizontal" link-to-url="/wxaService/borrwingHistoryDetail/$(id)/">
+    				<c:image class="image-size-thumbnail" src-url="$(book.book_cover)"></c:image>
+    				<c:container class="container-vertical">
+    					<c:text class="text-size-section-title text-color-marked-main" data-source="$(book.book_name)">书名</c:text>
+    					<c:text class="text-size-main text-color-main" data-source="$(book.book_author)/$(book.book_publisher)">书名</c:text>
+    					<c:container class="text-size-main text-color-main">
+    						<c:text>借书日期</c:text>
+    						<c:date data-source="$(lending_datetime)" format="yyyy-MM-dd"></c:date>
+    					</c:container>
+    					<c:container class="text-size-main text-color-main">
+    						<c:text>免费期至</c:text>
+    						<c:date data-source="$(free_lending_expired_datetime)" format="yyyy-MM-dd"></c:date>
+    					</c:container>
+    				</c:container>
+    			</c:container>
+    		</c:container>
+    		
+    	</c:container>
+    </c:page>
+            
+</root>

@@ -25,3 +25,4 @@ hs_err_pid*
 
 #test out put
 testoutput/
+.classpath

@@ -58,23 +58,23 @@ public class TestSite1 implements ViewPageFactory {
 	field = addField(me, "number", "年龄", "age", "请输入您的年龄");
 
 	field = addField(me, "select", "性别", "sex", null);
-	field.addCandicateValue("man", "男");
-	field.addCandicateValue("woman", "女");
+	field.addCandidateValue("man", "男");
+	field.addCandidateValue("woman", "女");
 
 	field = addField(me, "switch", "是某个图书馆会员", "member", null);
 
 	field = addField(me, "checkbox", "阅读爱好", "favorite", null);
-	field.addCandicateValue("game", "游戏", true);
-	field.addCandicateValue("finance", "金融", false);
-	field.addCandicateValue("tech", "科技", false);
-	field.addCandicateValue("story", "小说", true);
+	field.addCandidateValue("game", "游戏", true);
+	field.addCandidateValue("finance", "金融", false);
+	field.addCandidateValue("tech", "科技", false);
+	field.addCandidateValue("story", "小说", true);
 
 	field = addField(me, "vcode", "短信验证码", "vcode", "");
 	field = addField(me, "longtext", "自我评价", "selfreview", "你对自己的评价，不少于100字。");
 
 	me = me.newChild(new ContainerViewComponent("my_css_form_agreement_row"));
 	field = (FormFieldViewComponent) addField(me, "checkbox", null, "agreed", null).assignClasses("smaller-size");
-	field.addCandicateValue("agreed", "我同意", false);
+	field.addCandidateValue("agreed", "我同意", false);
 	me.newChild(new TextViewComponent("书香用户协议", "my_css_agreement_link")
 		.assignLinkToUrl("./wxaService/viewCustomerAgreement/fromTestSite1/"));
 

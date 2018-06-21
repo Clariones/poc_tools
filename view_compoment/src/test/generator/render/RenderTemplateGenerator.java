@@ -28,6 +28,7 @@ public class RenderTemplateGenerator {
     protected List<PageUiSpec> pages;
     protected File templateBaseFolder;
     protected String templateFileName = "renderTemplate.java.ftl";
+    protected String customTemplateFileName = "renderCustomTemplate.java.ftl";
 
     public File getTemplateBaseFolder() {
         return templateBaseFolder;
@@ -35,6 +36,14 @@ public class RenderTemplateGenerator {
 
     public void setTemplateBaseFolder(File templateBaseFolder) {
         this.templateBaseFolder = templateBaseFolder;
+    }
+
+    public String getCustomTemplateFileName() {
+        return customTemplateFileName;
+    }
+
+    public void setCustomTemplateFileName(String customTemplateFileName) {
+        this.customTemplateFileName = customTemplateFileName;
     }
 
     public String getTemplateFileName() {
@@ -199,7 +208,7 @@ public class RenderTemplateGenerator {
     private void createUiSpecElementTask(RenderTemplatePreprocessContext jobContext,
             List<BaseUiSpecElement> memberElements, PageUiSpec page, BaseUiSpecElement element) {
         DebugUtil.dumpObjectToJson("当前处理的的元素：", element);
-        if (element instanceof DataSourceUiSpec) {
+        if (!element.isShouldBeRender()) {
             return;
         }
         String renderMethodName = RUtils.calcElementRenderName(jobContext, element);
@@ -220,8 +229,9 @@ public class RenderTemplateGenerator {
         }
 
         if (element.getBindedDataSourceInfo() != null) {
-            String localVarBaseTypeName = TextUtil
-                    .hyphenCaseToBigCamelName(element.getBindedDataSourceInfo().getDeclaredTypeName());
+//            String localVarBaseTypeName = TextUtil
+//                    .hyphenCaseToBigCamelName(element.getBindedDataSourceInfo().getDeclaredTypeName());
+            String localVarBaseTypeName = element.getBindedDataSourceInfo().getJavaTypeName();
             if (element.isSelfHanleListInput()) {
                 jobInfo.put("listRenderingMethod", false);
             } else if (element.getBindedDataSourceInfo().isList()) {
@@ -234,12 +244,14 @@ public class RenderTemplateGenerator {
         } else {
             jobInfo.put("listRenderingMethod", false);
             jobInfo.put("hasLocalVariable", false);
+            jobInfo.put("localVariableTypeName", "// 没变量");
         }
 
         // getDataXXXFromViewModel 方法需要的参数
         if ((boolean) jobInfo.get("hasLocalVariable")) {
-            String typeName = TextUtil
-                    .hyphenCaseToBigCamelName(element.getBindedDataSourceInfo().getDeclaredTypeName());
+//            String typeName = TextUtil
+//                    .hyphenCaseToBigCamelName(element.getBindedDataSourceInfo().getDeclaredTypeName());
+            String typeName = element.getBindedDataSourceInfo().getJavaTypeName();
             if (element.isSelfHanleListInput()) {
                 jobInfo.put("localDataTypeName", "List<" + typeName + ">");
                 jobInfo.put("localDataDeclare", ", List<" + typeName + "> data");
@@ -283,10 +295,12 @@ public class RenderTemplateGenerator {
         config.setDirectoryForTemplateLoading(getTemplateBaseFolder());
         config.setDefaultEncoding("UTF-8");
         Template template = config.getTemplate(getTemplateFileName());
+        Template template4Custom = config.getTemplate(this.getCustomTemplateFileName());
 
         List<Object> pages = (List<Object>) data.get("pages");
         boolean writeToSeperateFile = out == null;
         for (Object page : pages) {
+            // base render
             data.put("pageSpec", page);
             if (writeToSeperateFile) {
                 Map<String, Object> pageJob = (Map<String, Object>) page;
@@ -297,6 +311,25 @@ public class RenderTemplateGenerator {
                 out = new OutputStreamWriter(fPrinter);
             }
             template.process(data, out);
+            out.flush();
+            if (writeToSeperateFile) {
+                out.close();
+            }
+            
+            // custom render
+            if (writeToSeperateFile) {
+                Map<String, Object> pageJob = (Map<String, Object>) page;
+                String fileName = pageJob.get("className") + "Render.java";
+                File outputFile = new File(this.getOutputBaseFolder(), fileName);
+                if (outputFile.exists()) {
+                    System.out.println("==> File existes, skip: " + outputFile.getAbsolutePath());
+                    continue;
+                }
+                System.out.println("==> Will into " + outputFile.getAbsolutePath());
+                PrintStream fPrinter = FileUtils.createFileForPrint(outputFile);
+                out = new OutputStreamWriter(fPrinter);
+            }
+            template4Custom.process(data, out);
             out.flush();
             if (writeToSeperateFile) {
                 out.close();
