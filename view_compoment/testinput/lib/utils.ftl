@@ -140,7 +140,11 @@
         }
         <#assign startVarName=varName/>
     <#else>
+    	<#if segDsInfo.variableName == "_by_key_">
+    	sb.append(${startVarName}.valueByKey("${segDsInfo.dataSourceExpression}"));
+        <#else>
         sb.append(${startVarName}.get${segDsInfo.variableName?cap_first}());
+        </#if>
     </#if>
 </#list>
 </#macro>

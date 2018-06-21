@@ -16,12 +16,12 @@ public class DebugUtil {
         mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
         mapper.setSerializationInclusion(Include.NON_NULL);
         String str;
-	try {
-	    str = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(dataResult);
-	    System.out.println(str);
-	} catch (JsonProcessingException e) {
-	    e.printStackTrace();
-	}
+        try {
+            str = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(dataResult);
+            System.out.println(str);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
     }
 
 }

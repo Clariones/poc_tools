@@ -260,7 +260,7 @@ public class DataSourceUtil {
         String key = parentType + "." + memberType;
         FieldDescriptor fd = oc.getFieldByKey(key);
         if (fd != null) {
-            pathNodeDsInfp.setDeclaredTypeName(fd.getRunType("java"));
+            pathNodeDsInfp.setDeclaredTypeName(fd.getType());
             pathNodeDsInfp.setModelingObject(fd.isObj());
             pathNodeDsInfp.setVariableName(fd.getCamelRunName());
             pathNodeDsInfp.setJavaTypeName(fd.getRunType("java"));

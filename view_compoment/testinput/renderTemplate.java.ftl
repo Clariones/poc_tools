@@ -3,6 +3,7 @@ package com.terapico.shuxiang.wxalayout;
 import com.terapico.caf.viewcomponent.PageViewComponent;
 <#import "lib/utils.ftl" as utils>
 <#include "lib/component_temp.java.ftl" />
+<#assign java_primitive_types=["boolean","int","long","double"]/>
 package com.terapico.shuxiang.wxalayout;
 
 import java.util.List;
@@ -79,7 +80,7 @@ public class ${pageSpec.className}BaseRender extends BasicRender{
         return viewModel.get${uiSpec.bindedDataSourceInfo.variableName?cap_first}();
         <#elseif uiSpec.bindedDataSourceInfo.type == "string_concat_function">
         StringBuilder sb = new StringBuilder();
-        <#list uiSpec.jobInfo.linkTo.children as segDsInfo>
+        <#list uiSpec.bindedDataSourceInfo.children as segDsInfo>
             <#if segDsInfo.type="const_string">
         sb.append("${segDsInfo.dataSourceExpression}");
                 <#continue>
@@ -133,11 +134,17 @@ public class ${pageSpec.className}BaseRender extends BasicRender{
     <#-- 判断元素是否需要渲染的函数 -->
     protected boolean isNeedRender${uiSpec.jobInfo.methodName}(<@utils.makeRenderMethodCallParametersDeclaration uiSpec/>${uiSpec.jobInfo.localDataCheckDeclare}) {
         <#if uiSpec.elementTypeName != "field" && uiSpec.jobInfo.hasLocalVariable >
+        	<#if java_primitive_types?seq_contains(uiSpec.jobInfo.localDataTypeName)>
+        return true;
+        	<#else>
         if (data == null){
             return false;
         }
-        </#if>
         return true;
+        	</#if>
+        <#else>
+        return true;
+        </#if>
     }
 </#list>
 }

@@ -34,7 +34,7 @@ public class RenderTemplateGeneratorTest {
         System.setProperty("skynet.output.basefolder", "/works/jobs/sx_shequ/workspace");
         
         List<PageUiSpec> pages = parseTestFile();
-        DebugUtil.dumpObjectToJson("初步读取结果：", pages);
+        //DebugUtil.dumpObjectToJson("初步读取结果：", pages);
 
         RenderTemplateGenerator worker = new RenderTemplateGenerator();
         worker.setOutputBaseFolder(outputBaseFolder);

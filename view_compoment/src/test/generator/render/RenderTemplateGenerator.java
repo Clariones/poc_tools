@@ -229,8 +229,9 @@ public class RenderTemplateGenerator {
         }
 
         if (element.getBindedDataSourceInfo() != null) {
-            String localVarBaseTypeName = TextUtil
-                    .hyphenCaseToBigCamelName(element.getBindedDataSourceInfo().getDeclaredTypeName());
+//            String localVarBaseTypeName = TextUtil
+//                    .hyphenCaseToBigCamelName(element.getBindedDataSourceInfo().getDeclaredTypeName());
+            String localVarBaseTypeName = element.getBindedDataSourceInfo().getJavaTypeName();
             if (element.isSelfHanleListInput()) {
                 jobInfo.put("listRenderingMethod", false);
             } else if (element.getBindedDataSourceInfo().isList()) {
@@ -243,12 +244,14 @@ public class RenderTemplateGenerator {
         } else {
             jobInfo.put("listRenderingMethod", false);
             jobInfo.put("hasLocalVariable", false);
+            jobInfo.put("localVariableTypeName", "// 没变量");
         }
 
         // getDataXXXFromViewModel 方法需要的参数
         if ((boolean) jobInfo.get("hasLocalVariable")) {
-            String typeName = TextUtil
-                    .hyphenCaseToBigCamelName(element.getBindedDataSourceInfo().getDeclaredTypeName());
+//            String typeName = TextUtil
+//                    .hyphenCaseToBigCamelName(element.getBindedDataSourceInfo().getDeclaredTypeName());
+            String typeName = element.getBindedDataSourceInfo().getJavaTypeName();
             if (element.isSelfHanleListInput()) {
                 jobInfo.put("localDataTypeName", "List<" + typeName + ">");
                 jobInfo.put("localDataDeclare", ", List<" + typeName + "> data");

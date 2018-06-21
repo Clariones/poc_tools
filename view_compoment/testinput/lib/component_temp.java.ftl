@@ -48,6 +48,20 @@
         <@gen_component_chidren_ifhas uiSpec/>
 </#macro>
 
+<#macro gen_component_font_icon uiSpec>
+        FontIconViewComponent me = new FontIconViewComponent();
+        <@gen_component_common_part uiSpec/>
+	<#if uiSpec.bindedDataSourceInfo??>
+        me.setContent(data);
+	<#else>
+        me.setContent("${uiSpec.elementTextContent}");
+	</#if>
+	<#if uiSpec.level??>
+		me.setLevel("${uiSpec.level}");
+		</#if>
+        <@gen_component_chidren_ifhas uiSpec/>
+</#macro>
+
 <#macro gen_component_bar_or_qr_code uiSpec>
         BarOrQrCodeViewComponent me = new BarOrQrCodeViewComponent();
         <@gen_component_common_part uiSpec/>
@@ -113,6 +127,16 @@
         <@gen_component_chidren_ifhas uiSpec/>
 </#macro>
 
+<#macro gen_component_date uiSpec>
+        TextViewComponent me = new TextViewComponent();
+        <@gen_component_common_part uiSpec/>
+	<#if uiSpec.bindedDataSourceInfo??>
+        me.setContent(formatDate(data, "${uiSpec.format}"));
+	<#else>
+        me.setContent("${uiSpec.elementTextContent}");
+	</#if>
+        <@gen_component_chidren_ifhas uiSpec/>
+</#macro>
 <#macro gen_component_field uiSpec>
         FormFieldViewComponent me = new FormFieldViewComponent();
     <#if !uiSpec.type??>
@@ -123,7 +147,8 @@
         me.setType("${uiSpec.type}");
     </#if>
         <@gen_component_common_part uiSpec/>
-        <#if uiSpec.name?has_content>me.setParameterName("${uiSpec.name}");</#if><#if uiSpec.label?has_content>
+        <#if uiSpec.bindedDataSourceInfo??>me.setContent(data);</#if><#if uiSpec.name?has_content>
+        me.setParameterName("${uiSpec.name}");</#if><#if uiSpec.label?has_content>
         me.setLabel("${uiSpec.label}");</#if><#if uiSpec.placeholder?has_content>
         me.setPlaceholder("${uiSpec.placeholder}");</#if><#if uiSpec.minValue?has_content>
         me.setMinValue("${uiSpec.minValue}");</#if><#if uiSpec.maxValue?has_content>
