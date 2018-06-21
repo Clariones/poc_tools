@@ -63,7 +63,7 @@ public class ${pageSpec.className}BaseRender extends BasicRender{
     </#if>
     <#-- 下面是 判断是否需要渲染的部分-->
     <@utils.gen_check_need_render_part uiSpec/>
-    <#assign component_render_macro="gen_component_"+uiSpec.elementTypeName />
+    <#assign component_render_macro="gen_component_"+uiSpec.elementTypeName?replace("-","_") />
     <#if .vars[component_render_macro]??>
         <@.vars[component_render_macro] uiSpec/>
     <#else>

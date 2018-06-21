@@ -99,7 +99,7 @@ public class XMLSpecParser extends BaseSpecParser {
             return;
         }
         if (propertyName.equals("__name")) {
-            uiSpecElement.setElementTypeName((String) propertyValue);
+            uiSpecElement.setElementTypeName(((String) propertyValue));
             return;
         }
         if (propertyName.equals("__text")) {

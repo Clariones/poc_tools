@@ -288,7 +288,7 @@
     		</c:form>
     	</c:container>
     </c:page>
-
+ -->
     <c:page name="customer-campaign-list" title="我的活动">
     	<c:data-source user="$(customer)"/>
     	<c:container class="container-vertical">
@@ -300,11 +300,11 @@
         		<c:container class="container-vertical campaign-info-center" name="campaign-info-block" link-to-url="/wxaService/campaignDetail/$(campaign.id)/">
         			<c:text class="text-color-marked-main text-size-main" data-source="$(campaign.campaign_name)">标题</c:text>
         			<c:container>
-        				<c:font_icon class="text-size-main">clock-o</c:font_icon>
+        				<c:font-icon class="text-size-main">clock-o</c:font-icon>
         				<c:text name="campaign-hold-time" class="text-color-main text-size-main" data-source="$(campaign.campaign_start_time)">时间</c:text>
         			</c:container>
         			<c:container>
-        				<c:font_icon class="text-size-main">map-marker</c:font_icon>
+        				<c:font-icon class="text-size-main">map-marker</c:font-icon>
         				<c:text class="text-color-main text-size-main" data-source="$(campaign.campaign_hold_address)">地点</c:text>
         			</c:container>
         			<c:date class="text-color-note text-size-note" data-source="$(register_datetime)" format="MM-dd HH:mm">更新时间</c:date>
@@ -313,7 +313,7 @@
     		</c:container>
     	</c:container>
     </c:page>
-            -->
+           
     <c:page name="customer-borrow-list" title="我的借阅">
     	<c:data-source user="$(customer)"/>
     	<c:container class="container-vertical">
