@@ -1,18 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <root xmlns:c="http://clariones.doublechaintech.com/uischema.xml"
     template="mobile" >
-<!--
+    
 	<c:page name="customer-home-page" title="书香社区">
         <c:data-source user="$(customer)"/>
         <c:data-source shop="$(store)"/>
 
-        <c:container class="container-horizontal" name="header-block">
-          	<c:text class="text-size-section-title text-color-marked-main" name="header-title">书香社区</c:text>
-        </c:container>
         <c:container class="container-horizontal" name="header-bar">
         	<c:container class="container-horizontal align-left">
             	<c:text data-source="$(shop.store_name)">香榭国际2期店</c:text>
-            	<c:text link-to-url="/wxaService/storeList/"><![CDATA[<切换>]]></c:text>
+            	<c:text class="btn btn-primary" link-to-url="/wxaService/storeList/"><![CDATA[切换]]></c:text>
             </c:container>
             <c:container class="container-horizontal align-right">
             	<c:search api-url="/wxaService/searchInHomePage/">搜索</c:search>
@@ -21,31 +18,31 @@
         <c:carousel name="ad-block"
               data-source="$(shop.store_slide)"
               data-source-link="$(wxa_link_url)"
-              data-source-image="$(wxa_link_url)"
-              data-source-tips="$(wxa_link_url)">
+              data-source-image="$(banner_image)"
+              data-source-tips="$(tips)">
                 <c:image src-url="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTL0zJ2f6DwWOw6xkuc16pDAyxfGv5_udkV1c0VbAUctmFULbbD"/>
                 <c:image src-url="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQY2RLztnCf306MdR4wm9RUTJy2r0HHc0c3HY2oQyjXLUR9nBZ9"/>
                 <c:image src-url="https://i0.hdslb.com/bfs/article/4486e9c92b7add273a5b55f86a816d0603c1313f.jpg"/>
         </c:carousel>
         <c:container class="container-horizontal text-size-main text-color-main" name="action-bar">
-             <c:container class="container-vertical" >
+             <c:container class="container-vertical icon-item" >
              	<c:image src-url="/images/borrowBook.png" class="image-size-icon"/>
              	<c:text link-to-url="/wxaService/wantBorrowBook/scanCode/">借书</c:text>
              </c:container>
-             <c:container class="container-vertical" >
+             <c:container class="container-vertical icon-item" >
              	<c:image src-url="/images/buyBook.png" class="image-size-icon"/>
              	<c:text link-to-url="/wxaService/wantBuyBook/">买书</c:text>
              </c:container>
-             <c:container class="container-vertical" >
+             <c:container class="container-vertical icon-item" >
              	<c:image src-url="/images/shareBook.png" class="image-size-icon"/>
              	<c:text link-to-url="/wxaService/wantShareBook/$(shop.id)/">共享</c:text>
              </c:container>
-             <c:container class="container-vertical" >
+             <c:container class="container-vertical icon-item" >
              	<c:image src-url="/images/myMessages.png" class="image-size-icon"/>
              	<c:text link-to-url="/wxaService/myMessageList/">提醒</c:text>
              </c:container>
         </c:container>
-        <c:container class="container-horizontal" name="campagin-header">
+        <c:container class="container-horizontal card" name="campagin-header">
         	<c:container class="container-horizontal align-left">
         		<c:text class="text-size-section-title">活动</c:text>
         	</c:container>
@@ -57,8 +54,7 @@
         	</c:container>
         </c:container>
         <c:container class="container-vertical">
-        	<c:text class="text-size-subscript text-color-note">这块的布局有交错重叠，复杂。所以我要动用coder.less了。此块内布局不用调。</c:text>
-        	<c:container class="container-horizontal" data-source="$(shop.campaign)">
+        	<c:container class="container-horizontal card" data-source="$(shop.campaign)">
         		<c:container class="campaign-info-left">
         			<c:image class="image-size-thumbnail campaign-image" src-url="$(campaign_image)"></c:image>
         			<c:text class="text-color-marked-note text-size-main campaign-status" data-source="$(campaign_status)">状态</c:text>
@@ -68,14 +64,14 @@
         			<c:text name="campaign-hold-time" class="text-color-main text-size-main" data-source="$(campaign_start_time)">时间</c:text>
         			<c:text class="text-color-main text-size-main" data-source="$(campaign_hold_address)">地点</c:text>
         		</c:container>
-        		<c:container class="container-horizontal align-right">
+        		<c:container class="container-horizontal align-right campaign-info-right">
         			<c:text name="register-info" data-source="$(campaign_name)">报名情况</c:text>
         		</c:container>
         	</c:container>
         </c:container>
     </c:page>
 
-
+<!--
 	<c:page name="customer-store-list" title="门店列表">
         <c:data-source user="$(customer)"/>
         <c:data-source plateform="$(book_sharing_platform)"/>
@@ -288,7 +284,7 @@
     		</c:form>
     	</c:container>
     </c:page>
- -->
+
     <c:page name="customer-campaign-list" title="我的活动">
     	<c:data-source user="$(customer)"/>
     	<c:container class="container-vertical">
@@ -335,10 +331,61 @@
     						<c:date data-source="$(free_lending_expired_datetime)" format="yyyy-MM-dd"></c:date>
     					</c:container>
     				</c:container>
+    				<c:text name="borrowing-status" class="pin-to-right-top" data-source="$(_by_key_statusTips)">状态</c:text>
     			</c:container>
     		</c:container>
-    		
     	</c:container>
     </c:page>
-            
+  
+    <c:page name="customer-borrow-detail" title="我的借阅">
+    	<c:data-source record="$(borrowing_history)"/>
+    	
+    	<c:container class="container-horizontal card" link-to-url="/wxaService/bookDetail/$(record.book.id)/">
+    		<c:container>
+    			<c:image src-url="$(record.book.book_cover)">图书封面</c:image>
+    		</c:container>
+    		<c:container class="container-vertical">
+    			<c:text class="text-size-main text-color-marked-main" data-source="$(record.book.book_name)">书名</c:text>
+    			<c:text class="text-size-main text-color-main" data-source="$(record.book.book_recommend.name)">推荐类别</c:text>
+    		</c:container>
+    	</c:container>
+    	<c:container name="from-store-name" class="container-horizontal" >
+    		<c:text class="text-size-main text-color-main aligh-left">借书门店</c:text>
+    		<c:text class="text-size-main text-color-main align-right" data-source="$(record.lending_store.store_name)">店名</c:text>
+    	</c:container>
+    	<c:container name="return-time" class="container-horizontal" >
+    		<c:text class="text-size-main text-color-main aligh-left">借书日期</c:text>
+    		<c:date class="text-size-main text-color-main align-right" data-source="$(record.lending_datetime)" format="yyyy-MM-dd">借书日</c:date>
+    	</c:container>
+    	<c:container name="expire-date" class="container-horizontal" >
+    		<c:text class="text-size-main text-color-main aligh-left">免费阅读至</c:text>
+    		<c:date class="text-size-main text-color-main align-right" data-source="$(record.free_lending_expired_datetime)" format="yyyy-MM-dd">借书日</c:date>
+    	</c:container>
+    	<c:container name="return-store-name" class="container-horizontal" data-source="$(record.return_store)">
+    		<c:text class="text-size-main text-color-main aligh-left">还书门店</c:text>
+    		<c:text class="text-size-main text-color-main align-right" data-source="$(store_name)">店名</c:text>
+    	</c:container>
+    	<c:container name="return-time" class="container-horizontal" >
+    		<c:text class="text-size-main text-color-main aligh-left">还书日期</c:text>
+    		<c:date class="text-size-main text-color-main align-right" data-source="$(return_datetime)" format="yyyy-MM-dd">还书日</c:date>
+    	</c:container>
+    	<c:container name="expire-prompt" class="container-horizontal">
+    		<c:text class="text-size-main text-color-warning aligh-left" data-source="您借阅的《$(book.book_name)》已经超过免费阅读期了，请尽快到附近的门店归还。">逾期提醒</c:text>
+    	</c:container>
+    	<c:container name="expire-days" class="container-horizontal" >
+    		<c:text class="text-size-main text-color-main aligh-left">逾期天数</c:text>
+    		<c:text class="text-size-main text-color-main align-right" data-source="$(_by_key_expiredDays)天"></c:text>
+    	</c:container>
+    	<c:container name="expire-fee" class="container-horizontal" >
+    		<c:text class="text-size-main text-color-main aligh-left">逾期费用</c:text>
+    		<c:money class="text-size-main text-color-main align-right" data-source="$(_by_key_expireFee)" format="#,###.##元"></c:money>
+    	</c:container>
+    </c:page>
+     -->
+     <c:page name="customer-account-detail" title="我的余额">
+    	<c:data-source record="$(customer)"/>
+    	
+    	<c:column>
+    	</c:column>
+     </c:page>
 </root>
