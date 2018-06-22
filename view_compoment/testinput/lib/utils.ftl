@@ -46,7 +46,11 @@
 <@compress single_line=true>
     context,
     <#if uiSpec.ancestDataSourceInfo?has_content>
+    	<#if uiSpec.jobInfo.listRenderingMethod>
+        parent, inputDataList
+        <#else>
         parent, inputData
+        </#if>
     <#else>
         parent
     </#if>

@@ -440,5 +440,16 @@
      		<c:option value="closed" display-text="已完成"/>
      		<c:option value="all" display-text="全部"/>
      	</c:tabs>
+     	<c:column>
+     		<c:column class="card" data-source="$(user.main_order)">
+     			<c:container>
+	     			<c:text>订单编号：</c:text>
+	     			<c:text data-source="$(id)">订单编号</c:text>
+     			</c:container>
+     			<c:row name="line-item" data-source="$(line_item)">
+     				<c:image class="image-size-thumnail" src-url="$(cover_image)"></c:image>
+     			</c:row>
+     		</c:column>
+     	</c:column>
      </c:page>
 </root>
