@@ -44,7 +44,8 @@
         me.setContent(data);
 	<#else>
         me.setContent("${uiSpec.elementTextContent!}");
-	</#if>
+	</#if><#if uiSpec.maxLine gt 0>
+		me.setMaxLine(${uiSpec.maxLine});</#if>
         <@gen_component_chidren_ifhas uiSpec/>
 </#macro>
 
