@@ -109,6 +109,26 @@ public class ${pageSpec.className}BaseRender extends BasicRender{
         return sb.toString();
     }
     </#if>
+    <#-- activeTab 的获取 -->
+    <#if uiSpec.activeTabDataSourceInfo?? && uiSpec.activeTabDataSourceInfo.type!="const_string">
+    protected String getActiveTab4${uiSpec.jobInfo.methodName}(<@utils.makeRenderMethodCallParametersDeclaration uiSpec/>${uiSpec.jobInfo.localDataCheckDeclare}) {
+        <#if uiSpec.activeTabDataSourceInfo.type == "model_path">
+        StringBuilder sb = new StringBuilder();
+            <@utils.gen_string_concat_builder_part uiSpec, uiSpec.activeTabDataSourceInfo, ""/>
+        return sb.toString();
+        <#else>
+        StringBuilder sb = new StringBuilder();
+            <#list uiSpec.activeTabDataSourceInfo.children as segDsInfo>
+                <#if segDsInfo.type="const_string">
+        sb.append("${segDsInfo.dataSourceExpression}");
+                    <#continue>
+                </#if>
+                    <@utils.gen_string_concat_builder_part uiSpec, segDsInfo, "_"+(segDsInfo?index+1)/>
+            </#list>
+        return sb.toString();
+        </#if>
+    }
+    </#if>
     <#-- 获取图像src url 的函数 -->
     <#if uiSpec.elementTypeName == "image" && uiSpec.srcUrlDataSourceInfo.type != "const_string">
     // type = ${uiSpec.srcUrlDataSourceInfo.type}

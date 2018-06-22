@@ -149,6 +149,27 @@
         <@gen_component_chidren_ifhas uiSpec/>
 </#macro>
 
+<#macro gen_component_tabs uiSpec>
+        FilterTabsViewComponent me = new FilterTabsViewComponent();
+        <@gen_component_common_part uiSpec/>
+    <#if uiSpec.activeTabDataSourceInfo??>
+    	<#if uiSpec.activeTabDataSourceInfo.type="const_string">
+    	me.setActiveTab("${uiSpec.activeTabDataSourceInfo.dataSourceExpression}");
+    	<#else>
+    	me.setActiveTab(getActiveTab4${uiSpec.jobInfo.methodName}(<@utils.makeRenderMethodCallParameters uiSpec/>${uiSpec.jobInfo.localDataVar}));
+    	</#if>
+    </#if>
+	<#if uiSpec.classSelected?has_content>
+        me.setClassSelected("${uiSpec.classSelected}");</#if><#if uiSpec.classUnselected?has_content>
+        me.setClassUnselected("${uiSpec.classUnselected}");</#if>
+    <#list uiSpec.children as optionSpec>
+		<#if optionSpec.elementTypeName == "option">
+		me.addTab("${optionSpec.value}","${optionSpec.displayText}"<#if optionSpec.tips??>, ${optionSpec.tips?c}</#if>);
+		</#if>
+	</#list>
+</#macro>
+
+
 <#macro gen_component_field uiSpec>
         FormFieldViewComponent me = new FormFieldViewComponent();
     <#if !uiSpec.type??>
