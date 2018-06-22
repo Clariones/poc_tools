@@ -381,11 +381,84 @@
     		<c:money class="text-size-main text-color-main align-right" data-source="$(_by_key_expireFee)" format="#,###.##元"></c:money>
     	</c:container>
     </c:page>
-     -->
+
      <c:page name="customer-account-detail" title="我的余额">
-    	<c:data-source record="$(customer)"/>
+    	<c:data-source user="$(customer)"/>
     	
-    	<c:column>
+    	<c:column class="align-center">
+    		<c:image class="image-size-main" src-url="/images/customer_account.png">￥符号</c:image>
+    		<c:text class="text-size-article-title">账户余额</c:text>
+    		<c:money class="text-size-article-title" data-source="$(user.account_balance)" format="#,###.00 元"></c:money>
+    		<c:text class="btn btn-primary" link-to-url="/wxaService/customerStartRecharge/">充值</c:text>
+    		<c:text class="text-size-section-title text-color-main" link-to-url="/wxaService/customerAccountHistory/">明 细</c:text>"
     	</c:column>
+     </c:page>
+
+     <c:page name="customer-start-recharge" title="余额充值">
+
+    	<c:column class="align-center">
+    		<c:text class="text-size-article-title">选择充值金额</c:text>
+    		<c:form>
+    			<c:field type="select" name="recharge_ammount" label="￥">
+    				<c:option value="10" display-text="10元"></c:option>
+    				<c:option value="20" display-text="20元"></c:option>
+    				<c:option value="50" display-text="50元"></c:option>
+    				<c:option value="100" display-text="100元"></c:option>
+    				<c:option value="200" display-text="200元"></c:option>
+    				<c:option value="500" display-text="500元"></c:option>
+    			</c:field>
+    			<c:field type="check-box" name="payment_way">
+    				<c:option value="wechat" display-text="微信支付" checked="true"></c:option>
+    			</c:field>
+    			<c:action name="submitRechargeForm" level="primary" link-to-url="/wxaService/customerDoRecharge/">充值</c:action>
+    		</c:form>
+    	</c:column>
+     </c:page>
+     
+     <c:page name="customer-account-history" title="余额明细">
+     	<c:data-source user="$(customer)"/>
+     	<c:text class="text-size-section-title">余额明细</c:text>
+     	<c:column>
+     		<c:row class="card" data-source="$(user.customer_account_transaction)">
+     			<c:column>
+     				<c:text class="text-size-section-title" data-source="$(summary)"></c:text>
+     				<c:date class="text-size-main text-color-note" data-source="$(change_datetime)" format="yyyy-MM-dd HH:mm:ss"></c:date>
+     				<c:text class="text-size-main text-color-note" data-source="订单号:$(related_main_order.id)"></c:text>
+     			</c:column>
+     			<c:money name="ammount" data-source="$(amount)">金额</c:money>
+     		</c:row>
+     	</c:column>
+     </c:page>
+
+ -->
+               
+     <c:page name="customer-order-list" title="我的订单">
+     	<c:data-source user="$(customer)"/>
+     	<c:tabs name="order-type" link-to-url="/wxaService/customerOrderList/" active-tab="$(_by_key_activeTab)"
+     			class-selected="text-color-marked-main" class-unselected="text-color-main">
+     		<c:option value="needPay" display-text="待付款"/>
+     		<c:option value="closed" display-text="已完成"/>
+     		<c:option value="all" display-text="全部"/>
+     	</c:tabs>
+     	<c:column>
+     		<c:column class="card" data-source="$(user.main_order)">
+     			<c:container>
+	     			<c:text>订单编号：</c:text>
+	     			<c:text data-source="$(id)">订单编号</c:text>
+     			</c:container>
+     			<c:row class="card" name="line-item" data-source="$(line_item)">
+     				<c:image class="image-size-thumnail" src-url="$(cover_image)"></c:image>
+     				<c:row>
+     					<c:text class="text-size-main text-color-marked-main" data-source="$(name)"></c:text>
+     					<c:text class="text-size-note text-color-main" data-source="$(summary)"></c:text>
+     					<c:text></c:text>
+     					<c:container>
+     						<c:money class="text-size-main text-color-marked-main" data-source="$(main_order.actual_amount)"></c:money>
+     						<c:money class="text-size-note text-color-note" data-source="$(main_order.original_amount)"></c:money>
+     					</c:container>
+     				</c:row>
+     			</c:row>
+     		</c:column>
+     	</c:column>
      </c:page>
 </root>

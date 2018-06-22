@@ -16,7 +16,7 @@
     <#if uiSpec.jobInfo.hasInputData>
         BaseViewComponent parent, 
         <#if uiSpec.jobInfo.listRenderingMethod>
-        	List<${uiSpec.jobInfo.inputDataTypeName}> inputDataList
+        	${uiSpec.jobInfo.inputDataTypeName} inputParentData
         <#else>
         	${uiSpec.jobInfo.inputDataTypeName} inputData
         </#if>
@@ -46,7 +46,11 @@
 <@compress single_line=true>
     context,
     <#if uiSpec.ancestDataSourceInfo?has_content>
+    	<#if uiSpec.jobInfo.listRenderingMethod>
+        parent, inputParentData
+        <#else>
         parent, inputData
+        </#if>
     <#else>
         parent
     </#if>
@@ -98,6 +102,9 @@
 <#macro gen_get_model_path_data_part uiSpec, dsInfo, postFix>
 <#assign geneticDsInfo = dsInfo.children[0] />
 <#assign startVarName="inputData"/>
+<#if uiSpec.jobInfo.listRenderingMethod>
+<#assign startVarName="inputParentData"/>
+</#if>
 <#if geneticDsInfo.varScope = "page">
     <#assign startVarName="viewModel"/>
 </#if>

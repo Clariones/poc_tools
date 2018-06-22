@@ -43,7 +43,7 @@
 	<#if uiSpec.bindedDataSourceInfo??>
         me.setContent(data);
 	<#else>
-        me.setContent("${uiSpec.elementTextContent}");
+        me.setContent("${uiSpec.elementTextContent!}");
 	</#if>
         <@gen_component_chidren_ifhas uiSpec/>
 </#macro>
@@ -54,7 +54,7 @@
 	<#if uiSpec.bindedDataSourceInfo??>
         me.setContent(data);
 	<#else>
-        me.setContent("${uiSpec.elementTextContent}");
+        me.setContent("${uiSpec.elementTextContent!}");
 	</#if>
 	<#if uiSpec.level??>
 		me.setLevel("${uiSpec.level}");
@@ -68,7 +68,7 @@
 	<#if uiSpec.bindedDataSourceInfo??>
         me.setContent(data);
 	<#else>
-        me.setContent("${uiSpec.elementTextContent}");
+        me.setContent("${uiSpec.elementTextContent!}");
 	</#if>
         <@gen_component_chidren_ifhas uiSpec/>
 </#macro>
@@ -76,7 +76,7 @@
 <#macro gen_component_search uiSpec>
         SearchViewComponent me = new SearchViewComponent();
         <@gen_component_common_part uiSpec/>
-        me.setPlaceHolder("${uiSpec.elementTextContent}");
+        me.setPlaceHolder("${uiSpec.elementTextContent!}");
     <#if uiSpec.apiUrlDataSourceInfo??>
     	<#if uiSpec.apiUrlDataSourceInfo.type="const_string">
     	me.setApi("${uiSpec.apiUrlDataSourceInfo.dataSourceExpression}");
@@ -119,7 +119,7 @@
 	<#if uiSpec.bindedDataSourceInfo??>
         me.setContent(data);
 	<#else>
-        me.setContent("${uiSpec.elementTextContent}");
+        me.setContent("${uiSpec.elementTextContent!}");
 	</#if>
 		<#if uiSpec.level??>
 		me.setLevel("${uiSpec.level}");
@@ -133,7 +133,7 @@
 	<#if uiSpec.bindedDataSourceInfo??>
         me.setContent(formatDate(data, "${uiSpec.format}"));
 	<#else>
-        me.setContent("${uiSpec.elementTextContent}");
+        me.setContent("${uiSpec.elementTextContent!}");
 	</#if>
         <@gen_component_chidren_ifhas uiSpec/>
 </#macro>
@@ -144,10 +144,31 @@
 	<#if uiSpec.bindedDataSourceInfo??>
         me.setContent(formatMoney(data, "${uiSpec.format}"));
 	<#else>
-        me.setContent("${uiSpec.elementTextContent}");
+        me.setContent("${uiSpec.elementTextContent!}");
 	</#if>
         <@gen_component_chidren_ifhas uiSpec/>
 </#macro>
+
+<#macro gen_component_tabs uiSpec>
+        FilterTabsViewComponent me = new FilterTabsViewComponent();
+        <@gen_component_common_part uiSpec/>
+    <#if uiSpec.activeTabDataSourceInfo??>
+    	<#if uiSpec.activeTabDataSourceInfo.type="const_string">
+    	me.setActiveTab("${uiSpec.activeTabDataSourceInfo.dataSourceExpression}");
+    	<#else>
+    	me.setActiveTab(getActiveTab4${uiSpec.jobInfo.methodName}(<@utils.makeRenderMethodCallParameters uiSpec/>${uiSpec.jobInfo.localDataVar}));
+    	</#if>
+    </#if>
+	<#if uiSpec.classSelected?has_content>
+        me.setClassSelected("${uiSpec.classSelected}");</#if><#if uiSpec.classUnselected?has_content>
+        me.setClassUnselected("${uiSpec.classUnselected}");</#if>
+    <#list uiSpec.children as optionSpec>
+		<#if optionSpec.elementTypeName == "option">
+		me.addTab("${optionSpec.value}","${optionSpec.displayText}"<#if optionSpec.tips??>, ${optionSpec.tips?c}</#if>);
+		</#if>
+	</#list>
+</#macro>
+
 
 <#macro gen_component_field uiSpec>
         FormFieldViewComponent me = new FormFieldViewComponent();

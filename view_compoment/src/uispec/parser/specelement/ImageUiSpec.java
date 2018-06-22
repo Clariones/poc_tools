@@ -9,7 +9,7 @@ import uispec.parser.datasource.DataSourceInfo;
 public class ImageUiSpec extends BaseUiSpecElement {
     protected String srcUrl;
     protected DataSourceInfo srcUrlDataSourceInfo;
-    
+
     public String getSrcUrl() {
         return srcUrl;
     }
@@ -27,32 +27,32 @@ public class ImageUiSpec extends BaseUiSpecElement {
     }
 
     public ImageUiSpec() {
-	super();
-	this.setIgnoreWhenGeneration(false);
+        super();
+        this.setIgnoreWhenGeneration(false);
     }
-    
+
     @Override
     public Map<String, String> getAdditonalExpressions() {
-	Map<String, String> result = new HashMap<String, String>();
-	if (!TextUtil.isBlank(this.getLinkToUrl())) {
-	    result.put("linkToUrl", this.getLinkToUrl());
-	}
-	if (!TextUtil.isBlank(this.getSrcUrl())) {
-	    result.put("srcUrl", this.getSrcUrl());
-	}
-	return result;
+        Map<String, String> result = new HashMap<String, String>();
+        if (!TextUtil.isBlank(this.getLinkToUrl())) {
+            result.put("linkToUrl", this.getLinkToUrl());
+        }
+        if (!TextUtil.isBlank(this.getSrcUrl())) {
+            result.put("srcUrl", this.getSrcUrl());
+        }
+        return result;
     }
 
     @Override
     public boolean setAdditionalDataSourceInfo(String key, DataSourceInfo dsInfo) {
-	// TODO Auto-generated method stub
-	if( super.setAdditionalDataSourceInfo(key, dsInfo)) {
-	    return true;
-	}
-	if (key.equals("srcUrl")) {
-	    this.setSrcUrlDataSourceInfo(dsInfo);
-	    return true;
-	}
-	return false;
+        // TODO Auto-generated method stub
+        if (super.setAdditionalDataSourceInfo(key, dsInfo)) {
+            return true;
+        }
+        if (key.equals("srcUrl")) {
+            this.setSrcUrlDataSourceInfo(dsInfo);
+            return true;
+        }
+        return false;
     }
 }
