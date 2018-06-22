@@ -446,8 +446,17 @@
 	     			<c:text>订单编号：</c:text>
 	     			<c:text data-source="$(id)">订单编号</c:text>
      			</c:container>
-     			<c:row name="line-item" data-source="$(line_item)">
+     			<c:row class="card" name="line-item" data-source="$(line_item)">
      				<c:image class="image-size-thumnail" src-url="$(cover_image)"></c:image>
+     				<c:row>
+     					<c:text class="text-size-main text-color-marked-main" data-source="$(name)"></c:text>
+     					<c:text class="text-size-note text-color-main" data-source="$(summary)"></c:text>
+     					<c:text></c:text>
+     					<c:container>
+     						<c:money class="text-size-main text-color-marked-main" data-source="$(main_order.actual_amount)"></c:money>
+     						<c:money class="text-size-note text-color-note" data-source="$(main_order.original_amount)"></c:money>
+     					</c:container>
+     				</c:row>
      			</c:row>
      		</c:column>
      	</c:column>
