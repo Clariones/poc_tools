@@ -449,14 +449,22 @@
      			<c:row class="card" name="line-item" data-source="$(line_item)">
      				<c:image class="image-size-thumnail" src-url="$(cover_image)"></c:image>
      				<c:row>
-     					<c:text class="text-size-main text-color-marked-main" data-source="$(name)"></c:text>
+     					<c:text class="text-size-main text-color-marked-main" data-source="$(name)" max-line="4"></c:text>
      					<c:text class="text-size-note text-color-main" data-source="$(summary)"></c:text>
      					<c:text></c:text>
      					<c:container>
-     						<c:money class="text-size-main text-color-marked-main" data-source="$(main_order.actual_amount)"></c:money>
-     						<c:money class="text-size-note text-color-note" data-source="$(main_order.original_amount)"></c:money>
+     						<c:money name="item-pay-value" class="text-size-main text-color-marked-main" data-source="$(item_discount)"></c:money>
+     						<c:money name="item-price" class="text-size-note text-color-note" data-source="$(raw_price)"></c:money>
      					</c:container>
      				</c:row>
+     			</c:row>
+     			<c:row name="pay-action">
+     				<c:container class="align-left">
+     					<c:money data-source="$(actual_amount)" format="应付：￥#,###.##元" class="text-color-marked-main"></c:money>
+     				</c:container>
+     				<c:container class="align-left">
+     					<c:text class="btn btn-info" link-to-url="/wxaService/customerPayOrder/$(id)/">付款</c:text>
+     				</c:container>
      			</c:row>
      		</c:column>
      	</c:column>
