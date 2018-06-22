@@ -48,7 +48,7 @@ public class ${pageSpec.className}BaseRender extends BasicRender{
     protected void render${uiSpec.jobInfo.methodName} (<@utils.makeRenderMethodCallParametersDeclaration uiSpec/>) throws Exception {
         List<${uiSpec.bindedDataSourceInfo.javaTypeName}> dataList = get${uiSpec.jobInfo.methodName}DataFromViewModel(<@utils.makeRenderMethodCallParameters uiSpec/>);
         if (dataList == null){
-        	return;
+            return;
         }
         for(int i=0;i<dataList.size();i++){
             renderEach${uiSpec.jobInfo.methodName}(<@utils.makeRenderMethodCallParameters uiSpec/>, i, dataList.get(i));
@@ -113,20 +113,20 @@ public class ${pageSpec.className}BaseRender extends BasicRender{
     <#if uiSpec.elementTypeName == "image" && uiSpec.srcUrlDataSourceInfo.type != "const_string">
     // type = ${uiSpec.srcUrlDataSourceInfo.type}
     protected String getSrcUrl4${uiSpec.jobInfo.methodName}(<@utils.makeRenderMethodCallParametersDeclaration uiSpec/>${uiSpec.jobInfo.localDataCheckDeclare}) {
-    	<#if uiSpec.srcUrlDataSourceInfo.type == "model_path">
-    	StringBuilder sb = new StringBuilder();
-    		<@utils.gen_string_concat_builder_part uiSpec, uiSpec.srcUrlDataSourceInfo, ""/>
-    	return sb.toString();
-	
-    	<#else>
-    	StringBuilder sb = new StringBuilder();
-        	<#list uiSpec.srcUrlDataSourceInfo.children as segDsInfo>
-            	<#if segDsInfo.type="const_string">
+        <#if uiSpec.srcUrlDataSourceInfo.type == "model_path">
+        StringBuilder sb = new StringBuilder();
+            <@utils.gen_string_concat_builder_part uiSpec, uiSpec.srcUrlDataSourceInfo, ""/>
+        return sb.toString();
+    
+        <#else>
+        StringBuilder sb = new StringBuilder();
+            <#list uiSpec.srcUrlDataSourceInfo.children as segDsInfo>
+                <#if segDsInfo.type="const_string">
         sb.append("${segDsInfo.dataSourceExpression}");
-                	<#continue>
-            	</#if>
-                	<@utils.gen_string_concat_builder_part uiSpec, segDsInfo, "_"+(segDsInfo?index+1)/>
-        	</#list>
+                    <#continue>
+                </#if>
+                    <@utils.gen_string_concat_builder_part uiSpec, segDsInfo, "_"+(segDsInfo?index+1)/>
+            </#list>
         return sb.toString();
         </#if>
     }
@@ -134,17 +134,21 @@ public class ${pageSpec.className}BaseRender extends BasicRender{
     <#-- 判断元素是否需要渲染的函数 -->
     protected boolean isNeedRender${uiSpec.jobInfo.methodName}(<@utils.makeRenderMethodCallParametersDeclaration uiSpec/>${uiSpec.jobInfo.localDataCheckDeclare}) {
         <#if uiSpec.elementTypeName != "field" && uiSpec.jobInfo.hasLocalVariable >
-        	<#if java_primitive_types?seq_contains(uiSpec.jobInfo.localDataTypeName)>
-        return true;
-        	<#else>
+            <#t><#if java_primitive_types?seq_contains(uiSpec.jobInfo.localDataTypeName)>
+                <#t><#if uiSpec.jobInfo.hasInputData>
+        if (inputData == null){
+            return false;
+        }</#if>
+        return true;<#else>
         if (data == null){
             return false;
         }
-        return true;
-        	</#if>
-        <#else>
-        return true;
-        </#if>
+        return true;</#if>
+        <#t><#else> <#-- 没有本地变量 --><#if uiSpec.jobInfo.hasInputData>
+        if (inputData == null){
+            return false;
+        }</#if>
+        return true;</#if>
     }
 </#list>
 }

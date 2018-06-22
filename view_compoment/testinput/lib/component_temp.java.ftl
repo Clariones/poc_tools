@@ -11,7 +11,7 @@
 <#macro gen_component_chidren_ifhas uiSpec>
 <#if !uiSpec.children?has_content><#return></#if>
 <#list uiSpec.children as subComp>
-        render${subComp.jobInfo.methodName} (<@utils.makeSubRenderMethodCallParameters subComp/>);
+        render${subComp.jobInfo.methodName} (<@utils.makeSubRenderMethodCallParameters subComp/>); // ${uiSpec.jobInfo.localDataVar}
 </#list>
 </#macro>
 
@@ -137,6 +137,18 @@
 	</#if>
         <@gen_component_chidren_ifhas uiSpec/>
 </#macro>
+
+<#macro gen_component_money uiSpec>
+        TextViewComponent me = new TextViewComponent();
+        <@gen_component_common_part uiSpec/>
+	<#if uiSpec.bindedDataSourceInfo??>
+        me.setContent(formatMoney(data, "${uiSpec.format}"));
+	<#else>
+        me.setContent("${uiSpec.elementTextContent}");
+	</#if>
+        <@gen_component_chidren_ifhas uiSpec/>
+</#macro>
+
 <#macro gen_component_field uiSpec>
         FormFieldViewComponent me = new FormFieldViewComponent();
     <#if !uiSpec.type??>
