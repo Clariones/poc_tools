@@ -430,8 +430,6 @@
      	</c:column>
      </c:page>
 
- -->
-               
      <c:page name="customer-order-list" title="我的订单">
      	<c:data-source user="$(customer)"/>
      	<c:tabs name="order-type" link-to-url="/wxaService/customerOrderList/" active-tab="$(_by_key_activeTab)"
@@ -469,4 +467,85 @@
      		</c:column>
      	</c:column>
      </c:page>
+ -->
+
+	<c:page name="customer-order-detail" title="订单详情">
+		<c:data-source borrowRecord="$(borrowing_history)"/>
+		<c:data-source book="$(book_copy)"/>
+		<c:data-source memberService="$(member_service_bundle_sku)" />
+		<c:data-source user="$(customer)"/>
+		<c:data-source order="$(main_order)"/>
+		
+		<c:text class="text-size-section-title text-color-marked-main">商品信息</c:text>
+		<c:row name="line-item-block" class="card" data-source="$(order.line_item)">
+			<c:image class="image-size-thumbnail" src-url="$(cover_image)">商品图片</c:image>
+			<c:column>
+				<c:text class="text-color-marked-main" data-source="$(name)"></c:text>
+				<c:text class="text-color-main" data-source="$(summary)"></c:text>
+				<c:container>
+					<c:money name="item-pay-value" class="text-size-main text-color-marked-main" data-source="$(item_discount)"></c:money>
+					<c:money name="item-price" class="text-size-note text-color-note" data-source="$(raw_price)"></c:money>
+				</c:container>
+			</c:column>
+		</c:row>
+		<c:row name="borrow-record-block">
+			<c:column class="align-both-ends">
+				<c:text>借书门店</c:text>
+				<c:text data-source="$(borrowRecord.lending_store.store_name)"></c:text>
+			</c:column>
+			<c:column class="align-both-ends">
+				<c:text>借书日期</c:text>
+				<c:date data-source="$(borrowRecord.lending_datetime)" format="yyyy-MM-dd"></c:date>
+			</c:column>
+			<c:column class="align-both-ends">
+				<c:text>免费阅读至</c:text>
+				<c:date data-source="$(borrowRecord.free_lending_expired_datetime)" format="yyyy-MM-dd"></c:date>
+			</c:column>
+			<c:column class="align-both-ends">
+				<c:text>还书门店</c:text>
+				<c:text data-source="$(borrowRecord.return_store.store_name)"></c:text>
+			</c:column>
+			<c:column class="align-both-ends">
+				<c:text>还书日期</c:text>
+				<c:date data-source="$(borrowRecord.return_datetime)" format="yyyy-MM-dd"></c:date>
+			</c:column>
+			<c:column class="align-both-ends">
+				<c:text>逾期天数</c:text>
+				<c:text data-source="$(borrowRecord._by_key_expiredDays)"></c:text>
+			</c:column>
+			<c:column class="align-both-ends">
+				<c:text>逾期费用</c:text>
+				<c:money data-source="$(borrowRecord._by_key_expiredFee)" format="#,###.##元"></c:money>
+			</c:column>
+		</c:row>
+		
+		<!-- 貌似目前订单上没有显示图书的详情，只是封面，所以没有特别的内容需要显示 
+		<c:row name="book-block">
+			
+		</c:row>
+		-->
+		<!-- 貌似目前订单上没有显示充值的详情，没有特别的内容需要显示 
+		<c:row name="book-block">
+			
+		</c:row>
+		-->
+		<c:row name="member-service-block">
+			<c:column class="align-both-ends">
+				<c:text>会员生效日期:</c:text>
+				<c:date data-source="$(user.member_service_start_date)" format="yyyy-MM-dd"></c:date>
+			</c:column>
+			<c:column class="align-both-ends">
+				<c:text>会员到期日期:</c:text>
+				<c:date data-source="$(user.member_service_expire_date)" format="yyyy-MM-dd"></c:date>
+			</c:column>
+		</c:row>
+		
+		<c:row name="order-block">
+			<c:text class="text-size-section-title text-color-marked-main">订单信息</c:text>
+			<c:column class="align-both-ends">
+				<c:text>订单编号:</c:text>
+				<c:text data-source="$(order.id)"></c:text>
+			</c:column>
+		</c:row>
+	</c:page>
 </root>

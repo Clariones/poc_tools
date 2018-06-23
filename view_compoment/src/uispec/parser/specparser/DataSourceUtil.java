@@ -144,9 +144,10 @@ public class DataSourceUtil {
                 if (gVar.getType().equals(DataSourceInfo.TYPE_STRING_CONCAT_FUNCTION)) {
                     return gVar;
                 }
-//                if (gVar.getType().equals(DataSourceInfo.TYPE_MODEL_PATH)) {
-//                    return gVar;
-//                }
+                continue;
+            }
+            String varNameInPathExpr = pathExpression.split("\\.")[0];
+            if (!varNameInPathExpr.equals(gVar.getVariableName())) {
                 continue;
             }
             // 不是变量和函数
