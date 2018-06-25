@@ -50,18 +50,31 @@
         <@gen_component_chidren_ifhas uiSpec/>
 </#macro>
 
-<#macro gen_component_text uiSpec>
+<#macro gen_component_ugc_control uiSpec>
+        UgcControlViewComponent me = new UgcControlViewComponent();
+        <@gen_component_common_part uiSpec/>
+	<#if uiSpec.bindedDataSourceInfo??>
+        me.setContent(data);
+	<#else>
+        me.setContent("${uiSpec.elementTextContent!}");
+	</#if><#if uiSpec.titleBlock??>
+		me.setTitle4Block("${uiSpec.titleBlock}");</#if>
+		<#if uiSpec.titleReport??>
+		me.setTitle4Report("${uiSpec.titleReport}");</#if>
+        <@gen_component_chidren_ifhas uiSpec/>
+</#macro>
+
+<#macro gen_component_text  uiSpec>
         TextViewComponent me = new TextViewComponent();
         <@gen_component_common_part uiSpec/>
 	<#if uiSpec.bindedDataSourceInfo??>
         me.setContent(data);
 	<#else>
         me.setContent("${uiSpec.elementTextContent!}");
-	</#if><#if uiSpec.maxLine gt -1>
+	</#if><#if uiSpec.maxLine gt 0>
 		me.setMaxLine(${uiSpec.maxLine});</#if>
         <@gen_component_chidren_ifhas uiSpec/>
 </#macro>
-
 <#macro gen_component_font_icon uiSpec>
         FontIconViewComponent me = new FontIconViewComponent();
         <@gen_component_common_part uiSpec/>

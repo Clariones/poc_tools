@@ -467,7 +467,6 @@
      		</c:column>
      	</c:column>
      </c:page>
- -->
 
 	<c:page name="customer-order-detail" title="订单详情">
 		<c:data-source borrowRecord="$(borrowing_history)"/>
@@ -520,16 +519,6 @@
 			</c:column>
 		</c:row>
 		
-		<!-- 貌似目前订单上没有显示图书的详情，只是封面，所以没有特别的内容需要显示 
-		<c:row name="book-block">
-			
-		</c:row>
-		-->
-		<!-- 貌似目前订单上没有显示充值的详情，没有特别的内容需要显示 
-		<c:row name="book-block">
-			
-		</c:row>
-		-->
 		<c:row name="member-service-block">
 			<c:column class="align-both-ends">
 				<c:text>会员生效日期:</c:text>
@@ -641,6 +630,44 @@
 					</c:column>
 				</c:row>
 			</c:column>
+		</c:column>
+	</c:page>
+	-->
+	<c:page name="book-review-detail" title="书评详情">
+		<c:data-source review="$(book_review)" />
+		<c:column class="align-center">
+			<c:row class="align-both-ends">
+				<c:container>
+					<c:image class="image-size-note" src-url="$(review.reviewer.logo_image)" />
+					<c:text class="text-size-note" data-source="$(review.reviewer.nick_name)" />
+				</c:container>
+				<c:container>
+					<c:ugc-control class="text-size-main text-color-main" link-to-url="/wxaService/ugcContentControl/$(review.id)/"
+						title-block="屏蔽" title-report="举报"> 
+						...
+					</c:ugc-control>
+				</c:container>
+			</c:row>
+			<c:text class="text-size-note"
+				data-source="$(review.review_content)" max-line="4" />
+			<c:row>
+				<c:image class="image-size-note"
+					src-url="$(review.book_info.book_cover)" />
+				<c:column class="align-right">
+					<c:text class="text-size-main"
+						data-source="$(review.book_info.book_name)" />
+					<c:text class="text-size-note"
+						data-source="$(review.book_info.book_recommend.name)" />
+				</c:column>
+			</c:row>
+			<c:row>
+				<c:text name="post-time" class="text-size-note align-left"
+					data-source="$(review.review_publish_datetime)">时间</c:text>
+				<c:font-icon name="thumbUp"
+					class="text-size-note align-right">heart-o</c:font-icon>
+				<c:text name="prise-count" class="text-size-note align-right"
+					data-source="$(review._by_key_praiseCount)">100</c:text>
+			</c:row>
 		</c:column>
 	</c:page>
 </root>
