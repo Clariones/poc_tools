@@ -37,6 +37,19 @@
         <@gen_component_chidren_ifhas uiSpec/>
 </#macro>
 
+<#macro gen_component_button uiSpec>
+        ButtonViewComponent me = new ButtonViewComponent();
+        <@gen_component_common_part uiSpec/>
+	<#if uiSpec.bindedDataSourceInfo??>
+        me.setContent(data);
+	<#else>
+        me.setContent("${uiSpec.elementTextContent!}");
+	</#if><#if uiSpec.type??>
+		me.setType("${uiSpec.type}");</#if><#if uiSpec.level??>
+		me.setLevel("${uiSpec.level}");</#if>
+        <@gen_component_chidren_ifhas uiSpec/>
+</#macro>
+
 <#macro gen_component_text uiSpec>
         TextViewComponent me = new TextViewComponent();
         <@gen_component_common_part uiSpec/>
@@ -44,7 +57,7 @@
         me.setContent(data);
 	<#else>
         me.setContent("${uiSpec.elementTextContent!}");
-	</#if><#if uiSpec.maxLine gt 0>
+	</#if><#if uiSpec.maxLine gt -1>
 		me.setMaxLine(${uiSpec.maxLine});</#if>
         <@gen_component_chidren_ifhas uiSpec/>
 </#macro>
@@ -186,7 +199,7 @@
         me.setLabel("${uiSpec.label}");</#if><#if uiSpec.placeholder?has_content>
         me.setPlaceholder("${uiSpec.placeholder}");</#if><#if uiSpec.minValue?has_content>
         me.setMinValue("${uiSpec.minValue}");</#if><#if uiSpec.maxValue?has_content>
-        me.setMaxValue("${uiSpec.maxValue}");</#if><#if uiSpec.maxLine gt 0 >
+        me.setMaxValue("${uiSpec.maxValue}");</#if><#if uiSpec.maxLine gt -1 >
         me.setMaxLine(${uiSpec.maxLine});</#if><#if !uiSpec.required >
         me.setRequired(${uiSpec.required?c});</#if><#if uiSpec.disabled >
         me.setDisabled(${uiSpec.disabled?c});</#if>
