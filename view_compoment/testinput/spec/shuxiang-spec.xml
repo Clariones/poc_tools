@@ -1,246 +1,378 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <root xmlns:c="http://clariones.doublechaintech.com/uischema.xml"
-    template="mobile" >
-    <!--<c:page name="customer-home-page" title="书香社区">-->
-        <!--<c:data-source user="$(customer)"/>-->
-        <!--<c:data-source shop="$(store)"/>-->
+      template="mobile">
+    <!--<c:page name="customer-home-page" title="书香社区"> -->
+    <!--<c:data-source user="$(customer)"/> -->
+    <!--<c:data-source shop="$(store)"/> -->
 
-        <!--<c:container class="container-horizontal" name="header-block">-->
-          	<!--<c:text class="text-size-section-title text-color-marked-main" name="header-title">书香社区</c:text>-->
-        <!--</c:container>-->
-        <!--<c:container class="container-horizontal" name="header-bar">-->
-        	<!--<c:container class="container-horizontal align-left">-->
-            	<!--<c:text data-source="$(shop.store_name)">香榭国际2期店</c:text>-->
-            	<!--<c:text link-to-url="/wxaService/storeList/"><![CDATA[<切换>]]></c:text>-->
-            <!--</c:container>-->
-            <!--<c:container class="container-horizontal align-right">-->
-            	<!--<c:search api-url="/wxaService/searchInHomePage/">搜索</c:search>-->
-            <!--</c:container>-->
-        <!--</c:container>-->
-        <!--<c:carousel name="ad-block"-->
-              <!--data-source="$(shop.store_slide)"-->
-              <!--data-source-link="$(wxa_link_url)"-->
-              <!--data-source-image="$(wxa_link_url)"-->
-              <!--data-source-tips="$(wxa_link_url)">-->
-                <!--<c:image src-url="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTL0zJ2f6DwWOw6xkuc16pDAyxfGv5_udkV1c0VbAUctmFULbbD"/>-->
-                <!--<c:image src-url="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQY2RLztnCf306MdR4wm9RUTJy2r0HHc0c3HY2oQyjXLUR9nBZ9"/>-->
-                <!--<c:image src-url="https://i0.hdslb.com/bfs/article/4486e9c92b7add273a5b55f86a816d0603c1313f.jpg"/>-->
-        <!--</c:carousel>-->
-        <!--<c:container class="container-horizontal text-size-main text-color-main" name="action-bar">-->
-             <!--<c:container class="container-vertical" >-->
-             	<!--<c:image src-url="/images/borrowBook.png" class="image-size-icon"/>-->
-             	<!--<c:text link-to-url="/wxaService/wantBorrowBook/scanCode/">借书</c:text>-->
-             <!--</c:container>-->
-             <!--<c:container class="container-vertical" >-->
-             	<!--<c:image src-url="/images/buyBook.png" class="image-size-icon"/>-->
-             	<!--<c:text link-to-url="/wxaService/wantBuyBook/">买书</c:text>-->
-             <!--</c:container>-->
-             <!--<c:container class="container-vertical" >-->
-             	<!--<c:image src-url="/images/shareBook.png" class="image-size-icon"/>-->
-             	<!--<c:text link-to-url="/wxaService/wantShareBook/$(shop.id)/">共享</c:text>-->
-             <!--</c:container>-->
-             <!--<c:container class="container-vertical" >-->
-             	<!--<c:image src-url="/images/myMessages.png" class="image-size-icon"/>-->
-             	<!--<c:text link-to-url="/wxaService/myMessageList/">提醒</c:text>-->
-             <!--</c:container>-->
-        <!--</c:container>-->
-        <!--<c:container class="container-horizontal" name="campagin-header">-->
-        	<!--<c:container class="container-horizontal align-left">-->
-        		<!--<c:text class="text-size-section-title">活动</c:text>-->
-        	<!--</c:container>-->
-        	<!--<c:container class="container-horizontal align-right">-->
-        		<!--<c:text class="text-size-main btn btn-primary"-->
-        				<!--link-to-url="./wxaService/storeCampaignList/$(shop.id)/">-->
-        			<!--查看全部&gt;&gt;-->
-        		<!--</c:text>-->
-        	<!--</c:container>-->
-        <!--</c:container>-->
-        <!--<c:container class="container-vertical">-->
-        	<!--<c:text class="text-size-subscript text-color-note">这块的布局有交错重叠，复杂。所以我要动用coder.less了。此块内布局不用调。</c:text>-->
-        	<!--<c:container class="container-horizontal" data-source="$(shop.campaign)">-->
-        		<!--<c:container class="campagin-info-left">-->
-        			<!--<c:image class="image-size-thumbnail campaign-image" src-url="$(campaign_image)"></c:image>-->
-        			<!--<c:text class="text-color-marked-note text-size-main campaign-status" data-source="$(campaign_status)">状态</c:text>-->
-        		<!--</c:container>-->
-        		<!--<c:container class="container-vertical campagin-info-center" name="campain-info-block">-->
-        			<!--<c:text class="text-color-marked-main text-size-main" data-source="$(campaign_name)">标题</c:text>-->
-        			<!--<c:text name="campagin-hold-time" class="text-color-main text-size-main" data-source="$(campaign_start_time)">时间</c:text>-->
-        			<!--<c:text class="text-color-main text-size-main" data-source="$(campaign_hold_address)">地点</c:text>-->
-        		<!--</c:container>-->
-        		<!--<c:container class="container-horizontal align-right">-->
-        			<!--<c:text name="register-info" data-source="$(campaign_name)">报名情况</c:text>-->
-        		<!--</c:container>-->
-        	<!--</c:container>-->
-        <!--</c:container>-->
+    <!--<c:container class="container-horizontal" name="header-block"> -->
+    <!--<c:text class="text-size-section-title text-color-marked-main" name="header-title">书香社区</c:text> -->
+    <!--</c:container> -->
+    <!--<c:container class="container-horizontal" name="header-bar"> -->
+    <!--<c:container class="container-horizontal align-left"> -->
+    <!--<c:text data-source="$(shop.store_name)">香榭国际2期店</c:text> -->
+    <!--<c:text link-to-url="/wxaService/storeList/"><![CDATA[<切换>]]></c:text> -->
+    <!--</c:container> -->
+    <!--<c:container class="container-horizontal align-right"> -->
+    <!--<c:search api-url="/wxaService/searchInHomePage/">搜索</c:search> -->
+    <!--</c:container> -->
+    <!--</c:container> -->
+    <!--<c:carousel name="ad-block" -->
+    <!--data-source="$(shop.store_slide)" -->
+    <!--data-source-link="$(wxa_link_url)" -->
+    <!--data-source-image="$(wxa_link_url)" -->
+    <!--data-source-tips="$(wxa_link_url)"> -->
+    <!--<c:image src-url="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTL0zJ2f6DwWOw6xkuc16pDAyxfGv5_udkV1c0VbAUctmFULbbD"/> -->
+    <!--<c:image src-url="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQY2RLztnCf306MdR4wm9RUTJy2r0HHc0c3HY2oQyjXLUR9nBZ9"/> -->
+    <!--<c:image src-url="https://i0.hdslb.com/bfs/article/4486e9c92b7add273a5b55f86a816d0603c1313f.jpg"/> -->
+    <!--</c:carousel> -->
+    <!--<c:container class="container-horizontal text-size-main text-color-main"
+        name="action-bar"> -->
+    <!--<c:container class="container-vertical" > -->
+    <!--<c:image src-url="/images/borrowBook.png" class="image-size-icon"/> -->
+    <!--<c:text link-to-url="/wxaService/wantBorrowBook/scanCode/">借书</c:text> -->
+    <!--</c:container> -->
+    <!--<c:container class="container-vertical" > -->
+    <!--<c:image src-url="/images/buyBook.png" class="image-size-icon"/> -->
+    <!--<c:text link-to-url="/wxaService/wantBuyBook/">买书</c:text> -->
+    <!--</c:container> -->
+    <!--<c:container class="container-vertical" > -->
+    <!--<c:image src-url="/images/shareBook.png" class="image-size-icon"/> -->
+    <!--<c:text link-to-url="/wxaService/wantShareBook/$(shop.id)/">共享</c:text> -->
+    <!--</c:container> -->
+    <!--<c:container class="container-vertical" > -->
+    <!--<c:image src-url="/images/myMessages.png" class="image-size-icon"/> -->
+    <!--<c:text link-to-url="/wxaService/myMessageList/">提醒</c:text> -->
+    <!--</c:container> -->
+    <!--</c:container> -->
+    <!--<c:container class="container-horizontal" name="campagin-header"> -->
+    <!--<c:container class="container-horizontal align-left"> -->
+    <!--<c:text class="text-size-section-title">活动</c:text> -->
+    <!--</c:container> -->
+    <!--<c:container class="container-horizontal align-right"> -->
+    <!--<c:text class="text-size-main btn btn-primary" -->
+    <!--link-to-url="./wxaService/storeCampaignList/$(shop.id)/"> -->
+    <!--查看全部&gt;&gt; -->
+    <!--</c:text> -->
+    <!--</c:container> -->
+    <!--</c:container> -->
+    <!--<c:container class="container-vertical"> -->
+    <!--<c:text class="text-size-subscript text-color-note">这块的布局有交错重叠，复杂。所以我要动用coder.less了。此块内布局不用调。</c:text> -->
+    <!--<c:container class="container-horizontal" data-source="$(shop.campaign)"> -->
+    <!--<c:container class="campagin-info-left"> -->
+    <!--<c:image class="image-size-thumbnail campaign-image" src-url="$(campaign_image)"></c:image> -->
+    <!--<c:text class="text-color-marked-note text-size-main campaign-status"
+        data-source="$(campaign_status)">状态</c:text> -->
+    <!--</c:container> -->
+    <!--<c:container class="container-vertical campagin-info-center" name="campain-info-block"> -->
+    <!--<c:text class="text-color-marked-main text-size-main" data-source="$(campaign_name)">标题</c:text> -->
+    <!--<c:text name="campagin-hold-time" class="text-color-main text-size-main"
+        data-source="$(campaign_start_time)">时间</c:text> -->
+    <!--<c:text class="text-color-main text-size-main" data-source="$(campaign_hold_address)">地点</c:text> -->
+    <!--</c:container> -->
+    <!--<c:container class="container-horizontal align-right"> -->
+    <!--<c:text name="register-info" data-source="$(campaign_name)">报名情况</c:text> -->
+    <!--</c:container> -->
+    <!--</c:container> -->
+    <!--</c:container> -->
+    <!--</c:page> -->
+
+
+    <!--<c:page name="customer-store-list" title="门店列表"> -->
+    <!--<c:data-source user="$(customer)"/> -->
+    <!--<c:data-source plateform="$(book_sharing_platform)"/> -->
+    <!--<c:container class="container-horizontal"> -->
+    <!--<c:text class="text-size-section-title text-color-marked-main">附近的门店</c:text> -->
+    <!--</c:container> -->
+    <!--<c:container class="container-vertical"> -->
+    <!--<c:container class="container-horizontal" name="store-info-block" link-to-url="/wxaService/viewStore/$(id)/"
+        data-source="$(plateform.store)"> -->
+    <!--<c:image class="image-size-thumbnail" src-url="$(store_image)"></c:image> -->
+    <!--<c:container class="container-vertical" name="store-desc-block"> -->
+    <!--<c:text class="text-size-main text-color-marked-main" data-source="$(store_name)">名称</c:text> -->
+    <!--<c:container> -->
+    <!--<c:text class="text-size-main" data-source="$(store_address)">地址</c:text> -->
+    <!--<c:text class="text-size-main" data-source="$(store_room_number)">房间号</c:text> -->
+    <!--</c:container> -->
+    <!--<c:text class="text-size-main" data-source="$(store_open_time)">营业时间</c:text> -->
+    <!--</c:container> -->
+    <!--<c:container class="container-horizontal align-right"> -->
+    <!--<c:text name="store-distance" class="text-size-main text-color-marked-note"
+        data-source="$(_by_key_distance)">状态</c:text> -->
+    <!--</c:container> -->
+    <!--</c:container> -->
+    <!--</c:container> -->
+    <!--</c:page> -->
+
+    <!--<c:page name="customer-borrow-book" title="借书"> -->
+    <!--<c:data-source text-message-1="var: string"/> -->
+    <!--<c:data-source text-message-2="var: string"/> -->
+    <!--<c:data-source user="$(customer)"/> -->
+
+    <!--&lt;!&ndash; -->
+    <!--<c:container class="block-title"> -->
+    <!--<c:text>借书</c:text> -->
+    <!--</c:container> -->
+    <!--&ndash;&gt; -->
+    <!--<c:container class="container-vertical align-center" > -->
+    <!--<c:text name="first-line" class="text-size-section-title text-color-marked-main"
+        data-source="$(user._by_key_borrowed)">第一行</c:text> -->
+    <!--<c:text name="second-line" class="text-size-section-title text-color-marked-main"
+        data-source="$(user._by_key_total_allowed)">第二行</c:text> -->
+    <!--<c:text name="view-borrow-history" class="btn btn-primary" link-to-url="/wxaService/viewBorrowHistory/$(user.id)/">查看借阅详情</c:text> -->
+    <!--<c:bar_or_qr_code name="my-code" class="image-size-main" data-source="$(user.id)">我的二维码</c:bar_or_qr_code> -->
+    <!--<c:text name="bottom-line" class="text-size-note text-color-note" data-source="$(user._by_key_scene)">底行</c:text> -->
+    <!--<c:scanner name="BorrowBook" class="wxa-scanner" api-url="/wxaService/customerBorrowBook/"></c:scanner> -->
+    <!--<c:container class="container-horizontal"> -->
+    <!--<c:container name="showQrCode" class="container-vertical" link-to-url="/wxaService/wantBorrowBook/showCode/"> -->
+    <!--<c:image class="image-size-icon" src-url="/images/showMyQrCode.png"></c:image> -->
+    <!--<c:text class="text-size-main">我的借书码</c:text> -->
+    <!--</c:container> -->
+    <!--<c:container name="scanToBorrow" class="container-vertical" link-to-url="/wxaService/wantBorrowBook/scanCode/"> -->
+    <!--<c:image class="image-size-icon" src-url="/images/scanner.png"></c:image> -->
+    <!--<c:text class="text-size-main">自助借书</c:text> -->
+    <!--</c:container> -->
+    <!--</c:container> -->
+    <!--</c:container> -->
+
+    <!--</c:page> -->
+
+    <!--<c:page name="campaign-list" title="全部活动">-->
+    <!--<c:data-source store="$(store)"/>-->
+    <!--<c:container class="container-vertical">-->
+    <!--<c:container class="container-horizontal" name="campaign-info-block" link-to-url="/wxaService/campaignDetail/$(id)/true/" data-source="$(store.campaign)">-->
+    <!--<c:image class="image-size-thumbnail" src-url="$(campaign_image)"></c:image>-->
+    <!--<c:container class="container-vertical" name="campaign-desc-block">-->
+    <!--<c:text class="text-size-main text-color-marked-main" data-source="$(campaign_name)">名称</c:text>-->
+    <!--<c:text name="hold-time" class="text-size-main" data-source="$(campaign_start_time)">举办时间</c:text>-->
+    <!--<c:text class="text-size-main" data-source="$(campaign_hold_address)">举办地点</c:text>-->
+    <!--</c:container>-->
+    <!--<c:container class="container-horizontal align-right">-->
+    <!--<c:text name="campaign-application-state" class="text-size-main btn btn-primary" data-source="$(_by_key_memberCount)">-->
+    <!--状态-->
+    <!--</c:text>-->
+    <!--</c:container>-->
+    <!--</c:container>-->
+    <!--</c:container>-->
+    <!--</c:page>-->
+
+    <!--<c:page name="campaign-detail" title="活动详情">-->
+    <!--<c:data-source campaign="$(campaign)"/>-->
+    <!--<c:data-source customer="$(customer)"/>-->
+    <!--<c:container class="container-vertical" name="campaign-info">-->
+    <!--<c:image class="image-size-main" src-url="$(campaign_image)"/>-->
+    <!--<c:text class="text-size-main text-color-marked-main text-size-article-title"-->
+    <!--data-source="$(campaign_name)">名称-->
+    <!--</c:text>-->
+    <!--<c:container class="container-horizontal">-->
+    <!--<c:font-icon class="text-size-main">clock-o</c:font-icon>-->
+    <!--<c:text class="text-size-main">时间</c:text>-->
+    <!--<c:text class="text-size-main" data-source="$(_by_key_holdTime)" name="hold-time">时间</c:text>-->
+    <!--</c:container>-->
+    <!--<c:container class="container-horizontal">-->
+    <!--<c:font-icon class="text-size-main">map-marker</c:font-icon>-->
+    <!--<c:text class="text-size-main">地点</c:text>-->
+    <!--<c:text class="text-size-main" data-source="$(campaign_hold_address)">地点</c:text>-->
+    <!--</c:container>-->
+    <!--<c:container class="container-horizontal">-->
+    <!--<c:font-icon class="text-size-main">hourglass-start</c:font-icon>-->
+    <!--<c:text class="text-size-main">状态</c:text>-->
+    <!--<c:text class="text-size-main" data-source="$(campaign_status)">状态</c:text>-->
+    <!--</c:container>-->
+    <!--<c:container class="container-horizontal">-->
+    <!--<c:font-icon class="text-size-main">user</c:font-icon>-->
+    <!--<c:text class="text-size-main">人数</c:text>-->
+    <!--<c:text name="member-count" class="text-size-main" data-source="$(_by_key_memberCount)">人数</c:text>-->
+    <!--</c:container>-->
+    <!--<c:text class="text-size-main" data-source="$(campaign_content)"/>-->
+    <!--</c:container>-->
+    <!--<c:container class="container-vertical" name="review-list">-->
+    <!--<c:container class="container-horizontal">-->
+    <!--<c:font-icon class="text-size-main align-right">heart-o</c:font-icon>-->
+    <!--<c:text class="text-size-note align-right" data-source="$(_by_key_praiseCount)"></c:text>-->
+    <!--<c:font-icon class="text-size-main align-right">comment-o</c:font-icon>-->
+    <!--<c:text class="text-size-note align-right" data-source="$(_by_key_reviewCount)"></c:text>-->
+    <!--</c:container>-->
+    <!--<c:text class="text-size-main text-color-marked-main align-center">评论</c:text>-->
+    <!--<c:container class="container-vertical" data-source="$(campaign.campaign_review)">-->
+    <!--<c:container class="container-horizontal">-->
+    <!--<c:image class="image-size-icon" src-url="$(reviewer.logo_image)"/>-->
+    <!--<c:text class="text-size-main text-color-marked-main" data-source="$(reviewer.nick_name)"-->
+    <!--/>-->
+    <!--</c:container>-->
+    <!--<c:text class="text-size-main" data-source="$(review_content)"/>-->
+    <!--<c:container class="container-horizontal">-->
+    <!--<c:text name="review-post-time" class="text-size-note align-left" data-source="$(last_update_time)"/>-->
+    <!--<c:font-icon name="my-comment-icon" class="text-size-main align-right">comment-o</c:font-icon>-->
+    <!--<c:text class="text-size-note align-right" data-source="$(_by_key_praiseCount)"/>-->
+    <!--</c:container>-->
+    <!--</c:container>-->
+    <!--<c:text class="text-size-main" link-to-url="./wxaService/campaignreviews/$(id)/">-->
+    <!--查看更多&gt;&gt;-->
+    <!--</c:text>-->
+    <!--<c:text name="bottom-line" class="text-size-main btn btn-primary" data-source="$(_by_key_scene)">底行</c:text>-->
+    <!--</c:container>-->
     <!--</c:page>-->
 
 
-	<!--<c:page name="customer-store-list" title="门店列表">-->
-        <!--<c:data-source user="$(customer)"/>-->
-        <!--<c:data-source plateform="$(book_sharing_platform)"/>-->
-        <!--<c:container class="container-horizontal">-->
-        	<!--<c:text class="text-size-section-title text-color-marked-main">附近的门店</c:text>-->
-        <!--</c:container>-->
-        <!--<c:container class="container-vertical">-->
-        	<!--<c:container class="container-horizontal"  name="store-info-block" link-to-url="/wxaService/viewStore/$(id)/" data-source="$(plateform.store)">-->
-        		<!--<c:image class="image-size-thumbnail" src-url="$(store_image)"></c:image>-->
-        		<!--<c:container class="container-vertical" name="store-desc-block">-->
-        			<!--<c:text class="text-size-main text-color-marked-main" data-source="$(store_name)">名称</c:text>-->
-        			<!--<c:container>-->
-        				<!--<c:text class="text-size-main" data-source="$(store_address)">地址</c:text>-->
-        				<!--<c:text class="text-size-main" data-source="$(store_room_number)">房间号</c:text>-->
-        			<!--</c:container>-->
-        			<!--<c:text class="text-size-main" data-source="$(store_open_time)">营业时间</c:text>-->
-        		<!--</c:container>-->
-        		<!--<c:container class="container-horizontal align-right">-->
-        			<!--<c:text name="store-distance" class="text-size-main text-color-marked-note" data-source="$(_by_key_distance)">状态</c:text>-->
-        		<!--</c:container>-->
-        	<!--</c:container>-->
-        <!--</c:container>-->
-    <!--</c:page>-->
+    <!--<c:page name="campaign-member-list" title="已报名"> -->
+    <!--<c:data-source campaign="$(campaign)" /> -->
+    <!--<c:container class="container-vertical"> -->
+    <!--<c:container class="container-vertical" name="member-info-block" data-source="$(campaign.campaign_register_history)"> -->
+    <!--<c:container class="container-horizontal" name="campaign-desc-block"> -->
+    <!--<c:image class="image-size-thumbnail" src-url="$(register_member.logo_image)"
+        /> -->
+    <!--<c:text class="text-size-main text-color-marked-main" data-source="$(register_member.nick_name)">名称</c:text> -->
+    <!--</c:container> -->
+    <!--<c:text class="text-size-main align-left" name="register-time"> -->
+    <!--时间 -->
+    <!--</c:text> -->
+    <!--</c:container> -->
+    <!--</c:container> -->
+    <!--</c:page> -->
 
-    <!--<c:page name="customer-borrow-book" title="借书">-->
-        <!--<c:data-source text-message-1="var: string"/>-->
-        <!--<c:data-source text-message-2="var: string"/>-->
-        <!--<c:data-source user="$(customer)"/>-->
-
-        <!--&lt;!&ndash; -->
-        <!--<c:container class="block-title">-->
-        	<!--<c:text>借书</c:text>-->
-        <!--</c:container>-->
-         <!--&ndash;&gt;-->
-        <!--<c:container class="container-vertical align-center" >-->
-        	<!--<c:text name="first-line" class="text-size-section-title text-color-marked-main" data-source="$(user._by_key_borrowed)">第一行</c:text>-->
-        	<!--<c:text name="second-line" class="text-size-section-title text-color-marked-main" data-source="$(user._by_key_total_allowed)">第二行</c:text>-->
-        	<!--<c:text name="view-borrow-history" class="btn btn-primary" link-to-url="/wxaService/viewBorrowHistory/$(user.id)/">查看借阅详情</c:text>-->
-        	<!--<c:bar_or_qr_code name="my-code" class="image-size-main" data-source="$(user.id)">我的二维码</c:bar_or_qr_code>-->
-        	<!--<c:text name="bottom-line" class="text-size-note text-color-note" data-source="$(user._by_key_scene)">底行</c:text>-->
-        	<!--<c:scanner name="BorrowBook" class="wxa-scanner" api-url="/wxaService/customerBorrowBook/"></c:scanner>-->
-        	<!--<c:container class="container-horizontal">-->
-        		<!--<c:container name="showQrCode" class="container-vertical" link-to-url="/wxaService/wantBorrowBook/showCode/">-->
-        			<!--<c:image class="image-size-icon" src-url="/images/showMyQrCode.png"></c:image>-->
-        			<!--<c:text class="text-size-main">我的借书码</c:text>-->
-        		<!--</c:container>-->
-        		<!--<c:container name="scanToBorrow" class="container-vertical" link-to-url="/wxaService/wantBorrowBook/scanCode/">-->
-        			<!--<c:image class="image-size-icon" src-url="/images/scanner.png"></c:image>-->
-        			<!--<c:text class="text-size-main">自助借书</c:text>-->
-        		<!--</c:container>-->
-        	<!--</c:container>-->
-        <!--</c:container>-->
-
-    <!--</c:page>-->
-
-	<!--<c:page name="campaign-list" title="全部活动">-->
-		<!--<c:data-source store="$(store)" />-->
-		<!--<c:container class="container-vertical">-->
-			<!--<c:container class="container-horizontal"  name="campaign-info-block" link-to-url="/wxaService/campaign/$(id)/" data-source="$(store.campaign)">-->
-				<!--<c:image class="image-size-thumbnail" src-url="$(campaign_image)"></c:image>-->
-				<!--<c:container class="container-vertical" name="campaign-desc-block">-->
-					<!--<c:text class="text-size-main text-color-marked-main" data-source="$(campaign_name)">名称</c:text>-->
-					<!--<c:text class="text-size-main" data-source="$(campaign_start_time)">举办时间</c:text>-->
-					<!--<c:text class="text-size-main" data-source="$(campaign_hold_address)">举办地点</c:text>-->
-				<!--</c:container>-->
-				<!--<c:container class="container-horizontal align-right">-->
-					<!--<c:text name="campaign-application-state" class="text-size-main btn btn-primary" data-source="$(_by_key_memberCount)">-->
-						<!--状态-->
-					<!--</c:text>-->
-				<!--</c:container>-->
-			<!--</c:container>-->
-		<!--</c:container>-->
-	<!--</c:page>-->
-
-    <c:page name="campaign-detail" title="活动详情">
-		<c:data-source campaign="$(campaign)" />
-        <c:data-source customer="$(customer)" />
-		<c:container class="container-vertical" name="campaign-info">
-			<c:image class="image-size-main" src-url="$(campaign_image)" />
-			<c:text class="text-size-main text-color-marked-main text-size-article-title" data-source="$(campaign_name)">名称</c:text>
-			<c:container class="container-horizontal">
-				<c:text class="text-size-main">时间</c:text>
-				<c:text class="text-size-main" data-source="$(_by_key_holdTime)">时间</c:text>
-			</c:container>
-			<c:container class="container-horizontal">
-				<c:text class="text-size-main">地点</c:text>
-				<c:text class="text-size-main" data-source="$(campaign_hold_address)">地点</c:text>
-			</c:container>
-			<c:container class="container-horizontal">
-				<c:text class="text-size-main">状态</c:text>
-				<c:text class="text-size-main" data-source="$(campaign_status)">状态</c:text>
-			</c:container>
-			<c:container class="container-horizontal">
-				<c:text class="text-size-main">人数</c:text>
-				<c:text class="text-size-main" data-source="$(_by_key_memberCount)">人数</c:text>
-			</c:container>
-			<c:text class="text-size-main" data-source="$(campaign_content)" />
-		</c:container>
-        <c:container class="container-vertical" name="review-list">
-            <c:container class="container-horizontal">
-                <c:text class="text-size-note align-right" data-source="$(_by_key_praiseCount)"></c:text>
-                <c:text class="text-size-note align-right" data-source="$(_by_key_reviewCount)"></c:text>
+    <!-- <c:page name="campaign-submit-review" title="发表评论">
+        <c:data-source campaign="$(campaign)" />
+        <c:container class="container-vertical">
+            <c:container class="container-horizontal" name="campaign-info-block">
+                <c:image class="image-size-thumbnail" src-url="$(campaign_image)" />
+                <c:text class="text-size-main text-color-marked-main" data-source="$(campaign_name)">名称</c:text>
             </c:container>
-            <c:text class="text-size-main text-color-marked-main align-center">评论</c:text>
-            <c:container class="container-vertical" data-source="$(campaign.campaign_review)">
-                <c:container class="container-horizontal">
-                    <c:image class="image-size-icon" src-url="$(reviewer.logo_image)" />
-                    <c:text class="text-size-main text-color-marked-main" data-source="$(reviewer.nick_name)" />
-                </c:container>
-                <c:text class="text-size-main" data-source="$(review_content)" />
-                <c:container class="container-horizontal">
-                    <c:text class="text-size-note align-left" data-source="$(last_update_time)" />
-                    <c:text class="text-size-note align-right" data-source="$(_by_key_praiseCount)" />
-                </c:container>
-            </c:container>
-            <c:text class="text-size-main" link-to-url="./wxaService/campaign/$(id)/reviews">
-                查看更多&gt;&gt;
-            </c:text>
-            <c:text name="bottom-line" class="text-size-main btn btn-primary" data-source="$(_by_key_scene)">底行</c:text>
+            <c:form name="post-review-form">
+                <c:field name="reviewContent" type="longtext" placeholder="请输入评论内容信息" />
+                <c:action name="submitCampaignReview" level="primary" link-to-url="/wxaService/postCampaignReview/$(id)/">提交</c:action>
+            </c:form>
         </c:container>
-	</c:page>
+    </c:page> -->
 
+    <!--<c:page name="campaign-apply-result" title="活动报名">-->
+    <!--<c:data-source campaign="$(campaign)"/>-->
+    <!--<c:container class="container-vertical">-->
+    <!--<c:text name="apply-result" class="text-size-main text-color-marked-main" data-source="$(_by_key_resultTitle)">结果-->
+    <!--</c:text>-->
+    <!--<c:container class="container-vertical" name="campaign-info-block">-->
+    <!--<c:image class="image-size-main" src-url="$(campaign_image)"/>-->
+    <!--<c:text class="text-size-main text-color-marked-main" data-source="$(campaign_name)">名称-->
+    <!--</c:text>-->
+    <!--<c:container class="container-horizontal">-->
+    <!--<c:font-icon class="text-size-main">clock-o</c:font-icon>-->
+    <!--<c:text class="text-size-main">时间</c:text>-->
+    <!--<c:text name="hold_time" class="text-size-main" data-source="$(_by_key_holdTime)">时间-->
+    <!--</c:text>-->
+    <!--</c:container>-->
+    <!--<c:container class="container-horizontal">-->
+    <!--<c:font-icon class="text-size-main">map-marker</c:font-icon>-->
+    <!--<c:text class="text-size-main">地点</c:text>-->
+    <!--<c:text class="text-size-main" data-source="$(campaign_hold_address)">地点-->
+    <!--</c:text>-->
+    <!--</c:container>-->
+    <!--<c:text name="to-detail-btn" class="text-size-main btn btn-primary" link-to-url="./wxaService/campaignDetail/$(id)/true/">查看详情-->
+    <!--</c:text>-->
+    <!--<c:text class="text-size-main align-center">——邀请好友一同参加——</c:text>-->
+    <!--<c:font-icon class="text-size-main align-center">wechat</c:font-icon>-->
+    <!--</c:container>-->
+    <!--</c:container>-->
+    <!--</c:page>-->
 
-	<!--<c:page name="campaign-member-list" title="已报名">-->
-		<!--<c:data-source campaign="$(campaign)" />-->
-		<!--<c:container class="container-vertical">-->
-			<!--<c:container class="container-vertical"  name="member-info-block"  data-source="$(campaign.campaign_register_history)">-->
-				<!--<c:container class="container-horizontal" name="campaign-desc-block">-->
-					<!--<c:image class="image-size-thumbnail" src-url="$(register_member.logo_image)" />-->
-					<!--<c:text class="text-size-main text-color-marked-main" data-source="$(register_member.nick_name)">名称</c:text>-->
-				<!--</c:container>-->
-				<!--<c:text class="text-size-main align-left" data-source="$(register_datetime)">-->
-					<!--时间-->
-				<!--</c:text>-->
-			<!--</c:container>-->
-		<!--</c:container>-->
-	<!--</c:page>-->
+    <!--<c:page name="book-review-list" title="书评列表">-->
+    <!--<c:data-source plaza="$(book_plaza)"/>-->
+    <!--<c:column class="align-center" data-source="$(plaza.book_review)" link-to-url="./wxaService/bookReview/$(id)/true/">-->
+    <!--<c:row>-->
+    <!--<c:image class="image-size-note" src-url="$(reviewer.logo_image)"/>-->
+    <!--<c:text class="text-size-note" data-source="$(reviewer.nick_name)" />-->
+    <!--</c:row>-->
+    <!--<c:text class="text-size-note" data-source="$(review_content)" max-line="4"/>-->
+    <!--<c:row>-->
+    <!--<c:image class="image-size-note" src-url="$(book_info.book_cover)" />-->
+    <!--<c:column class="align-right">-->
+    <!--<c:text class="text-size-main" data-source="$(book_info.book_name)" />-->
+    <!--<c:text class="text-size-note" data-source="$(book_info.book_recommend.name)" />-->
+    <!--</c:column>-->
+    <!--</c:row>-->
+    <!--<c:row>-->
+    <!--<c:text name="post-time" class="text-size-note align-left" data-source="$(review_publish_datetime)">时间</c:text>-->
+    <!--<c:font-icon name="thumbUp" class="text-size-note align-right">heart-o</c:font-icon>-->
+    <!--<c:text name="prise-count" class="text-size-note align-right" data-source="$(_by_key_praiseCount)">100</c:text>-->
+    <!--</c:row>-->
+    <!--</c:column>-->
+    <!--</c:page>-->
 
-	<!--<c:page name="campaign-submit-review" title="发表评论">-->
-		<!--<c:data-source campaign="$(campaign)" />-->
-		<!--<c:container class="container-vertical">-->
-			<!--<c:container class="container-horizontal"  name="campaign-info-block">-->
-				<!--<c:container class="container-vertical">-->
-					<!--<c:image class="image-size-thumbnail" src-url="$(register_member.logo_image)" />-->
-					<!--<c:text class="text-size-main text-color-marked-main" data-source="$(register_member.nick_name)">名称</c:text>-->
-				<!--</c:container>-->
-				<!--<c:text class="text-size-main align-left" data-source="$(register_datetime)">-->
-					<!--时间-->
-				<!--</c:text>-->
-			<!--</c:container>-->
-		<!--</c:container>-->
-	<!--</c:page>-->
+    <!--<c:page name="book-review-detail" title="书评详情">-->
+    <!--<c:data-source review="$(book_review)"/>-->
+    <!--<c:column class="align-center">-->
+    <!--<c:row>-->
+    <!--<c:image class="image-size-note" src-url="$(review.reviewer.logo_image)"/>-->
+    <!--<c:text class="text-size-note" data-source="$(review.reviewer.nick_name)" />-->
+    <!--</c:row>-->
+    <!--<c:text class="text-size-note" data-source="$(review.review_content)" max-line="4"/>-->
+    <!--<c:row>-->
+    <!--<c:image class="image-size-note" src-url="$(review.book_info.book_cover)" />-->
+    <!--<c:column class="align-right">-->
+    <!--<c:text class="text-size-main" data-source="$(review.book_info.book_name)" />-->
+    <!--<c:text class="text-size-note" data-source="$(review.book_info.book_recommend.name)" />-->
+    <!--</c:column>-->
+    <!--</c:row>-->
+    <!--<c:row>-->
+    <!--<c:text name="post-time" class="text-size-note align-left" data-source="$(review.review_publish_datetime)">时间</c:text>-->
+    <!--<c:font-icon name="thumbUp" class="text-size-note align-right">heart-o</c:font-icon>-->
+    <!--<c:text name="prise-count" class="text-size-note align-right" data-source="$(_by_key_praiseCount)">100</c:text>-->
+    <!--</c:row>-->
+    <!--</c:column>-->
+    <!--</c:page>-->
 
-	<!--<c:page name="campaign-apply-result" title="活动报名">-->
-		<!--<c:data-source campaign="$(campaign)" />-->
-		<!--<c:container class="container-vertical">-->
-			<!--<c:text name="apply-result" class="text-size-main text-color-marked-main" data-source="$(register_member.nick_name)">名称</c:text>-->
-			<!--<c:container class="container-horizontal"  name="campaign-info-block">-->
-				<!--<c:container class="container-vertical">-->
-					<!--<c:image class="image-size-thumbnail" src-url="$(register_member.logo_image)" />-->
-					<!--<c:text class="text-size-main text-color-marked-main" data-source="$(register_member.nick_name)">名称</c:text>-->
-				<!--</c:container>-->
-				<!--<c:text class="text-size-main align-left" data-source="$(register_datetime)">-->
-					<!--时间-->
-				<!--</c:text>-->
-			<!--</c:container>-->
-		<!--</c:container>-->
-	<!--</c:page>-->
+    <!--<c:page name="book-summary" title="本书简介">-->
+    <!--<c:data-source book="$(book)"/>-->
+    <!--<c:column class="align-center">-->
+    <!--<c:row>-->
+    <!--<c:image class="image-size-note" src-url="$(book.book_cover)" />-->
+    <!--<c:column class="align-right">-->
+    <!--<c:text class="text-size-main" data-source="$(book.book_name)" />-->
+    <!--<c:text class="text-size-note" data-source="$(book.book_recommend.name)" />-->
+    <!--</c:column>-->
+    <!--</c:row>-->
+    <!--<c:text class="text-size-main" data-source="$(book.book_summary)" max-line="23"/>-->
+    <!--</c:column>-->
+    <!--</c:page>-->
+
+    <!--<c:page name="buy-from-ecommerce" title="电商购买">-->
+        <!--<c:data-source book="$(book)"/>-->
+        <!--<c:column class="align-center">-->
+            <!--<c:row>-->
+                <!--<c:image class="image-size-note" src-url="$(book.book_cover)"/>-->
+                <!--<c:column class="align-right">-->
+                    <!--<c:text class="text-size-main" data-source="$(book.book_name)"/>-->
+                    <!--<c:text class="text-size-note" data-source="$(book.book_recommend.name)"/>-->
+                <!--</c:column>-->
+            <!--</c:row>-->
+            <!--<c:row>-->
+                <!--<c:image class="image-size-note" src-url="https://ss0.bdstatic.com/-0U0bnSm1A5BphGlnYG/tam-ogel/299c55e31d7f50ae4dc85faa90d6f445_121_121.jpg"/>-->
+                <!--<c:text class="text-size-main">京东商城</c:text>-->
+                <!--<c:text class="text-size-note" link-to-url="https://so.m.jd.com/ware/search.action?keyword=$(book._by_key_isbn)">查看&gt;&gt;</c:text>-->
+            <!--</c:row>-->
+            <!--<c:row>-->
+                <!--<c:image class="image-size-note" src-url="https://ss0.bdstatic.com/-0U0bnSm1A5BphGlnYG/tam-ogel/a47e8e7511848ef42591444be726c7c3_121_121.jpg"/>-->
+                <!--<c:text class="text-size-main">当当网</c:text>-->
+                <!--<c:text class="text-size-note" link-to-url="http://search.m.dangdang.com/search.php?keyword=$(book._by_key_isbn)">查看&gt;&gt;</c:text>-->
+            <!--</c:row>-->
+            <!--<c:row>-->
+                <!--<c:image class="image-size-note" src-url="https://ss2.baidu.com/6ONYsjip0QIZ8tyhnq/it/u=1234395725,3592627001&amp;fm=58&amp;s=2C93E516C4A4EF011DEDA94C0100D0B3&amp;bpow=121&amp;bpoh=75"/>-->
+                <!--<c:text class="text-size-main">亚马逊</c:text>-->
+                <!--<c:text class="text-size-note" link-to-url="https://www.amazon.cn/gp/aw/s/ref=nb_sb_noss?k=$(book._by_key_isbn)">查看&gt;&gt;</c:text>-->
+            <!--</c:row>-->
+        <!--</c:column>-->
+    <!--</c:page>-->
+
+    <!--<c:page name="book-submit-review" title="发表评论">-->
+        <!--<c:data-source bookCopy="$(book_copy)" />-->
+        <!--<c:column>-->
+            <!--<c:row name="book-info-block">-->
+                <!--<c:image class="image-size-thumbnail" src-url="$(bookCopy.book_info.book_cover)" />-->
+                <!--<c:text class="text-size-main text-color-marked-main" data-source="$(bookCopy.book_info.book_name)">名称</c:text>-->
+            <!--</c:row>-->
+            <!--<c:form name="post-review-form">-->
+                <!--<c:field name="reviewContent" type="longtext" placeholder="请输入评论内容信息" />-->
+                <!--<c:action name="submitBookReview" level="primary" link-to-url="wxaService/postBookReview/$(bookCopy.id)/">提交</c:action>-->
+            <!--</c:form>-->
+        <!--</c:column>-->
+    <!--</c:page>-->
 </root>
