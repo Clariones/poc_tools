@@ -297,7 +297,7 @@
     <!--</c:column>-->
     <!--</c:page>-->
 
-    <c:page name="book-review-detail" title="书评详情">
+	<c:page name="book-review-detail" title="书评详情">
 		<c:data-source review="$(book_review)" />
 		<c:column class="align-center">
 			<c:row class="align-both-ends">
@@ -325,8 +325,8 @@
 				</c:column>
 			</c:row>
 			<c:row>
-				<c:text name="post-time" class="text-size-note align-left"
-					data-source="$(review.review_publish_datetime)">时间</c:text>
+				<c:date name="post-time" class="text-size-note align-left"
+					data-source="$(review.review_publish_datetime)" format="1_hour_or_earlier">时间</c:date>
 				<c:font-icon name="thumbUp"
 					class="text-size-note align-right">heart-o</c:font-icon>
 				<c:text name="prise-count" class="text-size-note align-right"
