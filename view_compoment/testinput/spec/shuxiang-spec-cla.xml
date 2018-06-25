@@ -6,7 +6,7 @@
         <c:data-source user="$(customer)"/>
         <c:data-source shop="$(store)"/>
 
-        <c:container class="container-horizontal" name="header-bar">
+        <c:container class="container-horizontal card" name="header-bar">
         	<c:container class="container-horizontal align-left">
             	<c:text data-source="$(shop.store_name)">香榭国际2期店</c:text>
             	<c:text class="btn btn-primary" link-to-url="/wxaService/storeList/"><![CDATA[切换]]></c:text>
@@ -24,10 +24,10 @@
                 <c:image src-url="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQY2RLztnCf306MdR4wm9RUTJy2r0HHc0c3HY2oQyjXLUR9nBZ9"/>
                 <c:image src-url="https://i0.hdslb.com/bfs/article/4486e9c92b7add273a5b55f86a816d0603c1313f.jpg"/>
         </c:carousel>
-        <c:container class="container-horizontal text-size-main text-color-main" name="action-bar">
-             <c:container class="container-vertical icon-item" >
+        <c:container class="container-horizontal text-size-main text-color-main card icon-list" name="action-bar">
+             <c:container class="container-vertical icon-item" link-to-url="/wxaService/wantBorrowBook/scanCode/" >
              	<c:image src-url="/images/borrowBook.png" class="image-size-icon"/>
-             	<c:text link-to-url="/wxaService/wantBorrowBook/scanCode/">借书</c:text>
+             	<c:text>借书</c:text>
              </c:container>
              <c:container class="container-vertical icon-item" >
              	<c:image src-url="/images/buyBook.png" class="image-size-icon"/>
@@ -445,9 +445,9 @@
 	     			<c:text data-source="$(id)">订单编号</c:text>
      			</c:container>
      			<c:row class="card" name="line-item" data-source="$(line_item)">
-     				<c:image class="image-size-thumnail" src-url="$(cover_image)"></c:image>
+     				<c:image class="image-size-thumbnail" src-url="$(cover_image)"></c:image>
      				<c:row>
-     					<c:text class="text-size-main text-color-marked-main" data-source="$(name)" max-line="4"></c:text>
+     					<c:text class="text-size-main text-color-marked-main" data-source="$(name)"></c:text>
      					<c:text class="text-size-note text-color-main" data-source="$(summary)"></c:text>
      					<c:text></c:text>
      					<c:container>
@@ -460,7 +460,7 @@
      				<c:container class="align-left">
      					<c:money data-source="$(actual_amount)" format="应付：￥#,###.##元" class="text-color-marked-main"></c:money>
      				</c:container>
-     				<c:container class="align-left">
+     				<c:container class="align-right">
      					<c:text class="btn btn-info" link-to-url="/wxaService/customerPayOrder/$(id)/">付款</c:text>
      				</c:container>
      			</c:row>
@@ -475,6 +475,7 @@
 		<c:data-source memberService="$(member_service_bundle_sku)" />
 		<c:data-source user="$(customer)"/>
 		<c:data-source order="$(main_order)"/>
+		<c:data-source payment="$(main_order_payment)"/>
 		
 		<c:text class="text-size-section-title text-color-marked-main">商品信息</c:text>
 		<c:row name="line-item-block" class="card" data-source="$(order.line_item)">
@@ -546,6 +547,100 @@
 				<c:text>订单编号:</c:text>
 				<c:text data-source="$(order.id)"></c:text>
 			</c:column>
+			<c:column class="align-both-ends">
+				<c:text>下单时间:</c:text>
+				<c:date data-source="$(order.create_time)" format="yyyy-MM-dd HH:mm:ss"></c:date>
+			</c:column>
 		</c:row>
+		
+		<c:row name="payment-block">
+			<c:text class="text-size-section-title text-color-marked-main">支付信息</c:text>
+			<c:column class="align-both-ends">
+				<c:text>支付方式:</c:text>
+				<c:text data-source="$(payment.payment_method)"></c:text>
+			</c:column>
+			<c:column class="align-both-ends">
+				<c:text>支付时间:</c:text>
+				<c:date data-source="$(payment.last_update_time)" format="yyyy-MM-dd HH:mm:ss"></c:date>
+			</c:column>
+			<c:column class="align-both-ends">
+				<c:text>商品金额</c:text>
+				<c:money data-source="$(order.original_amount)" format="#,###.##元"></c:money>
+			</c:column>
+			<c:column class="align-both-ends">
+				<c:text>实付金额</c:text>
+				<c:money class="text-color-marked-main" data-source="$(order.actual_amount)" format="#,###.##元"></c:money>
+			</c:column>
+		</c:row>
+	</c:page>
+	
+	<c:page name="fresh-new-customer" title="我的">
+		<c:column>
+			<c:text>绑定手机号可以提供更多更好的服务</c:text>
+			<c:button level="info" type="getPhoneNumber" link-to-url="/wxaService/bindCustomerMobile/">绑定手机号码</c:button>
+		</c:column>
+	</c:page>
+	
+	
+	<c:page name="update-customer-info" title="我的">
+		<c:column>
+			<c:text>授权系统使用您的昵称和头像</c:text>
+			<c:button level="info" type="getUserInfo" link-to-url="/wxaService/setCustomerInfo/">授权</c:button>
+		</c:column>
+	</c:page>
+	
+	<c:page name="customer-profile" title="我的">
+		<c:data-source user="$(customer)"/>
+		<c:row>
+			<c:image src-url="$(user.logo_image)"></c:image>
+			<c:column>
+				<c:text class="text-size-marked-main" data-source="$(user.nick_name)"></c:text>
+				<c:text class="text-size-main" data-source="$(user.member_service.product_name)"></c:text>
+			</c:column>
+		</c:row>
+		<c:row name="apply-trial-member" link-to-url="/wxaService/applyTrailMemberService/">
+			<c:image src-url="/images/apply_trial_member.jpeg" ></c:image>
+		</c:row>
+		
+		<c:row class="aligh-left" link-to-url="/wxaService/">
+			<c:text class="text-size-main text-color-main">个人信息</c:text>
+		</c:row>
+		<c:row class="aligh-left" link-to-url="/wxaService/">
+			<c:text class="text-size-main text-color-main">我的权益</c:text>
+		</c:row>
+		<c:row class="aligh-left" link-to-url="/wxaService/">
+			<c:text class="text-size-main text-color-main">我的借阅</c:text>
+		</c:row>
+		<c:row class="aligh-left" link-to-url="/wxaService/">
+			<c:text class="text-size-main text-color-main">我的活动</c:text>
+		</c:row>
+		<c:row class="aligh-both-ends" link-to-url="/wxaService/">
+			<c:text class="text-size-main text-color-main">我的余额</c:text>
+			<c:money data-source="$(user.account_balance)"></c:money>
+		</c:row>
+		<c:row class="aligh-left" link-to-url="/wxaService/">
+			<c:text class="text-size-main text-color-main">我的书评</c:text>
+		</c:row>
+	</c:page>
+	
+	<c:page name="customer-footprint" title="历程">
+		<c:data-source user="$(customer)"/>
+		<c:column>
+			<c:column name="footprint" data-source="$(user.customer_footprint)">
+				<c:container>
+					<c:font-icon level="primary">clock-o</c:font-icon>
+					<c:date data-source="$(create_time)" format="passed_in_day"></c:date>
+				</c:container>
+				<c:text data-source="$(title)"></c:text>
+				<c:text data-source="$(description)" max-line="5"></c:text>
+				<c:row name="related-item">
+					<c:image class="image-size-thumbnail" src-url="$(item_image)"></c:image>
+					<c:column>
+						<c:text class="text-size-section-title" data-source="$(item_title)"></c:text>
+						<c:text class="text-size-main" data-source="$(item_description)"></c:text>
+					</c:column>
+				</c:row>
+			</c:column>
+		</c:column>
 	</c:page>
 </root>

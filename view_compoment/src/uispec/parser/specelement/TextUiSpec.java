@@ -1,7 +1,7 @@
 package uispec.parser.specelement;
 
 public class TextUiSpec extends BaseUiSpecElement {
-    protected int maxLine;
+    protected int maxLine = -1;
 
     public int getMaxLine() {
         return maxLine;
