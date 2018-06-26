@@ -28,8 +28,7 @@ public class RenderTemplateGeneratorTest {
         // String inputFileName =
         // "/works/jobs/sx_shequ/workspace/poc_ui_codegen/test_ui_specs.json";
         String templateFolder = "/works/jobs/sx_shequ/eclips_ws/POC_viewComponent/testinput/";
-        File outputBaseFolder = new File(
-                "/works/jobs/sx_shequ/workspace/shuxiang_backend/shuxiang_code/shuxiang_custom_src/com/terapico/shuxiang/wxalayout");
+        File outputBaseFolder = new File("/works/jobs/sx_shequ/workspace/shuxiang-biz-suite/bizcore/WEB-INF/shuxiang_custom_src/com/terapico/shuxiang/wxalayout");
         System.setProperty("skynet.model", "shuxiang");
         System.setProperty("skynet.output.basefolder", "/works/jobs/sx_shequ/workspace");
         

@@ -29,17 +29,17 @@
              	<c:image src-url="/images/borrowBook.png" class="image-size-icon"/>
              	<c:text>借书</c:text>
              </c:container>
-             <c:container class="container-vertical icon-item" >
+             <c:container class="container-vertical icon-item"  link-to-url="/wxaService/wantBuyBook/">
              	<c:image src-url="/images/buyBook.png" class="image-size-icon"/>
-             	<c:text link-to-url="/wxaService/wantBuyBook/">买书</c:text>
+             	<c:text>买书</c:text>
              </c:container>
-             <c:container class="container-vertical icon-item" >
+             <c:container class="container-vertical icon-item"  link-to-url="/wxaService/wantShareBook/$(shop.id)/">
              	<c:image src-url="/images/shareBook.png" class="image-size-icon"/>
-             	<c:text link-to-url="/wxaService/wantShareBook/$(shop.id)/">共享</c:text>
+             	<c:text>共享</c:text>
              </c:container>
-             <c:container class="container-vertical icon-item" >
+             <c:container class="container-vertical icon-item"  link-to-url="/wxaService/myMessageList/">
              	<c:image src-url="/images/myMessages.png" class="image-size-icon"/>
-             	<c:text link-to-url="/wxaService/myMessageList/">提醒</c:text>
+             	<c:text>提醒</c:text>
              </c:container>
         </c:container>
         <c:container class="container-horizontal card" name="campagin-header">
@@ -49,7 +49,7 @@
         	<c:container class="container-horizontal align-right">
         		<c:text class="text-size-main btn btn-primary"
         				link-to-url="./wxaService/storeCampaignList/$(shop.id)/">
-        			查看全部&gt;&gt;
+        			查看全部...
         		</c:text>
         	</c:container>
         </c:container>
@@ -429,10 +429,10 @@
      		</c:row>
      	</c:column>
      </c:page>
-
+-->
      <c:page name="customer-order-list" title="我的订单">
      	<c:data-source user="$(customer)"/>
-     	<c:tabs name="order-type" link-to-url="/wxaService/customerOrderList/" active-tab="$(_by_key_activeTab)"
+     	<c:tabs name="order-type" link-to-url="/wxaService/customerOrderList/" active-tab="$(user._by_key_activeTab)"
      			class-selected="text-color-marked-main" class-unselected="text-color-main">
      		<c:option value="needPay" display-text="待付款"/>
      		<c:option value="closed" display-text="已完成"/>
@@ -446,28 +446,25 @@
      			</c:container>
      			<c:row class="card" name="line-item" data-source="$(line_item)">
      				<c:image class="image-size-thumbnail" src-url="$(cover_image)"></c:image>
-     				<c:row>
+     				<c:column>
      					<c:text class="text-size-main text-color-marked-main" data-source="$(name)"></c:text>
      					<c:text class="text-size-note text-color-main" data-source="$(summary)"></c:text>
      					<c:text></c:text>
-     					<c:container>
+     					<c:row>
      						<c:money name="item-pay-value" class="text-size-main text-color-marked-main" data-source="$(item_discount)"></c:money>
      						<c:money name="item-price" class="text-size-note text-color-note" data-source="$(raw_price)"></c:money>
-     					</c:container>
-     				</c:row>
+     					</c:row>
+     				</c:column>
      			</c:row>
-     			<c:row name="pay-action">
-     				<c:container class="align-left">
+     			<c:row name="pay-action" class="align-both-ends">
      					<c:money data-source="$(actual_amount)" format="应付：￥#,###.##元" class="text-color-marked-main"></c:money>
-     				</c:container>
-     				<c:container class="align-right">
      					<c:text class="btn btn-info" link-to-url="/wxaService/customerPayOrder/$(id)/">付款</c:text>
-     				</c:container>
      			</c:row>
      		</c:column>
      	</c:column>
      </c:page>
-
+ 
+<!--
 	<c:page name="customer-order-detail" title="订单详情">
 		<c:data-source borrowRecord="$(borrowing_history)"/>
 		<c:data-source book="$(book_copy)"/>

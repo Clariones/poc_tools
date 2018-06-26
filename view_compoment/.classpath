@@ -7,12 +7,12 @@
 	<classpathentry kind="lib" path="/web-code-generator/WEB-INF/lib/gson-2.2.4.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/web-code-generator"/>
-	<classpathentry kind="lib" path="/shuxiang_bizcore/WEB-INF/lib/jackson-annotations-2.8.0.jar"/>
-	<classpathentry kind="lib" path="/shuxiang_bizcore/WEB-INF/lib/jackson-core-2.8.6.jar"/>
-	<classpathentry kind="lib" path="/shuxiang_bizcore/WEB-INF/lib/jackson-databind-2.8.6.jar"/>
-	<classpathentry kind="lib" path="/shuxiang_bizcore/WEB-INF/lib/jackson-dataformat-cbor-2.8.6.jar"/>
-	<classpathentry kind="lib" path="/shuxiang_bizcore/WEB-INF/lib/jackson-dataformat-smile-2.8.6.jar"/>
-	<classpathentry kind="lib" path="/shuxiang_bizcore/WEB-INF/lib/jackson-dataformat-yaml-2.8.6.jar"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/shuxiang_bizcore"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/shuxiang-bizcore"/>
+	<classpathentry kind="lib" path="/shuxiang-bizcore/lib/jackson-annotations-2.9.0.jar"/>
+	<classpathentry kind="lib" path="/shuxiang-bizcore/lib/jackson-core-2.9.5.jar"/>
+	<classpathentry kind="lib" path="/shuxiang-bizcore/lib/jackson-databind-2.9.5.jar"/>
+	<classpathentry kind="lib" path="/shuxiang-bizcore/lib/jackson-dataformat-cbor-2.8.6.jar"/>
+	<classpathentry kind="lib" path="/shuxiang-bizcore/lib/jackson-dataformat-smile-2.8.6.jar"/>
+	<classpathentry kind="lib" path="/shuxiang-bizcore/lib/jackson-dataformat-yaml-2.8.6.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
