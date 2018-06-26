@@ -38,7 +38,7 @@ public class DataSourceUtil {
             // dataSourceExpression, true);
             break;
         case EXPRESSION_TYPE_STRING_CONCAT_FUNCTION:
-            result = parseStringConcatFunctionExpression(globalVarTable, parentDataSourceInfo, dataSourceName,
+            result = parseStringConcatFunctionExpression(globalVarTable, parentDataSourceInfo, null, dataSourceName,
                     dataSourceExpression, true);
             result.setVarScope(DataSourceInfo.PAGE_SCOPE);
             globalVarTable.put(dataSourceName, result);
@@ -87,7 +87,7 @@ public class DataSourceUtil {
             return parseModelVariableExpression(globalVarTable, parentDataSourceInfo, localVarTable,
                     dataSourceExpression, false);
         case EXPRESSION_TYPE_STRING_CONCAT_FUNCTION:
-            return parseStringConcatFunctionExpression(globalVarTable, parentDataSourceInfo, null, dataSourceExpression,
+            return parseStringConcatFunctionExpression(globalVarTable, parentDataSourceInfo, localVarTable, null, dataSourceExpression,
                     false);
         default:
             return parseVariableExpression(globalVarTable, parentDataSourceInfo, null, dataSourceExpression);
@@ -329,7 +329,7 @@ public class DataSourceUtil {
     private static final Pattern ptnVarInString = Pattern.compile("\\$\\(([a-zA-Z0-9\\._]+)\\)");
 
     private static DataSourceInfo parseStringConcatFunctionExpression(Map<String, DataSourceInfo> vartable,
-            DataSourceInfo parentDataSourceInfo, String dataSourceName, String dataSourceExpression,
+            DataSourceInfo parentDataSourceInfo, List<DataSourceInfo> localVarTable, String dataSourceName, String dataSourceExpression,
             boolean isForGlobal) throws Exception {
         DataSourceInfo result = new DataSourceInfo(DataSourceInfo.TYPE_STRING_CONCAT_FUNCTION, "String",
                 dataSourceExpression, dataSourceName == null ? getAnonymoseVarName() : dataSourceName);
@@ -344,7 +344,7 @@ public class DataSourceUtil {
                         null);
                 result.addChild(constData);
             }
-            result.addChild(parseModelVariableExpression(vartable, parentDataSourceInfo, null, m.group(), isForGlobal));
+            result.addChild(parseModelVariableExpression(vartable, parentDataSourceInfo, localVarTable, m.group(), isForGlobal));
             startPos = varEndPos;
         }
         if (startPos < dataSourceExpression.length()) {

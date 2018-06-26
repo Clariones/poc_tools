@@ -200,11 +200,17 @@
 <#macro gen_component_field uiSpec>
         FormFieldViewComponent me = new FormFieldViewComponent();
     <#if !uiSpec.type??>
-        me.setType(FormFieldViewComponent.TYPE_TEXT);
+    	me.setType(FormFieldViewComponent.TYPE_TEXT);
     <#elseif uiSpec.type?contains("_")>
         me.setType(FormFieldViewComponent.TYPE_${uiSpec.type?upper_case});
     <#else>
-        me.setType("${uiSpec.type}");
+    	<#if uiSpec.type == "hidden">
+    	me.setType(FormFieldViewComponent.TYPE_TEXT);
+    	me.setVisiable(false);
+    	<#else>
+         me.setType("${uiSpec.type}");
+        </#if>
+       
     </#if>
         <@gen_component_common_part uiSpec/>
         <#if uiSpec.bindedDataSourceInfo??>me.setContent(data);</#if><#if uiSpec.name?has_content>

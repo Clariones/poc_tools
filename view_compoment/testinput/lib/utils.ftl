@@ -141,7 +141,11 @@
 	</#if>
     <#if segDsInfo?has_next>
         <#assign varName="data_"+(segDsInfo?index+1)+postFix />
+        <#if segDsInfo?index == 0 && uiSpec.jobInfo.listRenderingMethod>
+        ${segDsInfo.javaTypeName} ${varName} = data;
+		<#else>
         ${segDsInfo.javaTypeName} ${varName} = ${startVarName}.get${segDsInfo.variableName?cap_first}();
+		</#if>
         if (${varName} == null){
             return null;
         }

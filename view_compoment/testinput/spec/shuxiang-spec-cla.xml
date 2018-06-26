@@ -71,31 +71,27 @@
         </c:container>
     </c:page>
 
-<!--
 	<c:page name="customer-store-list" title="门店列表">
         <c:data-source user="$(customer)"/>
         <c:data-source plateform="$(book_sharing_platform)"/>
-        <c:container class="container-horizontal">
+        <c:row class="align-center">
         	<c:text class="text-size-section-title text-color-marked-main">附近的门店</c:text>
-        </c:container>
-        <c:container class="container-vertical">
-        	<c:container class="container-horizontal"  name="store-info-block" link-to-url="/wxaService/viewStore/$(id)/" data-source="$(plateform.store)">
+        </c:row>
+        <c:column>
+        	<c:row class="card"  name="store-info-block" link-to-url="/wxaService/selectStore/$(id)/" data-source="$(plateform.store)">
         		<c:image class="image-size-thumbnail" src-url="$(store_image)"></c:image>
-        		<c:container class="container-vertical" name="store-desc-block">
+        		<c:column name="store-desc-block" class="roomy_block">
         			<c:text class="text-size-main text-color-marked-main" data-source="$(store_name)">名称</c:text>
-        			<c:container>
-        				<c:text class="text-size-main" data-source="$(store_address)">地址</c:text>
-        				<c:text class="text-size-main" data-source="$(store_room_number)">房间号</c:text>
-        			</c:container>
+        			<c:text class="text-size-main" data-source="$(store_address) $(store_room_number)">地址</c:text>
         			<c:text class="text-size-main" data-source="$(store_open_time)">营业时间</c:text>
-        		</c:container>
-        		<c:container class="container-horizontal align-right">
-        			<c:text name="store-distance" class="text-size-main text-color-marked-note" data-source="$(_by_key_distance)">状态</c:text>
-        		</c:container>
-        	</c:container>
-        </c:container>
+        		</c:column>
+        		<c:row class="align-right normal_block">
+        			<c:text name="store-distance" class="text-size-main text-color-marked-note" data-source="$(_by_key_distance)">距离</c:text>
+        		</c:row>
+        	</c:row>
+        </c:column>
     </c:page>
-
+<!-- 
     <c:page name="customer-borrow-book" title="借书">
         <c:data-source text-message-1="var: string"/>
         <c:data-source text-message-2="var: string"/>
@@ -136,15 +132,17 @@
         	<c:text name="agreement" data-source="$(book_sharing_agreement)">协议内容</c:text>
         </c:container>
     </c:page>
-
 	<c:page name="book-sharing-form" title="共享图书">
+		<c:data-source shop="$(store)"/>
+		
     	<c:image class="image-size-banner" src-url="/images/book-sharing-banner.jpeg" />
-    	<c:container class="container-vertical">
-    		<c:container>
+    	<c:column>
+    		<c:row class="align-center">
     			<c:text class="text-size-article-title text-color-main">图书共享申请</c:text>
-    		</c:container>
+    		</c:row>
     		<c:text class="text-size-main">书香社区欢迎广大社区成员共享/捐赠图书，您可以将您要共享/捐赠的图书送到您身边的【书香社区门店】，如果需要上门取件，请填写下面表单，我们将尽快与您联系。</c:text>
     		<c:form name="share-book">
+    			<c:field name="storeId" type="hidden" label="店ID" data-source="$(shop.id)"/>
     			<c:field name="quantityLevel" label="共享数量" type="select" placeholder="请选择数量级别">
     				<c:option value="little" display-text="少于10本" checked="true"/>
     				<c:option value="many" display-text="超过10本"/>
@@ -152,17 +150,20 @@
     			<c:field name="contactName" label="联系人" type="text" placeholder="请输入取件联系人" min-value="1" max-value="20" />
     			<c:field name="contactMobile" label="联系电话" type="text" placeholder="请输入取件联系人的电话" min-value="11" max-value="11"/>
     			<c:field name="contactAddress" label="联系地址" type="text" placeholder="请输入您的取件地址" min-value="1" max-value="100" max-line="2"/>
-    			<c:container class="container-horizontal">
-    				<c:container class="text-size-note">
-    					<c:field type="check_box" name="agreed" label="我同意" />
+    			<c:row class="text-size-note align-center">
+    				<c:container>
+    					<c:row>
+    					<c:field type="check_box" name="agreed" label="">
+    						<c:option value="true" display-text="我同意2"/>
+    					</c:field>
     					<c:text link-to-url="/wxaService/bookSharingAgreement/">《书香社区共享图书条款》</c:text>
+    					</c:row>
     				</c:container>
-    			</c:container>
+    			</c:row>
     			<c:action name="submitBookShareForm" level="primary" link-to-url="/wxaService/shareBook/">提交</c:action>
     		</c:form>
-    	</c:container>
+    	</c:column>
     </c:page>
-    
     <c:page name="book-sharing-success" title="共享图书">
     	<c:data-source shop="$(store)"/>
     	
@@ -176,7 +177,7 @@
 			<c:text class="btn btn-info" link-to-url="/wxaService/viewHomePage/$(shop.id)/true/">回到主页</c:text>
 		</c:container>
     </c:page>
-    
+
     <c:page name="view-customer-profile" title="个人信息">
     	<c:data-source user="$(customer)"/>
     	<c:container class="container-vertical">
@@ -429,7 +430,7 @@
      		</c:row>
      	</c:column>
      </c:page>
--->
+
      <c:page name="customer-order-list" title="我的订单">
      	<c:data-source user="$(customer)"/>
      	<c:tabs name="order-type" link-to-url="/wxaService/customerOrderList/" active-tab="$(user._by_key_activeTab)"
@@ -464,7 +465,6 @@
      	</c:column>
      </c:page>
  
-<!--
 	<c:page name="customer-order-detail" title="订单详情">
 		<c:data-source borrowRecord="$(borrowing_history)"/>
 		<c:data-source book="$(book_copy)"/>
@@ -631,4 +631,20 @@
 	</c:page>
 	-->
 	
+	<c:page name="customer_message_list" title="我的消息">
+    	<c:data-source user="$(customer)"/>
+    	
+    	<c:row class="align-center">
+    		<c:text class="text-size-main text-color-main">我的消息</c:text>
+    	</c:row>
+    	<c:column>
+    		<c:column class="card" name="message-block" data-source="$(user.private_message)">
+    			<c:row class="align-both-ends">
+    				<c:text class="text-size-section-title text-color-marked-main" data-source="$(name)"></c:text>
+    				<c:date class="text-size-note text-color-note" data-source="$(delivery_time)" format="MM-dd HH:mm"></c:date>
+    			</c:row>
+    			<c:text max-line="4" data-source="$(content)"></c:text>
+    		</c:column>
+    	</c:column>
+    </c:page>
 </root>
