@@ -137,24 +137,22 @@
 
     <!--</c:page> -->
 
-    <!--<c:page name="campaign-list" title="全部活动">-->
-    <!--<c:data-source store="$(store)"/>-->
-    <!--<c:container class="container-vertical">-->
-    <!--<c:container class="container-horizontal" name="campaign-info-block" link-to-url="/wxaService/campaignDetail/$(id)/true/" data-source="$(store.campaign)">-->
-    <!--<c:image class="image-size-thumbnail" src-url="$(campaign_image)"></c:image>-->
-    <!--<c:container class="container-vertical" name="campaign-desc-block">-->
-    <!--<c:text class="text-size-main text-color-marked-main" data-source="$(campaign_name)">名称</c:text>-->
-    <!--<c:text name="hold-time" class="text-size-main" data-source="$(campaign_start_time)">举办时间</c:text>-->
-    <!--<c:text class="text-size-main" data-source="$(campaign_hold_address)">举办地点</c:text>-->
-    <!--</c:container>-->
-    <!--<c:container class="container-horizontal align-right">-->
-    <!--<c:text name="campaign-application-state" class="text-size-main btn btn-primary" data-source="$(_by_key_memberCount)">-->
-    <!--状态-->
-    <!--</c:text>-->
-    <!--</c:container>-->
-    <!--</c:container>-->
-    <!--</c:container>-->
-    <!--</c:page>-->
+	<c:page name="campaign-list" title="全部活动">
+		<c:data-source store="$(store)" />
+		<c:column>
+			<c:row class="card"	name="campaign-info-block" link-to-url="/wxaService/campaignDetail/$(id)/" data-source="$(store.campaign)">
+				<c:image class="image-size-thumbnail" src-url="$(campaign_image)"></c:image>
+				<c:column name="campaign-desc-block">
+					<c:text class="text-size-main text-color-marked-main" data-source="$(campaign_name)">名称</c:text>
+					<c:date name="hold-time" class="text-size-main" data-source="$(campaign_start_time)" format="MM-dd HH:mm">举办时间</c:date>
+					<c:text class="text-size-main" data-source="$(campaign_hold_address)">举办地点</c:text>
+				</c:column>
+				<c:row class="align-right">
+					<c:text name="campaign-application-state" class="text-size-main btn btn-primary" data-source="$(_by_key_memberCount)">状态</c:text>
+				</c:row>
+			</c:row>
+		</c:column>
+	</c:page>
 
     <!--<c:page name="campaign-detail" title="活动详情">-->
     <!--<c:data-source campaign="$(campaign)"/>-->

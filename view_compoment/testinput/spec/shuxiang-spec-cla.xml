@@ -647,4 +647,85 @@
     		</c:column>
     	</c:column>
     </c:page>
+    
+    <c:page name="campaign-list" title="全部活动">
+		<c:data-source store="$(store)" />
+		<c:column>
+			<c:row class="card"	name="campaign-info-block" link-to-url="/wxaService/campaignDetail/$(id)/" data-source="$(store.campaign)">
+				<c:image class="image-size-thumbnail" src-url="$(campaign_image)"></c:image>
+				<c:column name="campaign-desc-block">
+					<c:text class="text-size-main text-color-marked-main common-text-piece" data-source="$(campaign_name)">名称</c:text>
+					<c:date name="hold-time" class="text-size-main common-text-piece" data-source="$(campaign_start_time)" format="MM-dd HH:mm">举办时间</c:date>
+					<c:text class="text-size-main common-text-piece" data-source="$(campaign_hold_address)">举办地点</c:text>
+				</c:column>
+				<c:row class="align-right">
+					<c:text name="campaign-application-state" class="text-size-main btn btn-primary" data-source="$(_by_key_memberCount)">状态</c:text>
+				</c:row>
+			</c:row>
+		</c:column>
+	</c:page>
+	
+    <c:page name="campaign-detail" title="活动详情">
+    	<c:data-source campaign="$(campaign)"/>
+    	<c:data-source customer="$(customer)"/>
+    	
+		<c:column class="card" name="campaign-info">
+			<c:image class="image-size-main" src-url="$(campaign.campaign_image)" />
+			<c:text	class="text-size-main text-color-marked-main text-size-article-title" data-source="$(campaign.campaign_name)">名称</c:text>
+			<c:row>
+				<c:font-icon class="text-size-main">clock-o</c:font-icon>
+				<c:text class="text-size-main common-text-piece">时间</c:text>
+				<c:text class="text-size-main common-text-piece" data-source="$(campaign._by_key_holdTime)" name="hold-time">时间</c:text>
+			</c:row>
+			<c:row>
+				<c:font-icon class="text-size-main">map-marker</c:font-icon>
+				<c:text class="text-size-main common-text-piece">地点</c:text>
+				<c:text class="text-size-main common-text-piece"	data-source="$(campaign.campaign_hold_address)">地点</c:text>
+			</c:row>
+			<c:row>
+				<c:font-icon class="text-size-main">hourglass-start</c:font-icon>
+				<c:text class="text-size-main common-text-piece">状态</c:text>
+				<c:text class="text-size-main common-text-piece" data-source="$(campaign.campaign_status)">状态</c:text>
+			</c:row>
+			<c:row>
+				<c:font-icon class="text-size-main">user</c:font-icon>
+				<c:text class="text-size-main common-text-piece">人数</c:text>
+				<c:text name="member-count" class="text-size-main common-text-piece" data-source="$(campaign._by_key_memberCount)">人数</c:text>
+			</c:row>
+			<c:text class="text-size-main" data-source="$(campaign.campaign_content)" />
+		</c:column>
+    
+	    <c:column name="review-list">
+		    <c:row class="align-right">
+		    	<c:font-icon class="text-size-main">heart-o</c:font-icon>
+		    	<c:text class="text-size-note common-text-piece" data-source="$(campaign._by_key_praiseCount)"></c:text>
+		    	<c:font-icon class="text-size-main">comment-o</c:font-icon>
+		    	<c:text class="text-size-note common-text-piece" data-source="$(campaign._by_key_reviewCount)"></c:text>
+		    </c:row>
+		    <c:row class="align-center">
+	    		<c:text class="text-size-section-title text-color-marked-main">评论</c:text>
+		    </c:row>
+		    <c:column class="no-border-content-block" data-source="$(campaign.campaign_review)">
+	    		<c:row class="align-left">
+	    			<c:image class="image-size-icon" src-url="$(reviewer.logo_image)"/>
+	    			<c:text class="text-size-main text-color-marked-main" data-source="$(reviewer.nick_name)"></c:text>
+	    			<c:ugc-control class="pin-to-right" title-block="屏蔽" title-report="举报" link-to-url="/wxaService/ugcControl/$(id)/">...</c:ugc-control>
+	    		</c:row>
+	    		<c:text class="text-size-main" data-source="$(review_content)"/>
+	    		<c:row class="align-both-ends">
+	    			<c:date name="review-post-time" class="text-size-note align-left" data-source="$(last_update_time)" format="1_hour_or_earlier"/>
+	    			<c:row class="align-right">
+	    				<c:font-icon name="my-comment-icon" class="text-size-main">comment-o</c:font-icon>
+	    				<c:text class="text-size-note common-text-piece" data-source="$(_by_key_praiseCount)"/>
+	    			</c:row>
+	    		</c:row>
+	    	</c:column>
+	    	
+	    	<c:text class="text-size-main" link-to-url="/wxaService/campaignreviews/$(campaign.id)/">
+	    		查看更多...
+	    	</c:text>
+	    	<c:text name="bottom-line" class="btn btn-primary" data-source="$(campaign._by_key_scene)" 
+	    			link-to-url="/wxaService/regirsterCampain/$(campaign.id)/$(campaign._by_key_scene_code)/">底行</c:text>
+	    </c:column>
+    </c:page>
 </root>
