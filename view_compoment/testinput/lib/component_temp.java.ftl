@@ -11,7 +11,7 @@
 <#macro gen_component_chidren_ifhas uiSpec>
 <#if !uiSpec.children?has_content><#return></#if>
 <#list uiSpec.children as subComp>
-        render${subComp.jobInfo.methodName} (<@utils.makeSubRenderMethodCallParameters subComp/>); // ${uiSpec.jobInfo.localDataVar}
+        render${subComp.jobInfo.methodName} (<@utils.makeSubRenderMethodCallParameters subComp/>);//${uiSpec.jobInfo.localDataVar}); // 
 </#list>
 </#macro>
 

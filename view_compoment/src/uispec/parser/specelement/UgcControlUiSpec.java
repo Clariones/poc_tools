@@ -1,5 +1,10 @@
 package uispec.parser.specelement;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import com.terapico.caf.viewcomponent.TextViewComponent;
+
 public class UgcControlUiSpec extends BaseUiSpecElement {
     protected String titleBlock;
     protected String titleReport;
@@ -15,6 +20,6 @@ public class UgcControlUiSpec extends BaseUiSpecElement {
     public void setTitleReport(String titleReport) {
         this.titleReport = titleReport;
     }
-    
+   
     
 }

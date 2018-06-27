@@ -325,6 +325,9 @@ public class RenderTemplateGenerator {
                 out.close();
             }
             
+            // view model
+            // TODO
+            
             // custom render
             if (writeToSeperateFile) {
                 Map<String, Object> pageJob = (Map<String, Object>) page;

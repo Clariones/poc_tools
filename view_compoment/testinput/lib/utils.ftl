@@ -60,7 +60,7 @@
 <#macro makeSubRenderMethodCallParameters uiSpec>
 <@compress single_line=true>
     context,
-    <#if uiSpec.ancestDataSourceInfo?has_content>
+    <#if uiSpec.jobInfo.hasInputData>
         me, inputData
     <#else>
         me
