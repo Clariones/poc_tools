@@ -53,8 +53,8 @@
         		</c:text>
         	</c:container>
         </c:container>
-        <c:container class="container-vertical">
-        	<c:container class="container-horizontal card" data-source="$(shop.campaign)">
+        <c:column>
+        	<c:row class="card" data-source="$(shop.campaign)" link-to-url="/wxaService/campaignDetail/$(id)/">
         		<c:container class="campaign-info-left">
         			<c:image class="image-size-thumbnail campaign-image" src-url="$(campaign_image)"></c:image>
         			<c:text class="text-color-marked-note text-size-main campaign-status" data-source="$(campaign_status)">状态</c:text>
@@ -67,8 +67,8 @@
         		<c:container class="container-horizontal align-right campaign-info-right">
         			<c:text name="register-info" data-source="$(campaign_name)">报名情况</c:text>
         		</c:container>
-        	</c:container>
-        </c:container>
+        	</c:row>
+        </c:column>
     </c:page>
 
 	<c:page name="customer-store-list" title="门店列表">
@@ -177,7 +177,7 @@
 			<c:text class="btn btn-info" link-to-url="/wxaService/viewHomePage/$(shop.id)/true/">回到主页</c:text>
 		</c:container>
     </c:page>
-
+-->
     <c:page name="view-customer-profile" title="个人信息">
     	<c:data-source user="$(customer)"/>
     	<c:container class="container-vertical">
@@ -250,7 +250,7 @@
     		</c:container>
     	</c:container>
     </c:page>
-
+<!-- 
     <c:page name="edit-customer-profile" title="个人信息">
     	<c:data-source user="$(customer)"/>
     	<c:container class="container-vertical">
@@ -559,7 +559,7 @@
 			</c:column>
 		</c:row>
 	</c:page>
-	
+	-->
 	<c:page name="fresh-new-customer" title="我的">
 		<c:column>
 			<c:text>绑定手机号可以提供更多更好的服务</c:text>
@@ -577,45 +577,45 @@
 	
 	<c:page name="customer-profile" title="我的">
 		<c:data-source user="$(customer)"/>
-		<c:row>
-			<c:image src-url="$(user.logo_image)"></c:image>
+		<c:row class="align-center">
+			<c:image class="image-size-thumbnail" src-url="$(user.logo_image)"></c:image>
 			<c:column>
 				<c:text class="text-size-marked-main" data-source="$(user.nick_name)"></c:text>
 				<c:text class="text-size-main" data-source="$(user.member_service.product_name)"></c:text>
 			</c:column>
 		</c:row>
 		<c:row name="apply-trial-member" link-to-url="/wxaService/applyTrailMemberService/">
-			<c:image src-url="/images/apply_trial_member.jpeg" ></c:image>
+			<c:image class="image-size-banner" src-url="/images/apply_trial_member.jpeg" ></c:image>
 		</c:row>
 		
-		<c:row class="aligh-left" link-to-url="/wxaService/">
-			<c:text class="text-size-main text-color-main">个人信息</c:text>
+		<c:row class="align-left card small-bottom-space" link-to-url="/wxaService/viewCustomerProfile/">
+			<c:text class="text-size-section-title text-color-main">个人信息</c:text>
 		</c:row>
-		<c:row class="aligh-left" link-to-url="/wxaService/">
-			<c:text class="text-size-main text-color-main">我的权益</c:text>
+		<c:row class="align-left card small-bottom-space" link-to-url="/wxaService/">
+			<c:text class="text-size-section-title text-color-main">我的权益</c:text>
 		</c:row>
-		<c:row class="aligh-left" link-to-url="/wxaService/">
-			<c:text class="text-size-main text-color-main">我的借阅</c:text>
+		<c:row class="align-left card small-bottom-space" link-to-url="/wxaService/">
+			<c:text class="text-size-section-title text-color-main">我的借阅</c:text>
 		</c:row>
-		<c:row class="aligh-left" link-to-url="/wxaService/">
-			<c:text class="text-size-main text-color-main">我的活动</c:text>
+		<c:row class="align-left card small-bottom-space" link-to-url="/wxaService/">
+			<c:text class="text-size-section-title text-color-main">我的活动</c:text>
 		</c:row>
-		<c:row class="aligh-both-ends" link-to-url="/wxaService/">
-			<c:text class="text-size-main text-color-main">我的余额</c:text>
-			<c:money data-source="$(user.account_balance)"></c:money>
+		<c:row class="align-both-ends card small-bottom-space" link-to-url="/wxaService/">
+			<c:text class="text-size-section-title text-color-main">我的余额</c:text>
+			<c:money class="text-size-section-title text-color-marked-main" data-source="$(user.account_balance)"></c:money>
 		</c:row>
-		<c:row class="aligh-left" link-to-url="/wxaService/">
-			<c:text class="text-size-main text-color-main">我的书评</c:text>
+		<c:row class="align-left card small-bottom-space" link-to-url="/wxaService/">
+			<c:text class="text-size-section-title text-color-main">我的书评</c:text>
 		</c:row>
 	</c:page>
-	
+	<!-- 
 	<c:page name="customer-footprint" title="历程">
 		<c:data-source user="$(customer)"/>
 		<c:column>
 			<c:column name="footprint" data-source="$(user.customer_footprint)">
 				<c:container>
 					<c:font-icon level="primary">clock-o</c:font-icon>
-					<c:date data-source="$(create_time)" format="passed_in_day"></c:date>
+					<c:date data-source="$(create_time)" format="fuzz_after_1_hour"></c:date>
 				</c:container>
 				<c:text data-source="$(title)"></c:text>
 				<c:text data-source="$(description)" max-line="5"></c:text>
@@ -629,7 +629,6 @@
 			</c:column>
 		</c:column>
 	</c:page>
-	-->
 	
 	<c:page name="customer_message_list" title="我的消息">
     	<c:data-source user="$(customer)"/>
@@ -713,7 +712,7 @@
 	    		</c:row>
 	    		<c:text class="text-size-main" data-source="$(review_content)"/>
 	    		<c:row class="align-both-ends">
-	    			<c:date name="review-post-time" class="text-size-note align-left" data-source="$(last_update_time)" format="1_hour_or_earlier"/>
+	    			<c:date name="review-post-time" class="text-size-note align-left" data-source="$(last_update_time)" format="fuzz_after_1_hour"/>
 	    			<c:row class="align-right">
 	    				<c:font-icon name="my-comment-icon" class="text-size-main">comment-o</c:font-icon>
 	    				<c:text class="text-size-note common-text-piece" data-source="$(_by_key_praiseCount)"/>
@@ -728,4 +727,6 @@
 	    			link-to-url="/wxaService/regirsterCampain/$(campaign.id)/$(campaign._by_key_scene_code)/">底行</c:text>
 	    </c:column>
     </c:page>
+    
+    -->
 </root>

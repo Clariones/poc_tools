@@ -93,6 +93,7 @@ public class RenderTemplateGenerator {
 
     // 分析页面内的“数据”
     private void parsePageDataSource(PageUiSpec page) throws Exception {
+        System.out.println("\n\nNow parse ui-spec " + page.getName()+":"+page.getTitle());
         Map<String, DataSourceInfo> globalVarTable = new HashMap<String, DataSourceInfo>();
         // 先分析page level的变量，所有变量最终都以此为起点
         for (BaseUiSpecElement child : page.getChildren()) {
@@ -109,22 +110,23 @@ public class RenderTemplateGenerator {
             }
         }
         page.setVariableTable(globalVarTable);
-
+        page.initImportedList();
         // 然后开始分析各级组件内包含的变量
         for (BaseUiSpecElement child : page.getChildren()) {
-            parseDataSource(globalVarTable, null, child);
+            parseDataSource(page, globalVarTable, null, child);
         }
     }
 
     /**
      * 分析一个UI Spec单元的数据源
+     * @param page 
      * 
      * @param globalVarTable
      * @param closestParentDataInfo
      * @param curUiSpec
      * @throws Exception
      */
-    private void parseDataSource(Map<String, DataSourceInfo> globalVarTable, DataSourceInfo closestParentDataInfo,
+    private void parseDataSource(PageUiSpec page, Map<String, DataSourceInfo> globalVarTable, DataSourceInfo closestParentDataInfo,
             BaseUiSpecElement curUiSpec) throws Exception {
         // 先看本组件是否有需要分析的变量
         List<String> exprList = curUiSpec.getDataSourceExpressionList();
@@ -132,9 +134,13 @@ public class RenderTemplateGenerator {
         List<DataSourceInfo> dsInfoList = null;
         if (exprList != null && !exprList.isEmpty()) {
             try {
-                dsInfoList = parseDataSourceOfUiSpec(globalVarTable, closestParentDataInfo, exprList);
+                dsInfoList = parseDataSourceOfUiSpec(page, globalVarTable, closestParentDataInfo, exprList);
                 curUiSpec.setDataSourceExpressionResultList(dsInfoList);
-
+                if (dsInfoList!=null && dsInfoList.size()>0) {
+                    for(DataSourceInfo dsInfoItem: dsInfoList) {
+                        page.markAsImportedIfNeeded(dsInfoItem);
+                    }
+                }
             } catch (Exception e) {
                 e.printStackTrace();
                 throw new Exception("Error when parse data-source at line " + curUiSpec.getElementDeclaredLineNumber(),
@@ -146,13 +152,12 @@ public class RenderTemplateGenerator {
         if (aothExpressions != null && !aothExpressions.isEmpty()) {
             for (String key : aothExpressions.keySet()) {
                 String value = aothExpressions.get(key);
-                System.out
-                        .println("parse " + key + "=" + value + " at line " + curUiSpec.getElementDeclaredLineNumber());
+                System.out.println("parse " + key + "=" + value + " at line " + curUiSpec.getElementDeclaredLineNumber());
                 DataSourceInfo dsInfo = null;
                 if (!DataSourceUtil.isVariableExpression(value)) {
                     dsInfo = new DataSourceInfo(DataSourceInfo.TYPE_CONST_STRING, "string", value, null);
                 } else {
-                    dsInfo = DataSourceUtil.parseExpression(globalVarTable, closestParentDataInfo, dsInfoList, value);
+                    dsInfo = DataSourceUtil.parseExpression(page, globalVarTable, closestParentDataInfo, dsInfoList, value);
                     if (dsInfo == null) {
                         throw new Exception("Cannot parse data-source " + value);
                     }
@@ -161,6 +166,7 @@ public class RenderTemplateGenerator {
                     throw new Exception("No one handle additional data-source " + key + " in ui-spec-"
                             + curUiSpec.getElementTypeName());
                 }
+                page.markAsImportedIfNeeded(dsInfo);
             }
         }
 
@@ -172,20 +178,21 @@ public class RenderTemplateGenerator {
             closestParentDataInfo = curDataSrc;
         }
         for (BaseUiSpecElement child : curUiSpec.getChildren()) {
-            parseDataSource(globalVarTable, closestParentDataInfo, child);
+            parseDataSource(page, globalVarTable, closestParentDataInfo, child);
         }
     }
 
-    private List<DataSourceInfo> parseDataSourceOfUiSpec(Map<String, DataSourceInfo> globalVarTable,
+    private List<DataSourceInfo> parseDataSourceOfUiSpec(PageUiSpec page, Map<String, DataSourceInfo> globalVarTable,
             DataSourceInfo closestParentDataInfo, List<String> exprList) throws Exception {
         List<DataSourceInfo> localVarTable = new ArrayList<DataSourceInfo>();
         for (String dsExpr : exprList) {
-            DataSourceInfo dsInfo = DataSourceUtil.parseExpression(globalVarTable, closestParentDataInfo, localVarTable,
+            DataSourceInfo dsInfo = DataSourceUtil.parseExpression(page, globalVarTable, closestParentDataInfo, localVarTable,
                     dsExpr);
             if (dsInfo == null) {
                 throw new Exception("Cannot parse data-source " + dsExpr);
             }
             localVarTable.add(dsInfo);
+            page.markAsImportedIfNeeded(dsInfo);
         }
         return localVarTable;
     }
@@ -196,6 +203,7 @@ public class RenderTemplateGenerator {
 
         // page 没有child我就直接抛空指针
         List<BaseUiSpecElement> children = page.getChildren();
+        page.initImportedList();
         for (BaseUiSpecElement child : children) {
             createUiSpecElementTask(jobContext, memberElements, page, child);
         }
@@ -207,10 +215,11 @@ public class RenderTemplateGenerator {
 
     private void createUiSpecElementTask(RenderTemplatePreprocessContext jobContext,
             List<BaseUiSpecElement> memberElements, PageUiSpec page, BaseUiSpecElement element) {
-        DebugUtil.dumpObjectToJson("当前处理的的元素：", element);
+        // DebugUtil.dumpObjectToJson("当前处理的的元素：", element);
         if (!element.isShouldBeRender()) {
             return;
         }
+        
         String renderMethodName = RUtils.calcElementRenderName(jobContext, element);
         Map<String, Object> jobInfo = MapUtil.newMap(MapUtil.$("methodName", renderMethodName),
                 MapUtil.$("isDynamic", false));
@@ -304,7 +313,7 @@ public class RenderTemplateGenerator {
             data.put("pageSpec", page);
             if (writeToSeperateFile) {
                 Map<String, Object> pageJob = (Map<String, Object>) page;
-                String fileName = pageJob.get("className") + "BaseRender.java.txt";
+                String fileName = pageJob.get("className") + "BaseRender.java";
                 File outputFile = new File(this.getOutputBaseFolder(), fileName);
                 System.out.println("==> Will write to " + outputFile.getAbsolutePath());
                 PrintStream fPrinter = FileUtils.createFileForPrint(outputFile);

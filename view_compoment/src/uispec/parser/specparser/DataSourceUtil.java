@@ -15,6 +15,7 @@ import com.terapico.system.ObjectDescriptor;
 
 import poc.utils.TextUtil;
 import uispec.parser.datasource.DataSourceInfo;
+import uispec.parser.specelement.PageUiSpec;
 
 public class DataSourceUtil {
     public static ObjectCollection oc = null;
@@ -73,7 +74,7 @@ public class DataSourceUtil {
         throw new Exception("cannot parse data-source " + dataSourceExpression);
     }
 
-    public static DataSourceInfo parseExpression(Map<String, DataSourceInfo> globalVarTable,
+    public static DataSourceInfo parseExpression(PageUiSpec page, Map<String, DataSourceInfo> globalVarTable,
             DataSourceInfo parentDataSourceInfo, List<DataSourceInfo> localVarTable, String dataSourceExpression)
             throws Exception {
         if (dataSourceExpression == null || TextUtil.isBlank(dataSourceExpression)) {

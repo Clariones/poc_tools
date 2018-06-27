@@ -1,18 +1,18 @@
-package com.terapico.shuxiang.wxalayout;
-
-import com.terapico.caf.viewcomponent.PageViewComponent;
 <#import "lib/utils.ftl" as utils>
 <#include "lib/component_temp.java.ftl" />
 <#assign java_primitive_types=["boolean","int","long","double"]/>
 package com.terapico.shuxiang.wxalayout;
 
+import java.math.BigDecimal;
+import java.util.Date;
 import java.util.List;
 
+import com.terapico.caf.DateTime;
 import com.terapico.caf.viewcomponent.*;
 import com.terapico.shuxiang.ShuxiangUserContext;
-import com.terapico.shuxiang.campaign.Campaign;
-import com.terapico.shuxiang.store.Store;
-import com.terapico.shuxiang.storeslide.StoreSlide;
+<#list pageSpec.page.importedModels as modelName>
+import com.terapico.shuxiang.${modelName?lower_case}.${modelName};
+</#list>
 
 
 public class ${pageSpec.className}BaseRender extends BasicRender{
