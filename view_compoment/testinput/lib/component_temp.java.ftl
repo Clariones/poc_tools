@@ -11,7 +11,7 @@
 <#macro gen_component_chidren_ifhas uiSpec>
 <#if !uiSpec.children?has_content><#return></#if>
 <#list uiSpec.children as subComp>
-        render${subComp.jobInfo.methodName} (<@utils.makeSubRenderMethodCallParameters subComp/>);//${uiSpec.jobInfo.localDataVar}); // 
+        render${subComp.jobInfo.methodName} (<@utils.makeSubRenderMethodCallParameters subComp/>);
 </#list>
 </#macro>
 
@@ -73,6 +73,29 @@
         me.setContent("${uiSpec.elementTextContent!}");
 	</#if><#if uiSpec.maxLine gt 0>
 		me.setMaxLine(${uiSpec.maxLine});</#if>
+        <@gen_component_chidren_ifhas uiSpec/>
+</#macro>
+
+<#macro gen_component_rich_text  uiSpec>
+        RichTextViewComponent me = new RichTextViewComponent();
+        <@gen_component_common_part uiSpec/>
+	<#if uiSpec.bindedDataSourceInfo??>
+        me.setContent(data);
+	<#else>
+        me.setContent("${uiSpec.elementTextContent!}");
+	</#if><#if uiSpec.maxLine gt 0>
+		me.setMaxLine(${uiSpec.maxLine});</#if>
+        <@gen_component_chidren_ifhas uiSpec/>
+</#macro>
+
+<#macro gen_component_online_payment  uiSpec>
+        OnlinePaymentViewComponent me = new OnlinePaymentViewComponent();
+        <@gen_component_common_part uiSpec/>
+	<#if uiSpec.bindedDataSourceInfo??>
+        me.setContent(data);
+	<#else>
+        me.setContent("${uiSpec.elementTextContent!}");
+	</#if>
         <@gen_component_chidren_ifhas uiSpec/>
 </#macro>
 <#macro gen_component_font_icon uiSpec>

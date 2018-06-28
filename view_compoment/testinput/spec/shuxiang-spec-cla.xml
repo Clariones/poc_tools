@@ -430,7 +430,7 @@
      			</c:row>
      			<c:row name="pay-action" class="align-both-ends">
      					<c:money data-source="$(actual_amount)" format="应付：￥#,###.##元" class="text-color-marked-main"></c:money>
-     					<c:text class="btn btn-info" link-to-url="/wxaService/customerPayOrder/$(id)/">付款</c:text>
+     					<c:text class="btn btn-info" link-to-url="/wxaService/customerStartPayOrder/$(id)/">付款</c:text>
      			</c:row>
      		</c:column>
      	</c:column>
@@ -529,6 +529,10 @@
 				<c:money class="text-color-marked-main" data-source="$(order.actual_amount)" format="#,###.##元"></c:money>
 			</c:column>
 		</c:row>
+		
+		<c:row class="align-center" name="payment-action">
+			<c:text class="btn btn-primary" link-to-url="/wxaService/customerStartPayOrder/$(order.id)/">去支付</c:text>
+		</c:row>
 	</c:page>
 	
 	<c:page name="fresh-new-customer" title="我的">
@@ -562,22 +566,42 @@
 		<c:row class="align-left card small-bottom-space" link-to-url="/wxaService/viewCustomerProfile/">
 			<c:text class="text-size-section-title text-color-main">个人信息</c:text>
 		</c:row>
-		<c:row class="align-left card small-bottom-space" link-to-url="/wxaService/">
+		<c:row class="align-left card small-bottom-space" link-to-url="/wxaService/customerMemberRights/">
 			<c:text class="text-size-section-title text-color-main">我的权益</c:text>
 		</c:row>
-		<c:row class="align-left card small-bottom-space" link-to-url="/wxaService/">
+		<c:row class="align-left card small-bottom-space" link-to-url="/wxaService/customerBorrowHistory/">
 			<c:text class="text-size-section-title text-color-main">我的借阅</c:text>
 		</c:row>
-		<c:row class="align-left card small-bottom-space" link-to-url="/wxaService/">
+		<c:row class="align-left card small-bottom-space" link-to-url="/wxaService/customerCampaingList/">
 			<c:text class="text-size-section-title text-color-main">我的活动</c:text>
 		</c:row>
-		<c:row class="align-both-ends card small-bottom-space" link-to-url="/wxaService/">
+		<c:row class="align-both-ends card small-bottom-space" link-to-url="/wxaService/customerAccountDetail/">
 			<c:text class="text-size-section-title text-color-main">我的余额</c:text>
 			<c:money class="text-size-section-title text-color-marked-main" data-source="$(user.account_balance)"></c:money>
 		</c:row>
 		<c:row class="align-left card small-bottom-space" link-to-url="/wxaService/">
 			<c:text class="text-size-section-title text-color-main">我的书评</c:text>
 		</c:row>
+	</c:page>
+	
+	<c:page name="customer-member-rights" title="我的权益">
+		<c:data-source info="$(member_rights_display)"/>
+		<c:column>
+			<c:row class="align-center">
+				<c:text class="text-size-article-title" data-source="$(info.name)"></c:text>
+			</c:row>
+			<c:rich-text class="text-size-main" data-source="$(info.summary)"></c:rich-text>
+			<c:row class="align-left">
+				<c:text class="text-size-section-title" data-source="$(info.name)权益"></c:text>
+			</c:row>
+			
+			<c:row name="item-list" class="member-rights-item-list align-left">
+				<c:column class="align-center member-rights-item" data-source="$(info.member_rights_display_item)">
+					<c:image src-url="$(image)"></c:image>
+					<c:text data-source="$(summary)"></c:text>
+				</c:column>
+			</c:row>
+		</c:column>
 	</c:page>
 	<!-- 
 	<c:page name="customer-footprint" title="历程">
@@ -700,4 +724,42 @@
     </c:page>
     
     -->
+    
+    <c:page name="start_pay_order" title="在线支付">
+    	<c:data-source order="$(main_order)"/>
+    	<c:data-source payment="$(main_order_payment)"/>
+    	
+    	<c:text class="text-size-section-title">商品信息</c:text>
+    	<c:column data-source="$(order.line_item)">
+	    	<c:row name="line-item-block" link-to-url="/wxaService/viewObject/$(sku_type)/$(sku_id)/">
+	    		<c:container>
+	    			<c:image class="image-size-thumbnail" src-url="$(cover_image)"></c:image>
+	    		</c:container>
+	    		<c:column>
+	    			<c:text class="text-size-section-title text-color-marked-main" data-source="$(name)"></c:text>
+	    			<c:text class="text-size-main text-color-main" data-source="$(summary)"></c:text>
+	    			<c:money class="text-color-marked-main" data-source="$(raw_price)" ></c:money>
+	    			<c:money class="text-color-note" data-source="$(item_discount)" ></c:money>
+	    		</c:column>
+	    	</c:row>
+    	</c:column>
+    	<c:column>
+	    	<c:row class="align-both-ends">
+	    		<c:text>商品金额</c:text>
+	    		<c:money class="text-color-note" data-source="$(order.original_amount)"></c:money>
+	    	</c:row>
+	    	<c:row class="align-both-ends">
+	    		<c:text>实付金额</c:text>
+	    		<c:money class="text-color-marked-main" data-source="$(order.actual_amount)"></c:money>
+	    	</c:row>
+    	</c:column>
+    	<c:form>
+    		<c:field type="hidden" name="order-id" label="订单号" data-source="$(order.id)"></c:field>
+    		<c:field type="select" name="payment-method" label="请选择支付方式">
+    			<c:option value="wechat" display-text="微信支付" checked="true"></c:option>
+    			<c:option value="wallet" display-text="余额支付"></c:option>
+    		</c:field>
+    		<c:online-payment name="online-payment" link-to-url="/wxaOnlinePayment/">确定支付</c:online-payment>
+    	</c:form>
+    </c:page>
 </root>

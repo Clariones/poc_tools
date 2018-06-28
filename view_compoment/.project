@@ -14,11 +14,4 @@
 	<natures>
 		<nature>org.eclipse.jdt.core.javanature</nature>
 	</natures>
-	<linkedResources>
-		<link>
-			<name>ext_resource</name>
-			<type>2</type>
-			<location>/works/jobs/sx_shequ/workspace/poc_ui_codegen/template</location>
-		</link>
-	</linkedResources>
 </projectDescription>
