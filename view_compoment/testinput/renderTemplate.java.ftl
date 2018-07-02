@@ -109,6 +109,50 @@ public class ${pageSpec.className}BaseRender extends BasicRender{
         return sb.toString();
     }
     </#if>
+    <#-- share button image url 的获取 -->
+    <#if uiSpec.imageUrlDataSourceInfo?? && uiSpec.imageUrlDataSourceInfo.type != "const_string">
+    // type = ${uiSpec.imageUrlDataSourceInfo.type}
+    protected String getSrcUrl4${uiSpec.jobInfo.methodName}(<@utils.makeRenderMethodCallParametersDeclaration uiSpec/>${uiSpec.jobInfo.localDataCheckDeclare}) {
+        <#if uiSpec.imageUrlDataSourceInfo.type == "model_path">
+        StringBuilder sb = new StringBuilder();
+            <@utils.gen_string_concat_builder_part uiSpec, uiSpec.srcUrlDataSourceInfo, ""/>
+        return sb.toString();
+    
+        <#else>
+        StringBuilder sb = new StringBuilder();
+            <#list uiSpec.imageUrlDataSourceInfo.children as segDsInfo>
+                <#if segDsInfo.type="const_string">
+        sb.append("${segDsInfo.dataSourceExpression}");
+                    <#continue>
+                </#if>
+                    <@utils.gen_string_concat_builder_part uiSpec, segDsInfo, "_"+(segDsInfo?index+1)/>
+            </#list>
+        return sb.toString();
+        </#if>
+    }
+    </#if>
+    <#-- share button call-back url 的获取 -->
+    <#if uiSpec.callBackUrlDataSourceInfo?? && uiSpec.callBackUrlDataSourceInfo.type != "const_string">
+    // type = ${uiSpec.imageUrlDataSourceInfo.type}
+    protected String getSrcUrl4${uiSpec.jobInfo.methodName}(<@utils.makeRenderMethodCallParametersDeclaration uiSpec/>${uiSpec.jobInfo.localDataCheckDeclare}) {
+        <#if uiSpec.callBackUrlDataSourceInfo.type == "model_path">
+        StringBuilder sb = new StringBuilder();
+            <@utils.gen_string_concat_builder_part uiSpec, uiSpec.srcUrlDataSourceInfo, ""/>
+        return sb.toString();
+    
+        <#else>
+        StringBuilder sb = new StringBuilder();
+            <#list uiSpec.callBackUrlDataSourceInfo.children as segDsInfo>
+                <#if segDsInfo.type="const_string">
+        sb.append("${segDsInfo.dataSourceExpression}");
+                    <#continue>
+                </#if>
+                    <@utils.gen_string_concat_builder_part uiSpec, segDsInfo, "_"+(segDsInfo?index+1)/>
+            </#list>
+        return sb.toString();
+        </#if>
+    }
+    </#if>
     <#-- activeTab 的获取 -->
     <#if uiSpec.activeTabDataSourceInfo?? && uiSpec.activeTabDataSourceInfo.type!="const_string">
     protected String getActiveTab4${uiSpec.jobInfo.methodName}(<@utils.makeRenderMethodCallParametersDeclaration uiSpec/>${uiSpec.jobInfo.localDataCheckDeclare}) {

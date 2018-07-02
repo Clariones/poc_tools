@@ -46,7 +46,19 @@
         me.setContent("${uiSpec.elementTextContent!}");
 	</#if><#if uiSpec.type??>
 		me.setType("${uiSpec.type}");</#if><#if uiSpec.level??>
-		me.setLevel("${uiSpec.level}");</#if>
+		me.setLevel("${uiSpec.level}");</#if><#if uiSpec.sharingTitle??>
+		me.setShareTitle("${uiSpec.sharingTitle}");</#if><#if uiSpec.level??>
+		me.setLevel("${uiSpec.level}");</#if><#if uiSpec.imageUrl??>
+		<#if uiSpec.imageUrlDataSourceInfo.type="const_string">
+		me.setImageUrl("${uiSpec.imageUrlDataSourceInfo.dataSourceExpression}");
+		<#else>
+		me.setImageUrl(getImageUrl4${uiSpec.jobInfo.methodName}(<@utils.makeRenderMethodCallParameters uiSpec/>${uiSpec.jobInfo.localDataVar}));
+		</#if></#if><#if uiSpec.callBackUrl??>
+		<#if uiSpec.callBackUrlDataSourceInfo.type="const_string">
+    	me.setCallBackUrl("${uiSpec.callBackUrlDataSourceInfo.dataSourceExpression}");
+    	<#else>
+		me.setCallBackUrl(getCallBackUrl4${uiSpec.jobInfo.methodName}(<@utils.makeRenderMethodCallParameters uiSpec/>${uiSpec.jobInfo.localDataVar}));
+		</#if></#if>
         <@gen_component_chidren_ifhas uiSpec/>
 </#macro>
 

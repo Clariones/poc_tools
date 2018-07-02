@@ -1,7 +1,7 @@
 package uispec.parser.specelement;
 
 public class MoneyUiSpec extends BaseUiSpecElement {
-    protected String format = "￥#,###.##";
+    protected String format = "￥#,##0.##";
 
     public String getFormat() {
         return format;

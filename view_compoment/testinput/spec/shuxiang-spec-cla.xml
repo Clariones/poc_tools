@@ -259,7 +259,7 @@
 
     <c:page name="customer-campaign-list" title="我的活动">
     	<c:data-source user="$(customer)"/>
-    	<c:container class="container-vertical">
+    	<c:column>
     		<c:container class="container-horizontal" data-source="$(user.campaign_register_history)" >
     			<c:container class="campaign-info-left" link-to-url="/wxaService/campaignDetail/$(campaign.id)/">
         			<c:image class="image-size-thumbnail campaign-image" src-url="$(campaign.campaign_image)"></c:image>
@@ -279,9 +279,34 @@
         			<c:text name="register-status" data-source="$(cancelled)">报名情况</c:text>
         		</c:container>
     		</c:container>
-    	</c:container>
+    	</c:column>
     </c:page>
            
+    <c:page name="customer-review-list" title="我的书评">
+    	<c:data-source user="$(customer)"/>
+    	<c:column>
+    		<c:column class="review-record-container" data-source="$(user.book_review)">
+    			<c:row>
+    				<c:font-icon>clock-o</c:font-icon>
+    				<c:date data-source="$(review_publish_datetime)" format="yyyy-MM-dd HH:mm"></c:date>
+    			</c:row>
+    			<c:row class="card" link-to-url="/wxaService/bookDetailPage/$(book_info.id)/true/">
+    				<c:image src-url="$(book_info.book_cover)" class="image-size-thumbnail"></c:image>
+    				<c:column>
+    					<c:text class="text-size-section-title" data-source="$(book_info.book_name)"></c:text>
+    					<c:text data-source="$(book_info.book_recommend.name)"/>
+    				</c:column>
+    			</c:row>
+    			<c:text data-source="$(review_content)" max-line="4"></c:text>
+    			<c:row class="align-right">
+    				<c:font-icon>heart</c:font-icon>
+    				<c:text>赞</c:text>
+    				<c:text data-source="$(_by_key_praiseCount)"></c:text>
+    			</c:row>
+    		</c:column>
+    	</c:column>
+    </c:page>
+          
     <c:page name="customer-borrow-list" title="我的借阅">
     	<c:data-source user="$(customer)"/>
     	<c:container class="container-vertical">
@@ -350,7 +375,7 @@
     	</c:container>
     	<c:container name="expire-fee" class="container-horizontal" >
     		<c:text class="text-size-main text-color-main aligh-left">逾期费用</c:text>
-    		<c:money class="text-size-main text-color-main align-right" data-source="$(record._by_key_expireFee)" format="#,###.##元"></c:money>
+    		<c:money class="text-size-main text-color-main align-right" data-source="$(record._by_key_expireFee)" format="#,##0.##元"></c:money>
     	</c:container>
     </c:page>
 
@@ -360,7 +385,7 @@
     	<c:column class="align-center">
     		<c:image class="image-size-main" src-url="/images/customer_account.png">￥符号</c:image>
     		<c:text class="text-size-article-title">账户余额</c:text>
-    		<c:money class="text-size-article-title" data-source="$(user.account_balance)" format="#,###.00 元"></c:money>
+    		<c:money class="text-size-article-title" data-source="$(user.account_balance)" format="#,##0.00 元"></c:money>
     		<c:text class="btn btn-primary" link-to-url="/wxaService/customerStartRecharge/">充值</c:text>
     		<c:text class="text-size-section-title text-color-main" link-to-url="/wxaService/customerAccountHistory/">明 细</c:text>"
     	</c:column>
@@ -374,15 +399,15 @@
     			<c:field type="select" name="recharge_ammount" label="￥">
     				<c:option value="10" display-text="10元"></c:option>
     				<c:option value="20" display-text="20元"></c:option>
-    				<c:option value="50" display-text="50元"></c:option>
+    				<c:option value="50" display-text="50元" checked="true"></c:option>
     				<c:option value="100" display-text="100元"></c:option>
     				<c:option value="200" display-text="200元"></c:option>
     				<c:option value="500" display-text="500元"></c:option>
     			</c:field>
-    			<c:field type="check-box" name="payment_way">
+    			<c:field type="check_box" name="payment_way">
     				<c:option value="wechat" display-text="微信支付" checked="true"></c:option>
     			</c:field>
-    			<c:action name="submitRechargeForm" level="primary" link-to-url="/wxaService/customerDoRecharge/">充值</c:action>
+    			<c:online-payment name="submitRechargeForm" link-to-url="/wxaService/placeRechargeOrder/">充值</c:online-payment>
     		</c:form>
     	</c:column>
      </c:page>
@@ -429,7 +454,7 @@
      				</c:column>
      			</c:row>
      			<c:row name="pay-action" class="align-both-ends">
-     					<c:money data-source="$(actual_amount)" format="应付：￥#,###.##元" class="text-color-marked-main"></c:money>
+     					<c:money data-source="$(actual_amount)" format="应付：￥#,##0.##元" class="text-color-marked-main"></c:money>
      					<c:text class="btn btn-info" link-to-url="/wxaService/customerStartPayOrder/$(id)/">付款</c:text>
      			</c:row>
      		</c:column>
@@ -483,7 +508,7 @@
 			</c:column>
 			<c:column class="align-both-ends">
 				<c:text>逾期费用</c:text>
-				<c:money data-source="$(borrowRecord._by_key_expiredFee)" format="#,###.##元"></c:money>
+				<c:money data-source="$(borrowRecord._by_key_expiredFee)" format="#,##0.##元"></c:money>
 			</c:column>
 		</c:row>
 		
@@ -498,40 +523,53 @@
 			</c:column>
 		</c:row>
 		
-		<c:row name="order-block">
-			<c:text class="text-size-section-title text-color-marked-main">订单信息</c:text>
-			<c:column class="align-both-ends">
+		<c:text class="text-size-section-title text-color-marked-main">订单信息</c:text>
+		<c:column name="order-block">
+			<c:row class="align-both-ends">
 				<c:text>订单编号:</c:text>
 				<c:text data-source="$(order.id)"></c:text>
-			</c:column>
-			<c:column class="align-both-ends">
+			</c:row>
+			<c:row class="align-both-ends">
 				<c:text>下单时间:</c:text>
 				<c:date data-source="$(order.create_time)" format="yyyy-MM-dd HH:mm:ss"></c:date>
-			</c:column>
-		</c:row>
+			</c:row>
+			<c:row class="align-both-ends">
+				<c:text>商品金额</c:text>
+				<c:money data-source="$(order.original_amount)" format="#,##0.##元"></c:money>
+			</c:row>
+			<c:row class="align-both-ends">
+				<c:text>实付金额</c:text>
+				<c:money class="text-color-marked-main" data-source="$(order.actual_amount)" format="#,##0.##元"></c:money>
+			</c:row>
+		</c:column>
 		
-		<c:row name="payment-block">
+		<c:column name="payment-block">
 			<c:text class="text-size-section-title text-color-marked-main">支付信息</c:text>
-			<c:column class="align-both-ends">
+			<c:row class="align-both-ends">
 				<c:text>支付方式:</c:text>
 				<c:text data-source="$(payment.payment_method)"></c:text>
-			</c:column>
-			<c:column class="align-both-ends">
+			</c:row>
+			<c:row class="align-both-ends">
 				<c:text>支付时间:</c:text>
 				<c:date data-source="$(payment.last_update_time)" format="yyyy-MM-dd HH:mm:ss"></c:date>
-			</c:column>
-			<c:column class="align-both-ends">
-				<c:text>商品金额</c:text>
-				<c:money data-source="$(order.original_amount)" format="#,###.##元"></c:money>
-			</c:column>
-			<c:column class="align-both-ends">
-				<c:text>实付金额</c:text>
-				<c:money class="text-color-marked-main" data-source="$(order.actual_amount)" format="#,###.##元"></c:money>
-			</c:column>
-		</c:row>
+			</c:row>
+			<c:row class="align-both-ends">
+				<c:text>支付金额</c:text>
+				<c:money class="text-color-marked-main" data-source="$(payment.paid_amount)" format="#,##0.##元"></c:money>
+			</c:row>
+		</c:column>
 		
 		<c:row class="align-center" name="payment-action">
-			<c:text class="btn btn-primary" link-to-url="/wxaService/customerStartPayOrder/$(order.id)/">去支付</c:text>
+			<c:form name="pay_form">
+				<c:action link-to-url="/wxaService/customerStartPayOrder/$(order.id)/">去支付</c:action>
+			</c:form>
+			<c:form name="authorize_form">
+				<c:button type="getUserPhoneNumber" 
+					link-to-url="/wxaService/customerStartPayOrder/$(order.id)/"
+					call-back-url="/wxaService/updateUserPhoneNumber/">
+					去支付
+				</c:button>
+			</c:form>
 		</c:row>
 	</c:page>
 	
@@ -556,7 +594,7 @@
 			<c:image class="image-size-thumbnail" src-url="$(user.logo_image)"></c:image>
 			<c:column>
 				<c:text class="text-size-marked-main" data-source="$(user.nick_name)"></c:text>
-				<c:text class="text-size-main" data-source="$(user.member_service.product_name)"></c:text>
+				<c:text class="text-size-main" data-source="$(user.member_service.product_name)" link-to-url="/wxaService/customerMemberService/"></c:text>
 			</c:column>
 		</c:row>
 		<c:row name="apply-trial-member" link-to-url="/wxaService/applyTrailMemberService/">
@@ -579,8 +617,84 @@
 			<c:text class="text-size-section-title text-color-main">我的余额</c:text>
 			<c:money class="text-size-section-title text-color-marked-main" data-source="$(user.account_balance)"></c:money>
 		</c:row>
-		<c:row class="align-left card small-bottom-space" link-to-url="/wxaService/">
+		<c:row class="align-left card small-bottom-space" link-to-url="/wxaService/customerReviewList/">
 			<c:text class="text-size-section-title text-color-main">我的书评</c:text>
+		</c:row>
+	</c:page>
+	
+	<c:page name="customer-campaign-history" title="我的活动">
+		<c:data-source user="$(customer)"/>
+		
+		<c:column>
+			<c:row name="record-block" class="card register_history_container" data-source="$(user.campaign_register_history)" link-to-url="/wxaService/campaignDetail/$(campaign.id)">
+				<c:column>
+					<c:image src-url="$(campaign.campaign_image)"></c:image>
+					<c:text class="text-color-marked-note text-size-main campaign-status" data-source="$(campaign.campaign_status)">状态</c:text>
+				</c:column>
+				<c:column class="roomy_block">
+					<c:text data-source="$(campaign.campaign_name)" class="text-size-section-title"></c:text>
+					<c:date data-source="$(campaign.campaign_start_time)" format="活动时间：MM-dd HH:mm"></c:date>
+					<c:text data-source="活动地点：$(campaign.campaign_hold_address)"></c:text>
+					<c:text class="text-color-note" data-source="$(_by_key_markLine)"></c:text>
+				</c:column>
+				<c:text class="register_history_mark" data-source="$(_by_key_mark)"/>
+			</c:row>
+		</c:column>
+	</c:page>
+	
+	<c:page name="customer-member-service" title="会员服务">
+		<c:data-source user="$(customer)"/>
+		<c:data-source platform="$(book_sharing_platform)"/>
+		
+		<c:column class="align-center">
+			<c:image class="image-size-icon" src-url="$(user.logo_image)"></c:image>
+			<c:text class="text-size-section-title text-color-marked-main" data-source="$(user.nick_name)"></c:text> 
+			<c:text class="text-size-main text-color-main" data-source="$(user.member_service.product_name)"></c:text>
+		</c:column>
+		
+		<c:row class="align-center">
+			<c:text class="text-size-section-title text-color-marked-main">会员服务</c:text>
+		</c:row>
+		
+		<c:row class="card small-bottom-space" data-source="$(platform.member_service_product)">
+			<c:image class="image-size-thumbnail" src-url="$(product_cover_image)"></c:image>
+			<c:column class="wide_block">
+				<c:text class="text-size-section-title text-color-marked-main" data-source="$(product_name)"></c:text>
+				<c:rich-text data-source="$(product_description)"></c:rich-text>
+			</c:column>
+			<c:column class="align-center">
+				<c:button link-to-url="/wxaService/selectMemberService/$(id)/" data-source="$(_by_key_actionName)"></c:button>
+			</c:column>
+		</c:row>
+	</c:page>
+	
+	<c:page name="select-member-service" title="选择会员">
+		<c:data-source product="$(member_service_product)"/>
+		<c:data-source info="$(member_rights_display)"/>
+		
+		<c:row class="align-center">
+			<c:text class="text-size-section-title text-color-marked-main" data-source="$(product.product_name)"></c:text>
+		</c:row>
+		<c:row>
+			<c:rich-text data-source="$(product.product_description)"></c:rich-text>
+		</c:row>
+		<c:row name="sku-list" class="member-service-sku-list align-left">
+			<c:column class="align-center member-service-sku-item card small-space" data-source="$(product.member_service_bundle_sku)">
+				<c:text class="text-size-main" data-source="$(service_period_months)个月"></c:text>
+				<c:text class="text-size-note" data-source="$(member_service_name)"></c:text>
+				<c:money class="text-color-marked-main" data-source="$(sale_price)"></c:money>
+				<c:money class="text-size-note text-color-note" data-source="$(list_price)"></c:money>
+			</c:column>
+		</c:row>
+		<c:form>
+			<c:field label="请选择" name="sku" type="select"></c:field>
+			<c:action link-to-url="/wxaService/placeMemberServiceOrder/">支付</c:action>
+		</c:form>
+		<c:row name="item-list" class="member-rights-item-list align-left">
+			<c:column class="align-center member-rights-item" data-source="$(info.member_rights_display_item)">
+				<c:image src-url="$(image)"></c:image>
+				<c:text data-source="$(summary)"></c:text>
+			</c:column>
 		</c:row>
 	</c:page>
 	
@@ -603,20 +717,20 @@
 			</c:row>
 		</c:column>
 	</c:page>
-	<!-- 
+	
 	<c:page name="customer-footprint" title="历程">
 		<c:data-source user="$(customer)"/>
 		<c:column>
-			<c:column name="footprint" data-source="$(user.customer_footprint)">
-				<c:container>
+			<c:column class="card normal-bottom-space" name="footprint" data-source="$(user.customer_footprint)">
+				<c:row>
 					<c:font-icon level="primary">clock-o</c:font-icon>
 					<c:date data-source="$(create_time)" format="fuzz_after_1_hour"></c:date>
-				</c:container>
+				</c:row>
 				<c:text data-source="$(title)"></c:text>
-				<c:text data-source="$(description)" max-line="5"></c:text>
-				<c:row name="related-item">
+				<c:text data-source="$(description)" max-line="4"></c:text>
+				<c:row name="related-item" class="card small-bottom-space">
 					<c:image class="image-size-thumbnail" src-url="$(item_image)"></c:image>
-					<c:column>
+					<c:column >
 						<c:text class="text-size-section-title" data-source="$(item_title)"></c:text>
 						<c:text class="text-size-main" data-source="$(item_description)"></c:text>
 					</c:column>
@@ -624,7 +738,7 @@
 			</c:column>
 		</c:column>
 	</c:page>
-	
+	<!-- 
 	<c:page name="customer_message_list" title="我的消息">
     	<c:data-source user="$(customer)"/>
     	
@@ -759,7 +873,7 @@
     			<c:option value="wechat" display-text="微信支付" checked="true"></c:option>
     			<c:option value="wallet" display-text="余额支付"></c:option>
     		</c:field>
-    		<c:online-payment name="online-payment" link-to-url="/wxaOnlinePayment/">确定支付</c:online-payment>
+    		<c:online-payment name="online-payment" link-to-url="/wxaService/doOnlinePayment/$(order.id)/">确定支付</c:online-payment>
     	</c:form>
     </c:page>
 </root>
