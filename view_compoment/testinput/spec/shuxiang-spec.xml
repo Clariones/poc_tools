@@ -320,42 +320,40 @@
 
     <c:page name="book-review-list" title="书评列表">
         <c:data-source plaza="$(book_plaza)"/>
-        <c:container data-source="$(plaza.book_review)">
-            <c:column>
-                <c:container class="align-both-ends card">
-                    <c:row>
-                        <c:image class="image-size-icon" src-url="$(reviewer.logo_image)"/>
-                        <c:text class="text-size-section-title" data-source="$(reviewer.nick_name)"/>
-                    </c:row>
-                    <c:ugc-control class="text-size-main text-color-main"
-                                   link-to-url="/wxaService/ugcContentControl/$(id)/book/"
-                                   title-block="屏蔽" title-report="举报">
-                        ...
-                    </c:ugc-control>
-                </c:container>
-                <c:column class="card" link-to-url="/wxaService/bookReviewDetail/$(id)/">
-                    <c:text class="text-size-main small-top-space" data-source="$(review_content)" max-line="4"/>
-                    <c:row class="card small-top-space" link-to-url="/wxaService/bookDetailPage/$(book_info.id)/">
-                        <c:image class="image-size-thumbnail normal-top-space" src-url="$(book_info.book_cover)"/>
-                        <c:column class="normal-top-space normal-left-space">
-                            <c:text class="text-size-section-title text-color-marked-main"
-                                    data-source="$(book_info.book_name)"/>
-                            <c:text class="text-size-main" data-source="$(book_info.book_recommend.name)"/>
-                        </c:column>
-                    </c:row>
-                    <c:container class="align-both-ends small-top-space">
-                        <c:date name="post-time" class="text-size-note" data-source="$(review_publish_datetime)"
-                                format="1_hour_or_earlier">时间
-                        </c:date>
-                        <c:row class="align-right">
-                            <c:font-icon name="thumbUp" class="text-size-note">heart-o</c:font-icon>
-                            <c:text name="prise-count" class="text-size-note" data-source="$(_by_key_praiseCount)">100
-                            </c:text>
-                        </c:row>
-                    </c:container>
-                </c:column>
-            </c:column>
-        </c:container>
+        <c:column data-source="$(plaza.book_review)" class="normal-bottom-space">
+             <c:container class="align-both-ends card">
+                 <c:row>
+                     <c:image class="image-size-icon" src-url="$(reviewer.logo_image)"/>
+                     <c:text class="text-size-section-title" data-source="$(reviewer.nick_name)"/>
+                 </c:row>
+                 <c:ugc-control class="text-size-main text-color-main"
+                                link-to-url="/wxaService/ugcContentControl/$(id)/book/"
+                                title-block="屏蔽" title-report="举报">
+                     ...
+                 </c:ugc-control>
+             </c:container>
+             <c:column class="card">
+                 <c:text class="text-size-main small-top-space" data-source="$(review_content)" max-line="4"/>
+                 <c:row class="card small-top-space" link-to-url="/wxaService/bookDetailPage/$(book_info.id)/">
+                     <c:image class="image-size-thumbnail normal-top-space" src-url="$(book_info.book_cover)"/>
+                     <c:column class="normal-top-space normal-left-space">
+                         <c:text class="text-size-section-title text-color-marked-main"
+                                 data-source="$(book_info.book_name)"/>
+                         <c:text class="text-size-main" data-source="$(book_info.book_recommend.name)"/>
+                     </c:column>
+                 </c:row>
+                 <c:container class="align-both-ends small-top-space">
+                     <c:date name="post-time" class="text-size-note" data-source="$(review_publish_datetime)"
+                             format="1_hour_or_earlier">时间
+                     </c:date>
+                     <c:row class="align-right">
+                         <c:font-icon name="thumbUp" class="text-size-note">heart-o</c:font-icon>
+                         <c:text name="prise-count" class="text-size-note" data-source="$(_by_key_praiseCount)">100
+                         </c:text>
+                     </c:row>
+                 </c:container>
+             </c:column>
+         </c:column>
     </c:page>
 
     <!--<c:page name="book-review-detail" title="书评详情">-->
