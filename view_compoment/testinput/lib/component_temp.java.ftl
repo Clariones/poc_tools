@@ -5,7 +5,8 @@
 <#if uiSpec.cssClass?has_content>
         me.setClasses("${uiSpec.cssClass}");</#if><#if uiSpec.id?has_content>
         me.setId("${uiSpec.id}");</#if><#if uiSpec.tag?has_content>
-        me.setTag("${uiSpec.tag}");</#if>
+        me.setTag("${uiSpec.tag}");</#if><#if uiSpec.statInPage?has_content>
+        me.setStatInPage(${uiSpec.statInPage});</#if>
 </#macro>
 
 <#macro gen_component_chidren_ifhas uiSpec>
@@ -47,7 +48,11 @@
 	</#if><#if uiSpec.type??>
 		me.setType("${uiSpec.type}");</#if><#if uiSpec.level??>
 		me.setLevel("${uiSpec.level}");</#if><#if uiSpec.sharingTitle??>
-		me.setShareTitle("${uiSpec.sharingTitle}");</#if><#if uiSpec.level??>
+		<#if uiSpec.sharingTitleDataSourceInfo.type="const_string">
+		me.setShareTitle("${uiSpec.sharingTitle}");
+		<#else>
+		me.setShareTitle(getShareTitle4${uiSpec.jobInfo.methodName}(<@utils.makeRenderMethodCallParameters uiSpec/>${uiSpec.jobInfo.localDataVar}));
+		</#if></#if><#if uiSpec.level??>
 		me.setLevel("${uiSpec.level}");</#if><#if uiSpec.imageUrl??>
 		<#if uiSpec.imageUrlDataSourceInfo.type="const_string">
 		me.setImageUrl("${uiSpec.imageUrlDataSourceInfo.dataSourceExpression}");

@@ -35,6 +35,16 @@ public class BaseUiSpecElement {
     protected String linkToUrl;
     @JsonIgnore
     protected DataSourceInfo linkToDataSourceInfo;
+    protected String statInPage;
+
+    
+    public String getStatInPage() {
+        return statInPage;
+    }
+
+    public void setStatInPage(String statInPage) {
+        this.statInPage = statInPage;
+    }
 
     public boolean isShouldBeRender() {
         return shouldBeRender;

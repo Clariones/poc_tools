@@ -14,8 +14,17 @@ public class ButtonUiSpec extends BaseUiSpecElement {
     protected String imageUrl;
     protected DataSourceInfo callBackUrlDataSourceInfo;
     protected DataSourceInfo imageUrlDataSourceInfo;
+    protected DataSourceInfo sharingTitleDataSourceInfo;
     
     
+    public DataSourceInfo getSharingTitleDataSourceInfo() {
+        return sharingTitleDataSourceInfo;
+    }
+
+    public void setSharingTitleDataSourceInfo(DataSourceInfo sharingTitleDataSourceInfo) {
+        this.sharingTitleDataSourceInfo = sharingTitleDataSourceInfo;
+    }
+
     public String getImageUrl() {
         return imageUrl;
     }
@@ -84,6 +93,9 @@ public class ButtonUiSpec extends BaseUiSpecElement {
         if (!TextUtil.isBlank(this.getImageUrl())) {
             result.put("imageUrl", this.getImageUrl());
         }
+        if (!TextUtil.isBlank(this.getSharingTitle())) {
+            result.put("shareTitle", this.getSharingTitle());
+        }
         return result;
     }
 
@@ -99,6 +111,10 @@ public class ButtonUiSpec extends BaseUiSpecElement {
         }
         if (key.equals("imageUrl")) {
             this.setImageUrlDataSourceInfo(dsInfo);
+            return true;
+        }
+        if (key.equals("shareTitle")) {
+            this.setSharingTitleDataSourceInfo(dsInfo);
             return true;
         }
         return false;

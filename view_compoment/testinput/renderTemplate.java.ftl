@@ -29,12 +29,15 @@ public class ${pageSpec.className}BaseRender extends BasicRender{
         setViewModel(viewModel);
 
         // 渲染page对象
-        PageViewComponent me = new PageViewComponent("${pageSpec.page.title}");
+        PageViewComponent me = createPageViewComponent("${pageSpec.page.title}");
         RenderingContext context = initRenderingContext(userContext);
         <@utils.makePageChildrenCall pageSpec.page/>
         return me;
     }
 
+	protected PageViewComponent createPageViewComponent(String pageTitle){
+		return new PageViewComponent(pageTitle);
+	}
 
 <#list pageSpec.members as uiSpec>
     <#if !uiSpec.jobInfo??>
@@ -109,13 +112,35 @@ public class ${pageSpec.className}BaseRender extends BasicRender{
         return sb.toString();
     }
     </#if>
+    <#-- share button share title 的获取 -->
+    <#if uiSpec.sharingTitleDataSourceInfo?? && uiSpec.sharingTitleDataSourceInfo.type != "const_string">
+    // type = ${uiSpec.sharingTitleDataSourceInfo.type}
+    protected String getShareTitle4${uiSpec.jobInfo.methodName}(<@utils.makeRenderMethodCallParametersDeclaration uiSpec/>${uiSpec.jobInfo.localDataCheckDeclare}) {
+        <#if uiSpec.sharingTitleDataSourceInfo.type == "model_path">
+        StringBuilder sb = new StringBuilder();
+            <@utils.gen_string_concat_builder_part uiSpec, uiSpec.sharingTitleDataSourceInfo, ""/>
+        return sb.toString();
+    
+        <#else>
+        StringBuilder sb = new StringBuilder();
+            <#list uiSpec.sharingTitleDataSourceInfo.children as segDsInfo>
+                <#if segDsInfo.type="const_string">
+        sb.append("${segDsInfo.dataSourceExpression}");
+                    <#continue>
+                </#if>
+                    <@utils.gen_string_concat_builder_part uiSpec, segDsInfo, "_"+(segDsInfo?index+1)/>
+            </#list>
+        return sb.toString();
+        </#if>
+    }
+    </#if>
     <#-- share button image url 的获取 -->
     <#if uiSpec.imageUrlDataSourceInfo?? && uiSpec.imageUrlDataSourceInfo.type != "const_string">
     // type = ${uiSpec.imageUrlDataSourceInfo.type}
-    protected String getSrcUrl4${uiSpec.jobInfo.methodName}(<@utils.makeRenderMethodCallParametersDeclaration uiSpec/>${uiSpec.jobInfo.localDataCheckDeclare}) {
+    protected String getImageUrl4${uiSpec.jobInfo.methodName}(<@utils.makeRenderMethodCallParametersDeclaration uiSpec/>${uiSpec.jobInfo.localDataCheckDeclare}) {
         <#if uiSpec.imageUrlDataSourceInfo.type == "model_path">
         StringBuilder sb = new StringBuilder();
-            <@utils.gen_string_concat_builder_part uiSpec, uiSpec.srcUrlDataSourceInfo, ""/>
+            <@utils.gen_string_concat_builder_part uiSpec, uiSpec.imageUrlDataSourceInfo, ""/>
         return sb.toString();
     
         <#else>
@@ -134,10 +159,10 @@ public class ${pageSpec.className}BaseRender extends BasicRender{
     <#-- share button call-back url 的获取 -->
     <#if uiSpec.callBackUrlDataSourceInfo?? && uiSpec.callBackUrlDataSourceInfo.type != "const_string">
     // type = ${uiSpec.imageUrlDataSourceInfo.type}
-    protected String getSrcUrl4${uiSpec.jobInfo.methodName}(<@utils.makeRenderMethodCallParametersDeclaration uiSpec/>${uiSpec.jobInfo.localDataCheckDeclare}) {
+    protected String getCallBackUrl4${uiSpec.jobInfo.methodName}(<@utils.makeRenderMethodCallParametersDeclaration uiSpec/>${uiSpec.jobInfo.localDataCheckDeclare}) {
         <#if uiSpec.callBackUrlDataSourceInfo.type == "model_path">
         StringBuilder sb = new StringBuilder();
-            <@utils.gen_string_concat_builder_part uiSpec, uiSpec.srcUrlDataSourceInfo, ""/>
+            <@utils.gen_string_concat_builder_part uiSpec, uiSpec.callBackUrlDataSourceInfo, ""/>
         return sb.toString();
     
         <#else>
