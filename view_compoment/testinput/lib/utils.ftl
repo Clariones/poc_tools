@@ -136,7 +136,7 @@
     <#assign startVarName="viewModel"/>
 </#if>
 <#list dsInfo.children as segDsInfo>
-	<#if !uiSpec.selfHanleListInput && uiSpec.jobInfo.hasInputData && segDsInfo?index==0>
+	<#if !uiSpec.selfHanleListInput && uiSpec.jobInfo.hasInputData && segDsInfo?index==0 && segDsInfo.varScope != 'page'>
 		<#continue>
 	</#if>
     <#if segDsInfo?has_next>

@@ -157,9 +157,13 @@ public class RenderTemplateGenerator {
                 if (!DataSourceUtil.isVariableExpression(value)) {
                     dsInfo = new DataSourceInfo(DataSourceInfo.TYPE_CONST_STRING, "string", value, null);
                 } else {
+                    try {
                     dsInfo = DataSourceUtil.parseExpression(page, globalVarTable, closestParentDataInfo, dsInfoList, value);
+                    }catch(Exception e) {
+                        throw new Exception(" at line " + curUiSpec.getElementDeclaredLineNumber(), e); 
+                    }
                     if (dsInfo == null) {
-                        throw new Exception("Cannot parse data-source " + value);
+                        throw new Exception("Cannot parse data-source " + value +" at line " + curUiSpec.getElementDeclaredLineNumber());
                     }
                 }
                 if (!curUiSpec.setAdditionalDataSourceInfo(key, dsInfo)) {
