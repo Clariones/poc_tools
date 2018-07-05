@@ -452,27 +452,29 @@
         <!--</c:column>-->
     <!--</c:page>-->
 
-    <!--<c:page name="book-submit-review" title="发表评论">-->
-        <!--<c:data-source book="$(book)"/>-->
-        <!--<c:column>-->
-            <!--<c:row name="book-info-block" class="card">-->
-                <!--<c:image class="image-size-thumbnail normal-top-space" src-url="$(book.book_cover)"/>-->
-                <!--<c:column class="normal-top-space normal-left-space">-->
-                    <!--<c:text class="text-size-section-title text-color-marked-main" data-source="$(book.book_name)">名称-->
-                    <!--</c:text>-->
-                    <!--<c:text class="text-size-main" data-source="$(book.book_recommend.name)">推荐-->
-                    <!--</c:text>-->
-                <!--</c:column>-->
-            <!--</c:row>-->
-            <!--<c:form name="post-review-form">-->
-                <!--<c:field name="reviewContent" type="longtext" placeholder="请输入评论内容信息"/>-->
-                <!--<c:action name="submitBookReview" level="primary"-->
-                          <!--link-to-url="wxaService/postBookReview/$(book.id)/">提交-->
-                <!--</c:action>-->
-            <!--</c:form>-->
-        <!--</c:column>-->
-    <!--</c:page>-->
-
+    <c:page name="book-submit-review" title="发表评论">
+        <c:data-source book="$(book)"/>
+        <c:column>
+            <c:row name="book-info-block" class="card">
+                <c:image class="image-size-thumbnail normal-top-space" src-url="$(book.book_cover)"/>
+                <c:column class="normal-top-space normal-left-space">
+                    <c:text class="text-size-section-title text-color-marked-main" data-source="$(book.book_name)">名称
+                    </c:text>
+                    <c:text class="text-size-main" data-source="$(book.book_recommend.name)">推荐
+                    </c:text>
+                </c:column>
+            </c:row>
+            <c:form name="post-review-form">
+                <c:field name="reviewContent" type="longtext"  max-value="1024" placeholder="请输入评论内容信息"/>
+                <c:field name="book_id" type="hidden" data-source="$(book.id)"/>
+                <c:field name="book_copy_id" type="hidden" data-source="$(book._by_key_bookcopy)"/>
+                <c:action name="submitBookReview" level="primary"
+                          link-to-url="wxaService/postBookReview/">提交
+                </c:action>
+            </c:form>
+        </c:column>
+    </c:page>
+    
     <!--<c:page name="book-detail" title="书籍详情">-->
         <!--<c:data-source book="$(book)"/>-->
         <!--<c:column>-->
