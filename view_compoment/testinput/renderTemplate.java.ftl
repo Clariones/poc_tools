@@ -24,6 +24,12 @@ public class ${pageSpec.className}BaseRender extends BasicRender{
     public void setViewModel(${pageSpec.viewModelName} viewModel){
         this.viewModel = viewModel;
     }
+    
+    public PageViewComponent doRendering(${userContext} userContext, ${pageSpec.viewModelName} viewModel, String pageRefreshUrl) throws Exception{
+        PageViewComponent me = doRendering(userContext, viewModel);
+        me.setLinkToUrl(pageRefreshUrl);
+        return me;
+    }
 
     public PageViewComponent doRendering(${userContext} userContext, ${pageSpec.viewModelName} viewModel) throws Exception{
         setViewModel(viewModel);
@@ -202,22 +208,13 @@ public class ${pageSpec.className}BaseRender extends BasicRender{
     <#if uiSpec.elementTypeName == "image" && uiSpec.srcUrlDataSourceInfo.type != "const_string">
     // type = ${uiSpec.srcUrlDataSourceInfo.type}
     protected String getSrcUrl4${uiSpec.jobInfo.methodName}(<@utils.makeRenderMethodCallParametersDeclaration uiSpec/>${uiSpec.jobInfo.localDataCheckDeclare}) {
-        <#if uiSpec.srcUrlDataSourceInfo.type == "model_path">
-        StringBuilder sb = new StringBuilder();
-            <@utils.gen_string_concat_builder_part uiSpec, uiSpec.srcUrlDataSourceInfo, ""/>
-        return sb.toString();
-    
-        <#else>
-        StringBuilder sb = new StringBuilder();
-            <#list uiSpec.srcUrlDataSourceInfo.children as segDsInfo>
-                <#if segDsInfo.type="const_string">
-        sb.append("${segDsInfo.dataSourceExpression}");
-                    <#continue>
-                </#if>
-                    <@utils.gen_string_concat_builder_part uiSpec, segDsInfo, "_"+(segDsInfo?index+1)/>
-            </#list>
-        return sb.toString();
-        </#if>
+        <@gen_get_string_exp_value uiSpec, uiSpec.srcUrlDataSourceInfo />
+    }
+    </#if>
+    <#-- 获取container target-id 的函数 -->
+    <#if uiSpec.targetIdDataSourceInfo?? && uiSpec.targetIdDataSourceInfo.type != "const_string">
+    protected String getTargetId4${uiSpec.jobInfo.methodName}(<@utils.makeRenderMethodCallParametersDeclaration uiSpec/>${uiSpec.jobInfo.localDataCheckDeclare}) {
+        <@gen_get_string_exp_value uiSpec, uiSpec.targetIdDataSourceInfo/>
     }
     </#if>
     <#-- 判断元素是否需要渲染的函数 -->
@@ -242,4 +239,21 @@ public class ${pageSpec.className}BaseRender extends BasicRender{
 </#list>
 }
 
-
+<#macro gen_get_string_exp_value uiSpec, dataSrcInfo>
+	<#if dataSrcInfo.type == "model_path">
+        StringBuilder sb = new StringBuilder();
+            <@utils.gen_string_concat_builder_part uiSpec, dataSrcInfo, ""/>
+        return sb.toString();
+    
+        <#else>
+        StringBuilder sb = new StringBuilder();
+            <#list dataSrcInfo.children as segDsInfo>
+                <#if segDsInfo.type="const_string">
+        sb.append("${segDsInfo.dataSourceExpression}");
+                    <#continue>
+                </#if>
+                    <@utils.gen_string_concat_builder_part uiSpec, segDsInfo, "_"+(segDsInfo?index+1)/>
+            </#list>
+        return sb.toString();
+        </#if>
+</#macro>

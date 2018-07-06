@@ -6,7 +6,8 @@
         me.setClasses("${uiSpec.cssClass}");</#if><#if uiSpec.id?has_content>
         me.setId("${uiSpec.id}");</#if><#if uiSpec.tag?has_content>
         me.setTag("${uiSpec.tag}");</#if><#if uiSpec.statInPage?has_content>
-        me.setStatInPage(${uiSpec.statInPage});</#if>
+        me.setStatInPage(${uiSpec.statInPage});</#if><#if !uiSpec.visible>
+        me.setVisiable(false);</#if>
 </#macro>
 
 <#macro gen_component_chidren_ifhas uiSpec>
@@ -35,6 +36,13 @@
 <#macro gen_component_container uiSpec>
         ContainerViewComponent me = new ContainerViewComponent();
         <@gen_component_common_part uiSpec/>
+        <#if uiSpec.targetId??>
+		<#if uiSpec.targetIdDataSourceInfo.type="const_string">
+		me.setTargetId("${uiSpec.targetId}");
+		<#else>
+		me.setTargetId(getTargetId4${uiSpec.jobInfo.methodName}(<@utils.makeRenderMethodCallParameters uiSpec/>${uiSpec.jobInfo.localDataVar}));
+		</#if>
+		</#if>
         <@gen_component_chidren_ifhas uiSpec/>
 </#macro>
 

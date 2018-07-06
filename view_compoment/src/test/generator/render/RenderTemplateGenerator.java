@@ -9,7 +9,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.terapico.util.FileUtils;
+import com.terapico.utils.FileUtils;
 
 import freemarker.template.Configuration;
 import freemarker.template.Template;

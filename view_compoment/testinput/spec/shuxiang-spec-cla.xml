@@ -667,18 +667,6 @@
 				<c:button link-to-url="/wxaService/selectMemberService/$(id)/" data-source="$(_by_key_actionName)"></c:button>
 			</c:column>
 		</c:row>
-		<!-- 
-		<c:row name="test-radio" class="card small-bottom-space" data-source="$(platform.member_service_product)">
-			<c:image class="image-size-thumbnail" src-url="$(product_cover_image)"></c:image>
-			<c:column class="wide_block">
-				<c:text class="text-size-section-title text-color-marked-main" data-source="$(product_name)"></c:text>
-				<c:rich-text data-source="$(product_description)"></c:rich-text>
-			</c:column>
-			<c:column class="align-center">
-				<c:button link-to-url="/wxaService/selectMemberService/$(id)/" data-source="$(_by_key_actionName)"></c:button>
-			</c:column>
-		</c:row>
-		 -->
 	</c:page>
 	
 	<c:page name="select-member-service" title="选择会员">
@@ -692,7 +680,8 @@
 			<c:rich-text data-source="$(product.product_description)"></c:rich-text>
 		</c:row>
 		<c:row name="sku-list" class="member-service-sku-list align-left">
-			<c:column class="align-center member-service-sku-item card small-space" data-source="$(product.member_service_bundle_sku)">
+			<c:column name="sku-card" class="align-center member-service-sku-item card small-space" 
+					data-source="$(product.member_service_bundle_sku)" target-id="$(id)">
 				<c:text class="text-size-main" data-source="$(service_period_months)个月"></c:text>
 				<c:text class="text-size-note" data-source="$(member_service_name)"></c:text>
 				<c:money class="text-color-marked-main" data-source="$(sale_price)"></c:money>
@@ -700,7 +689,7 @@
 			</c:column>
 		</c:row>
 		<c:form>
-			<c:field label="请选择" name="sku" type="select"></c:field>
+			<c:field name="sku" type="radio" visible="false"/>
 			<c:action link-to-url="/wxaService/placeMemberServiceOrder/">支付</c:action>
 		</c:form>
 		<c:row name="item-list" class="member-rights-item-list align-left">

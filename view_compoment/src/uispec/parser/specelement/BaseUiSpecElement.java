@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.Map;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.terapico.util.MapUtil;
 
 import poc.utils.TextUtil;
 import uispec.parser.datasource.DataSourceInfo;
@@ -25,6 +24,7 @@ public class BaseUiSpecElement {
     protected String tag;
     protected String cssClass;
     protected boolean selfHanleListInput = false;
+    protected boolean visible = true;
 
     protected List<BaseUiSpecElement> children;
     protected Map<String, Object> jobInfo;
@@ -38,6 +38,14 @@ public class BaseUiSpecElement {
     protected String statInPage;
 
     
+    public boolean isVisible() {
+        return visible;
+    }
+
+    public void setVisible(boolean visible) {
+        this.visible = visible;
+    }
+
     public String getStatInPage() {
         return statInPage;
     }
