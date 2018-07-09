@@ -29,6 +29,16 @@ public class RenderTemplateGenerator {
     protected File templateBaseFolder;
     protected String templateFileName = "renderTemplate.java.ftl";
     protected String customTemplateFileName = "renderCustomTemplate.java.ftl";
+    protected String userContextName;
+    
+    
+    public String getUserContextName() {
+        return userContextName;
+    }
+
+    public void setUserContextName(String userContextName) {
+        this.userContextName = userContextName;
+    }
 
     public File getTemplateBaseFolder() {
         return templateBaseFolder;
@@ -80,7 +90,7 @@ public class RenderTemplateGenerator {
 
     public Map<String, Object> preprocess() throws Exception {
         Map<String, Object> result = MapUtil.newMap(MapUtil.$("packageBase", this.getPackageBaseName()),
-                MapUtil.$("userContext", "ShuxiangUserContext"));
+                MapUtil.$("userContext", getUserContextName()));
         List<Map<String, Object>> jobs = new ArrayList<Map<String, Object>>();
 
         for (PageUiSpec page : pages) {

@@ -4,7 +4,7 @@ public class FieldUiSpec extends BaseUiSpecElement {
     protected String label;
     protected String type;
     protected String placeholder;
-    protected boolean required = true;
+    protected boolean required = false;
     protected boolean disabled = false;
     protected int maxLine = -1;
     protected String minValue;

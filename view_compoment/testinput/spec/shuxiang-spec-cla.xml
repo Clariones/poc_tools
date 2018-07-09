@@ -7,9 +7,9 @@
         <c:data-source shop="$(store)"/>
 
         <c:row class="flat-bar background-main" name="header-bar">
-        	<c:row class="align-both-ends">
-            	<c:text class="text-color-marked-main text-size-section-title" data-source="$(shop.store_name)">香榭国际2期店</c:text>
-            	<c:text class="text-size-section-title" link-to-url="/wxaService/storeList/">切换...</c:text>
+        	<c:row link-to-url="/wxaService/storeList/">
+            	<c:text class="text-color-marked-main text-size-section-title" data-source="$(shop.store_name)"></c:text>
+            	<c:text class="text-size-section-title">&lt;切换&gt;</c:text>
             </c:row>
             <!--  搜索功能暂时没用
             <c:container class="container-horizontal align-right">
@@ -26,7 +26,7 @@
                 <c:image src-url="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQY2RLztnCf306MdR4wm9RUTJy2r0HHc0c3HY2oQyjXLUR9nBZ9"/>
                 <c:image src-url="https://i0.hdslb.com/bfs/article/4486e9c92b7add273a5b55f86a816d0603c1313f.jpg"/>
         </c:carousel>
-        <c:row class="text-size-main text-color-main card icon-list" name="action-bar">
+        <c:row class="text-size-main text-color-main card icon-list normal-top-space normal-bottom-space" name="action-bar">
              <c:column class="icon-item" link-to-url="/wxaService/wantBorrowBook/scanCode/" >
              	<c:image src-url="/images/borrowBook.png" class="image-size-icon"/>
              	<c:text>借书</c:text>
@@ -44,7 +44,7 @@
              	<c:text>提醒</c:text>
              </c:column>
         </c:row>
-        <c:row class="flat-bar align-both-ends background-note" name="campagin-header">
+        <c:row class="flat-bar align-both-ends background-main" name="campagin-header">
         		<c:text class="text-size-section-title normal-top-space">活动</c:text>
         		<c:text class="text-size-main normal-top-space"
         				link-to-url="./wxaService/storeCampaignList/$(shop.id)/">
@@ -53,39 +53,55 @@
         </c:row>
         <c:column>
         	<c:row class="card" data-source="$(shop.campaign)" link-to-url="/wxaService/campaignDetail/$(id)/">
-        		<c:container class="campaign-info-left">
-        			<c:image class="image-size-thumbnail campaign-image" src-url="$(campaign_image)"></c:image>
+        		<c:column class="campaign-info-left">
+        			<c:image class="image-size-list-thumbnail" src-url="$(campaign_image)"></c:image>
         			<c:text class="text-color-marked-note text-size-main campaign-status pin-to-left-top" data-source="$(campaign_status)">状态</c:text>
-        		</c:container>
-        		<c:container class="container-vertical campaign-info-center" name="campaign-info-block">
+        		</c:column>
+        		<c:column class="campaign-info-right" name="campaign-info-block">
         			<c:text class="text-color-marked-main text-size-main" data-source="$(campaign_name)">标题</c:text>
-        			<c:text name="campaign-hold-time" class="text-color-main text-size-main" data-source="$(campaign_start_time)">时间</c:text>
-        			<c:text class="text-color-main text-size-main" data-source="$(campaign_hold_address)">地点</c:text>
-        		</c:container>
-        		<c:container class="container-horizontal align-right campaign-info-right">
-        			<c:text name="register-info" data-source="$(campaign_name)">报名情况</c:text>
-        		</c:container>
+        			<c:row>
+        				<c:date name="campaign-hold-time" data-source="$(campaign_start_time)" format="yyyy-MM-dd HH:mm">时间</c:date>
+        				<c:text>~</c:text>
+        				<c:date name="campaign-finish-time" data-source="$(campaign_finish_time)" format="HH:mm">时间</c:date>
+        			</c:row>
+        			<c:text class="text-color-main text-size-main" data-source="$(campaign_hold_address)" format="2,...,8">地点</c:text>
+        			<c:row>
+        				<c:text name="register-info" data-source="$(_by_key_reg_cnt)/$(available_register_quantity)人"></c:text>
+        			</c:row>
+        		</c:column>
         	</c:row>
         </c:column>
     </c:page>
 
-	<c:page name="customer-store-list" title="门店列表">
+	<c:page name="customer-store-list" title="切换门店">
         <c:data-source user="$(customer)"/>
         <c:data-source plateform="$(book_sharing_platform)"/>
+        <!-- 
         <c:row class="align-center flat-bar background-main">
         	<c:text class="text-size-section-title text-color-marked-main">附近的门店</c:text>
         </c:row>
+         -->
         <c:column>
         	<c:row class="card"  name="store-info-block" link-to-url="/wxaService/selectStore/$(id)/" data-source="$(plateform.store)">
-        		<c:image class="image-size-thumbnail" src-url="$(store_image)"></c:image>
-        		<c:column name="store-desc-block" class="roomy_block">
-        			<c:text class="text-size-main text-color-marked-main" data-source="$(store_name)">名称</c:text>
-        			<c:text class="text-size-main" data-source="$(store_address) $(store_room_number)">地址</c:text>
-        			<c:text class="text-size-main" data-source="$(store_open_time)">营业时间</c:text>
+        		<c:column class="normal_block">
+        			<c:image class="image-size-thumbnail" src-url="$(store_image)"></c:image>
         		</c:column>
-        		<c:row class="align-right normal_block">
-        			<c:text name="store-distance" class="text-size-main text-color-marked-note" data-source="$(_by_key_distance)">距离</c:text>
-        		</c:row>
+        		<c:column name="store-desc-block" class="normal_block">
+        			<c:text class="text-size-main text-color-marked-main" data-source="$(store_name)">名称</c:text>
+        			<c:row class="no-flex-weight">
+        				<c:font-icon>square</c:font-icon>
+        				<c:text class="text-size-main" data-source="$(store_open_time)">营业时间</c:text>
+        			</c:row>
+        			<c:row class="no-flex-weight align-both-ends">
+	        			<c:row>
+	        				<c:font-icon>square</c:font-icon>
+	        				<c:text data-source="$(store_address) $(store_room_number)">地址</c:text>
+        				</c:row>
+        				<c:row class="no-flex-weight">
+			        		<c:text name="store-distance" class="text-color-marked-note" data-source="$(_by_key_distance)">距离</c:text>
+	        			</c:row>
+        			</c:row>
+        		</c:column>
         	</c:row>
         </c:column>
     </c:page>
@@ -132,47 +148,44 @@
 	<c:page name="book-sharing-form" title="共享图书">
 		<c:data-source shop="$(store)"/>
 		
-    	<c:image class="image-size-banner" src-url="/images/book-sharing-banner.jpeg" />
     	<c:column>
-    		<c:row class="align-center">
-    			<c:text class="text-size-article-title text-color-main">图书共享申请</c:text>
-    		</c:row>
     		<c:text class="text-size-main">书香社区欢迎广大社区成员共享/捐赠图书，您可以将您要共享/捐赠的图书送到您身边的【书香社区门店】，如果需要上门取件，请填写下面表单，我们将尽快与您联系。</c:text>
     		<c:form name="share-book">
     			<c:field name="storeId" type="hidden" label="店ID" data-source="$(shop.id)"/>
-    			<c:field name="quantityLevel" label="共享数量" type="select" placeholder="请选择数量级别">
+    			<c:field name="quantityLevel" label="共享数量" type="select" placeholder="请选择数量级别" content="little">
     				<c:option value="little" display-text="少于10本" checked="true"/>
     				<c:option value="many" display-text="超过10本"/>
     			</c:field>
-    			<c:field name="contactName" label="联系人" type="text" placeholder="请输入取件联系人" min-value="1" max-value="20" />
-    			<c:field name="contactMobile" label="联系电话" type="text" placeholder="请输入取件联系人的电话" min-value="11" max-value="11"/>
+    			<c:field name="contactName" label="联系人" type="text" required="true" placeholder="请输入取件联系人" min-value="1" max-value="20" />
+    			<c:field name="contactMobile" label="联系电话" type="text" required="true" placeholder="请输入取件联系人的电话" min-value="11" max-value="11"/>
     			<c:field name="contactAddress" label="联系地址" type="text" placeholder="请输入您的取件地址" min-value="1" max-value="100" max-line="2"/>
-    			<c:row class="text-size-note align-center">
-    				<c:container>
-    					<c:row>
+    			<c:row class="text-size-note align-center user-agreement">
     					<c:field type="check_box" name="agreed" label="">
-    						<c:option value="true" display-text="我同意2"/>
+    						<c:option value="true" display-text="我同意"/>
     					</c:field>
     					<c:text link-to-url="/wxaService/bookSharingAgreement/">《书香社区共享图书条款》</c:text>
-    					</c:row>
-    				</c:container>
     			</c:row>
     			<c:action name="submitBookShareForm" level="primary" link-to-url="/wxaService/shareBook/">提交</c:action>
     		</c:form>
     	</c:column>
     </c:page>
+    
     <c:page name="book-sharing-success" title="共享图书">
     	<c:data-source shop="$(store)"/>
-    	
-    	<c:image class="image-size-banner" src-url="/images/book-sharing-banner.jpeg" />
-    	<c:container class="container-vertical">
-    		<c:text class="text-size-article-title text-color-main">提交成功</c:text>
-    	</c:container>
-    	<c:text class="text-size-main">感谢您的共享！</c:text>
-		<c:text class="text-size-main">我们已经收到您的共享申请，我们会尽快与您联系</c:text>
-		<c:container>
-			<c:text class="btn btn-info" link-to-url="/wxaService/viewHomePage/$(shop.id)/true/">回到主页</c:text>
-		</c:container>
+    	<c:row class="align-center normal-bottom-space card">
+    		<c:column class="no-flex-weight">
+    			<c:font-icon class="success-icon">check-circle-o</c:font-icon>
+    		</c:column>
+    		<c:column class="no-flex-weight">
+    			<c:text class="text-size-article-title text-color-main">提交成功</c:text>
+    			<c:text class="text-color-note">您的共享申请提成功了。</c:text>
+    		</c:column>
+    	</c:row>
+    	<c:column class="align-left card">
+    		<c:text class="text-size-main">感谢您的共享！</c:text>
+			<c:text class="text-size-main">我们已经收到您的共享申请，我们会尽快与您联系</c:text>
+    	</c:column>
+		<c:button class="btn btn-info" link-to-url="/wxaService/viewHomePage/">回到主页</c:button>
     </c:page>
 
     <c:page name="view-customer-profile" title="个人信息">
@@ -304,6 +317,9 @@
     				<c:text data-source="$(_by_key_praiseCount)"></c:text>
     			</c:row>
     		</c:column>
+    	</c:column>
+    	<c:column name="nothing_to_show">
+    		<c:text>您什么也没评论过</c:text>
     	</c:column>
     </c:page>
           
@@ -778,80 +794,97 @@
     <c:page name="campaign-detail" title="活动详情">
     	<c:data-source campaign="$(campaign)"/>
     	<c:data-source customer="$(customer)"/>
+    	<c:column class="card">
+	    	<c:row class="align-both-ends">
+	    		<c:text	class="text-size-main text-color-marked-main text-size-article-title" data-source="$(campaign.campaign_name)">名称</c:text>
+	    		<c:text class="text-size-main common-text-piece" data-source="$(campaign.campaign_status)">状态</c:text>
+	    		<c:row class="no-flex-weight" stat-in-page="true">
+			    	<c:row stat-in-page="true" class="no-flex-weight" link-to-url="/wxaService/praiseCampaign/$(campaign.id)/$(campaign._by_key_alreadyPraised)/">
+				    	<c:font-icon name="campaign-like" class="text-size-main" >heart-o</c:font-icon>
+				    	<c:text class="text-size-note common-text-piece" data-source="$(campaign._by_key_praiseCount)"></c:text>
+			    	</c:row>
+			    	<!-- 
+			    	<c:font-icon class="text-size-main">comment-o</c:font-icon>
+			    	<c:text class="text-size-note common-text-piece" data-source="$(campaign._by_key_reviewCount)"></c:text>
+			    	 -->
+			    	<c:button type="share"
+						sharing-title="$(campaign.campaign_name)"
+						image-url="$(campaign.campaign_image)"
+						link-to-url="/wxaService/campaignDetail/$(campaign.id)/">
+						分享
+					</c:button>
+			    </c:row>
+	    	</c:row>
+	    	<c:row>
+	    		<c:text>活动时间：</c:text>
+	    		<c:date data-source="$(campaign.campaign_start_time)" format="yyyy-MM-dd HH:mm"></c:date>
+	    	</c:row>
+	    	<c:row>
+	    		<c:text>结束时间：</c:text>
+	    		<c:date data-source="$(campaign.campaign_finish_time)" format="yyyy-MM-dd HH:mm"></c:date>
+	    	</c:row>
+	    	<c:row name="campaign-images" class="campaign-images">
+	    		<c:image class="image-size-list-thumbnail" data-source="$(campaign.campaign_image)"></c:image>
+	    	</c:row>
+    	</c:column>
     	
-		<c:column class="card" name="campaign-info">
-			<c:image class="image-size-main" src-url="$(campaign.campaign_image)" />
-			<c:text	class="text-size-main text-color-marked-main text-size-article-title" data-source="$(campaign.campaign_name)">名称</c:text>
-			<c:row>
-				<c:font-icon class="text-size-main">clock-o</c:font-icon>
-				<c:text class="text-size-main common-text-piece">时间</c:text>
-				<c:text class="text-size-main common-text-piece" data-source="$(campaign._by_key_holdTime)" name="hold-time">时间</c:text>
+		<c:row class="card normal-top-space" >
+			<c:font-icon class="text-color-marked-error">map-marker</c:font-icon>
+			<c:text class="text-size-main common-text-piece"	data-source="$(campaign.campaign_hold_address)">地点</c:text>
+		</c:row>
+		
+		<c:column class="card align-right normal-top-space" >
+			<c:text name="member-count" class="text-size-main common-text-piece" data-source="已报名$(campaign._by_key_memberCount) / 限$(campaign.available_register_quantity)人">人数</c:text>
+			<c:row class="align-both-ends">
+				<c:row>
+				</c:row>
+				<c:font-icon>angle-double-right</c:font-icon>
 			</c:row>
-			<c:row>
-				<c:font-icon class="text-size-main">map-marker</c:font-icon>
-				<c:text class="text-size-main common-text-piece">地点</c:text>
-				<c:text class="text-size-main common-text-piece"	data-source="$(campaign.campaign_hold_address)">地点</c:text>
-			</c:row>
-			<c:row>
-				<c:font-icon class="text-size-main">hourglass-start</c:font-icon>
-				<c:text class="text-size-main common-text-piece">状态</c:text>
-				<c:text class="text-size-main common-text-piece" data-source="$(campaign.campaign_status)">状态</c:text>
-			</c:row>
-			<c:row>
-				<c:font-icon class="text-size-main">user</c:font-icon>
-				<c:text class="text-size-main common-text-piece">人数</c:text>
-				<c:text name="member-count" class="text-size-main common-text-piece" data-source="$(campaign._by_key_memberCount)">人数</c:text>
-			</c:row>
+		</c:column>
+		
+		<c:column class="card align-right normal-top-space" >
+			<c:text class="text-size-section-title">活动详情</c:text>
 			<c:rich-text class="text-size-main" data-source="$(campaign.campaign_content)" />
 		</c:column>
-    
-	    <c:column name="review-list">
-		    <c:row class="align-right" stat-in-page="true">
-		    	<c:row class="no-flex-weight" link-to-url="/wxaService/praiseCampaign/$(campaign.id)/$(campaign._by_key_alreadyPraised)/">
-			    	<c:font-icon name="campaign-like" class="text-size-main" >heart-o</c:font-icon>
-			    	<c:text class="text-size-note common-text-piece" data-source="$(campaign._by_key_praiseCount)"></c:text>
-		    	</c:row>
-		    	<c:font-icon class="text-size-main">comment-o</c:font-icon>
-		    	<c:text class="text-size-note common-text-piece" data-source="$(campaign._by_key_reviewCount)"></c:text>
-		    </c:row>
-		    <c:row class="align-center">
-	    		<c:text class="text-size-section-title text-color-marked-main">评论</c:text>
-		    </c:row>
-		    <c:column class="no-border-content-block" data-source="$(campaign.campaign_review)">
-	    		<c:row class="align-both-ends">
-	    			<c:row>
-	    				<c:image class="image-size-note" src-url="$(reviewer.logo_image)"/>
-	    				<c:text class="text-size-main text-color-marked-main" data-source="$(reviewer.nick_name)"></c:text>
-	    			</c:row>
-	    			<c:ugc-control class="pin-to-right" title-block="屏蔽" title-report="举报" link-to-url="/wxaService/ugcContentControl/$(id)/campaign/">...</c:ugc-control>
-	    		</c:row>
-	    		<c:text max-line="4" class="text-size-main" data-source="$(review_content)"/>
-	    		<c:row class="align-both-ends">
-	    			<c:date name="review-post-time" class="text-size-note align-left" data-source="$(last_update_time)" format="fuzz_after_1_hour"/>
+		
+	    <c:column name="review-list" class="card normal-top-space">
+		    <c:text class="text-size-section-title">评论</c:text>
+		</c:column>
+	    <c:column class="background-main small-bottom-space" data-source="$(campaign.campaign_review)">
+    		<c:row class="align-both-ends">
+    			<c:row>
+    				<c:image class="image-size-icon" src-url="$(reviewer.logo_image)"/>
+    				<c:column>
+    					<c:text class="text-size-main text-color-marked-main" data-source="$(reviewer.nick_name)"></c:text>
+    					<c:date name="review-post-time" class="text-size-note" data-source="$(last_update_time)" format="fuzz_after_1_hour"/>
+    				</c:column>
+    			</c:row>
+    			<c:row>
 	    			<c:row class="align-right" stat-in-page="true" link-to-url="/wxaService/praiseCampaignReview/campaign/$(campaign.id)/$(id)/$(_by_key_thumbsUp)/">
 	    				<c:font-icon name="my-comment-icon" class="text-size-main">comment-o</c:font-icon>
 	    				<c:text class="text-size-note common-text-piece" data-source="$(_by_key_praiseCount)"/>
 	    			</c:row>
-	    		</c:row>
-	    	</c:column>
+    				<c:ugc-control title-block="屏蔽" title-report="举报" link-to-url="/wxaService/ugcContentControl/$(id)/campaign/">...</c:ugc-control>
+    			</c:row>
+    		</c:row>
+    		<c:text max-line="4" class="text-size-main" data-source="$(review_content)"/>
+    	</c:column>
 	    	
 	    	<!-- 
 	    	<c:text class="text-size-main" link-to-url="/wxaService/campaignreviews/$(campaign.id)/">
 	    		查看更多...
 	    	</c:text>
 	    	 -->
+		<c:form>
+			<c:field type="hidden" name="campaign_id" label="" data-source="$(campaign.id)"/>
+			<c:field type="longtext" name="review_content" label="发表评论" max-value="1024"/>
 			<c:row>
-				<c:button type="share"
-					sharing-title="$(campaign.campaign_name)"
-					image-url="$(campaign.campaign_image)"
-					link-to-url="/wxaService/campaignDetail/$(campaign.id)/">
-					分享
-				</c:button>
 				<c:button name="bottom-line" class="btn btn-primary"
 					data-source="$(campaign._by_key_scene)"
-					link-to-url="/wxaService/campaignApplyResult/$(campaign.id)/$(campaign._by_key_scene_code)/">报名</c:button>
+					link-to-url="/wxaService/campaignApplyResult/$(campaign.id)/$(campaign._by_key_scene_code)/">报名活动</c:button>
+				<c:action name="submitCampaignReviewForm" level="primary" link-to-url="/wxaService/postCampaignReview/">提交评论</c:action>
 			</c:row>
-	    </c:column>
+		</c:form>
     </c:page>
     
     <c:page name="start_pay_order" title="在线支付">

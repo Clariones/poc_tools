@@ -11,6 +11,9 @@ public class ImageUiSpec extends BaseUiSpecElement {
     protected DataSourceInfo srcUrlDataSourceInfo;
 
     public String getSrcUrl() {
+        if (srcUrl == null) {
+            return this.getDataSource();
+        }
         return srcUrl;
     }
 

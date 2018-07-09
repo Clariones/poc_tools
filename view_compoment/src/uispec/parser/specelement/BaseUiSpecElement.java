@@ -25,7 +25,8 @@ public class BaseUiSpecElement {
     protected String cssClass;
     protected boolean selfHanleListInput = false;
     protected boolean visible = true;
-
+    protected String content;
+    
     protected List<BaseUiSpecElement> children;
     protected Map<String, Object> jobInfo;
     @JsonIgnore
@@ -38,6 +39,14 @@ public class BaseUiSpecElement {
     protected String statInPage;
 
     
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
+
     public boolean isVisible() {
         return visible;
     }

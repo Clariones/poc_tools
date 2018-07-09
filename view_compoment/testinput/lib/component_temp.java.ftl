@@ -4,7 +4,8 @@
 <#macro gen_component_common_part uiSpec>
 <#if uiSpec.cssClass?has_content>
         me.setClasses("${uiSpec.cssClass}");</#if><#if uiSpec.id?has_content>
-        me.setId("${uiSpec.id}");</#if><#if uiSpec.tag?has_content>
+        me.setId("${uiSpec.id}");</#if><#if uiSpec.content?has_content>
+        me.setContent("${uiSpec.content}");</#if><#if uiSpec.tag?has_content>
         me.setTag("${uiSpec.tag}");</#if><#if uiSpec.statInPage?has_content>
         me.setStatInPage(${uiSpec.statInPage});</#if><#if !uiSpec.visible>
         me.setVisiable(false);</#if>
@@ -97,7 +98,8 @@
 	<#else>
         me.setContent("${uiSpec.elementTextContent!}");
 	</#if><#if uiSpec.maxLine gt 0>
-		me.setMaxLine(${uiSpec.maxLine});</#if>
+		me.setMaxLine(${uiSpec.maxLine});</#if><#if uiSpec.format?has_content>
+		me.setFormat("${uiSpec.format}");</#if>
         <@gen_component_chidren_ifhas uiSpec/>
 </#macro>
 
@@ -256,7 +258,7 @@
     	me.setType(FormFieldViewComponent.TYPE_TEXT);
     	me.setVisiable(false);
     	<#else>
-         me.setType("${uiSpec.type}");
+        me.setType("${uiSpec.type}");
         </#if>
        
     </#if>
@@ -267,7 +269,7 @@
         me.setPlaceholder("${uiSpec.placeholder}");</#if><#if uiSpec.minValue?has_content>
         me.setMinValue("${uiSpec.minValue}");</#if><#if uiSpec.maxValue?has_content>
         me.setMaxValue("${uiSpec.maxValue}");</#if><#if uiSpec.maxLine gt -1 >
-        me.setMaxLine(${uiSpec.maxLine});</#if><#if !uiSpec.required >
+        me.setMaxLine(${uiSpec.maxLine});</#if><#if uiSpec.required >
         me.setRequired(${uiSpec.required?c});</#if><#if uiSpec.disabled >
         me.setDisabled(${uiSpec.disabled?c});</#if>
         <@gen_field_candidate_values uiSpec/>
