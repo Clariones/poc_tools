@@ -11,8 +11,26 @@ public class PageUiSpec extends BaseUiSpecElement {
     protected String name;
     protected Set<String> importedModels;
     protected Map<String, DataSourceInfo> variableTable;
+    protected String frontColor;
+    protected String backgroundColor;
     
     
+    public String getFrontColor() {
+        return frontColor;
+    }
+
+    public void setFrontColor(String frontColor) {
+        this.frontColor = frontColor;
+    }
+
+    public String getBackgroundColor() {
+        return backgroundColor;
+    }
+
+    public void setBackgroundColor(String backgroundColor) {
+        this.backgroundColor = backgroundColor;
+    }
+
     public Map<String, DataSourceInfo> getVariableTable() {
         return variableTable;
     }

@@ -43,6 +43,8 @@
 		<#else>
 		me.setTargetId(getTargetId4${uiSpec.jobInfo.methodName}(<@utils.makeRenderMethodCallParameters uiSpec/>${uiSpec.jobInfo.localDataVar}));
 		</#if>
+		</#if><#if uiSpec.active?has_content>
+		me.setActive(${uiSpec.active});
 		</#if>
         <@gen_component_chidren_ifhas uiSpec/>
 </#macro>
@@ -287,7 +289,7 @@
 	</#if>
 	<#list uiSpec.children as optionSpec>
 		<#if optionSpec.elementTypeName == "option">
-		me.addCandidateValue("${optionSpec.value}","${optionSpec.displayText}"<#if optionSpec.checked??>, ${optionSpec.checked?c}</#if>);
+		me.addCandidateValue("${optionSpec.value}","${optionSpec.displayText}"<#if optionSpec.checked??>, ${optionSpec.checked?c}</#if>)<#if optionSpec.id??>.put("id","${optionSpec.id}")</#if>;
 		</#if>
 	</#list>
 </#macro>

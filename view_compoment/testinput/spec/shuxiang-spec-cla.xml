@@ -255,38 +255,8 @@
     
   
     
-     <c:page name="customer-account-detail" title="我的余额">
-    	<c:data-source user="$(customer)"/>
-    	
-    	<c:column class="align-center">
-    		<c:image class="image-size-main" src-url="/images/customer_account.png">￥符号</c:image>
-    		<c:text class="text-size-article-title">账户余额</c:text>
-    		<c:money class="text-size-article-title" data-source="$(user.account_balance)" format="#,##0.00 元"></c:money>
-    		<c:text class="btn btn-primary" link-to-url="/wxaService/customerStartRecharge/">充值</c:text>
-    		<c:text class="text-size-section-title text-color-main" link-to-url="/wxaService/customerAccountHistory/">明 细</c:text>"
-    	</c:column>
-     </c:page>
+     
 
-     <c:page name="customer-start-recharge" title="余额充值">
-
-    	<c:column class="align-center">
-    		<c:text class="text-size-article-title">选择充值金额</c:text>
-    		<c:form>
-    			<c:field type="select" name="recharge_amount" label="￥">
-    				<c:option value="10" display-text="10元"></c:option>
-    				<c:option value="20" display-text="20元"></c:option>
-    				<c:option value="50" display-text="50元" checked="true"></c:option>
-    				<c:option value="100" display-text="100元"></c:option>
-    				<c:option value="200" display-text="200元"></c:option>
-    				<c:option value="500" display-text="500元"></c:option>
-    			</c:field>
-    			<c:field type="check_box" name="payment_way">
-    				<c:option value="wechat" display-text="微信支付" checked="true"></c:option>
-    			</c:field>
-    			<c:action name="submitRechargeForm" link-to-url="/wxaService/placeRechargeOrder/">充值</c:action>
-    		</c:form>
-    	</c:column>
-     </c:page>
      
      <c:page name="customer-account-history" title="余额明细">
      	<c:data-source user="$(customer)"/>

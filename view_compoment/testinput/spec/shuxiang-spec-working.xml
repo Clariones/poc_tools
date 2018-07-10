@@ -1,60 +1,62 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <root xmlns:c="http://clariones.doublechaintech.com/uischema.xml"
 	template="mobile">
-
-	<!-- 借阅详情 -->
-	<c:page name="customer-borrow-detail" title="借阅详情">
-    	<c:data-source record="$(borrowing_history)"/>
+	<c:page name="customer-account-detail" title="我的余额" front-color="#000000" background-color="#4BB86E" >
+    	<c:data-source user="$(customer)"/>
     	
-    	<c:row name="messge" class="align-center">
-    		<c:text class="text-size-section-title text-color-marked-main" data-source="$(record._by_key_message)"></c:text>
+    	<c:column class="card normal-bottom-space background-green">
+    		<c:text class="white-text">当前余额（元）</c:text>
+    		<c:money class="balance-money" data-source="$(user.account_balance)" format="#,##0.00"></c:money>
+    	</c:column>
+    	<c:row class="align-both-ends" link-to-url="/wxaService/customerAccountHistory/">
+    		<c:text>明细</c:text>
+    		<c:font-icon>caret-down</c:font-icon>
     	</c:row>
-    	<c:row class="card normal-bottom-space" link-to-url="/wxaService/bookCopyDetail/$(record.book_copy.id)/">
-    		<c:column class="wide_block">
-    			<c:image class="image-size-thumbnail" src-url="$(record.book.book_cover)">图书封面</c:image>
-    		</c:column>
-    		<c:column class="roomy_block">
-    			<c:text class="text-size-section-title text-color-marked-main" data-source="$(record.book.book_name)">书名</c:text>
-    			<c:text class="text-size-main text-color-main" data-source="$(record.book.book_recommend.name)">推荐类别</c:text>
-    		</c:column>
+    	<c:row class="fixed-at-bottom">
+    		<c:button link-to-url="/wxaService/customerStartRecharge/">充值</c:button>
     	</c:row>
-    	<c:row name="from-store-name" class="align-both-ends card" >
-    		<c:text class="text-size-main text-color-main">借书门店</c:text>
-    		<c:text class="text-size-main text-color-main" data-source="$(record.lending_store.store_name)">店名</c:text>
+     </c:page>
+     
+	<c:page name="customer-start-recharge" title="余额充值" >
+    	<c:row class="align-center">
+    		<c:text class="text-size-article-title">选择充值金额</c:text>
     	</c:row>
-    	<c:row name="borrow-time" class="align-both-ends card" >
-    		<c:text class="text-size-main text-color-main">借书日期</c:text>
-    		<c:date class="text-size-main text-color-main" data-source="$(record.lending_datetime)" format="yyyy-MM-dd">借书日</c:date>
-    	</c:row>
-    	<c:row name="expire-date" class="align-both-ends card" >
-    		<c:text class="text-size-main text-color-main">免费阅读至</c:text>
-    		<c:date class="text-size-main text-color-main" data-source="$(record.free_lending_expired_datetime)" format="yyyy-MM-dd">借书日</c:date>
-    	</c:row>
-    	<c:row name="return-store-name" class="align-both-ends card">
-    		<c:text class="text-size-main text-color-main">还书门店</c:text>
-    		<c:text class="text-size-main text-color-main" data-source="$(record.return_store.store_name)">店名</c:text>
-    	</c:row>
-    	<c:row name="return-time" class="align-both-ends card" >
-    		<c:text class="text-size-main text-color-main">还书日期</c:text>
-    		<c:date class="text-size-main text-color-main" data-source="$(record.return_datetime)" format="yyyy-MM-dd">还书日</c:date>
-    	</c:row>
-    	<c:row name="expire-prompt" class="align-both-ends card">
-    		<c:text class="text-size-main text-color-warning" data-source="您借阅的《$(record.book.book_name)》已经超过免费阅读期了，请尽快到附近的门店归还。">逾期提醒</c:text>
-    	</c:row>
-    	<c:row name="expire-days" class="align-both-ends card" >
-    		<c:text class="text-size-main text-color-main">逾期天数</c:text>
-    		<c:text class="text-size-main text-color-main" data-source="$(record._by_key_expiredDays)天"></c:text>
-    	</c:row>
-    	<c:row name="expire-fee" class="align-both-ends card" >
-    		<c:text class="text-size-main text-color-main">逾期费用</c:text>
-    		<c:money class="text-size-main text-color-main" data-source="$(record._by_key_expireFee)" format="#,##0.##元"></c:money>
-    	</c:row>
-    	
-    	<c:row name="actions" class="fixed-at-bottom">
-    		<c:button name="pay" link-to-url="/wxaService/customerStartPayOrder/$(record._by_key_orderId)/">支付
-    			<c:font-icon>credit-card</c:font-icon>
-    		</c:button>
-    	</c:row>
-    </c:page>
-	
+    	<c:row class="list-as-grid-row align-left">
+  				<c:column class="list-as-grid-row-item card each-row-3" target-id="rc_10" active="true">
+  					<c:text>10元</c:text>
+  				</c:column>
+  				<c:column class="list-as-grid-row-item card each-row-3" target-id="rc_20">
+  					<c:text>20元</c:text>
+  				</c:column>
+  				<c:column class="list-as-grid-row-item card each-row-3" target-id="rc_50">
+  					<c:text>50元</c:text>
+  				</c:column>
+  				<c:column class="list-as-grid-row-item card each-row-3" target-id="rc_100">
+  					<c:text>100元</c:text>
+  				</c:column>
+  				<c:column class="list-as-grid-row-item card each-row-3" target-id="rc_200">
+  					<c:text>200元</c:text>
+  				</c:column>
+  				<c:column class="list-as-grid-row-item card each-row-3" target-id="rc_500">
+  					<c:text>500元</c:text>
+  				</c:column>
+  			</c:row>
+  		<c:form>
+  			<c:field type="radio" visible="false" name="recharge_amount" content="10">
+  				<c:option id="rc_10" value="10" display-text="10元"/>
+  				<c:option id="rc_20" value="20" display-text="20元"/>
+  				<c:option id="rc_50" value="50" display-text="50元"/>
+  				<c:option id="rc_100" value="100" display-text="100元"/>
+  				<c:option id="rc_200" value="200" display-text="200元"/>
+  				<c:option id="rc_500" value="500" display-text="500元"/>
+  			</c:field>
+  			
+  			<c:field type="radio" name="payment_method">
+  				<c:option value="wechat" display-text="微信支付" checked="true"></c:option>
+  				<c:option value="agency" display-text="好友代付" ></c:option>
+  			</c:field>
+  			<c:action name="submitRechargeForm" link-to-url="/wxaService/placeRechargeOrder/">充值</c:action>
+    	</c:form>
+     </c:page>
+     
 </root>

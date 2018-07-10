@@ -23,7 +23,7 @@ public class RenderTemplateGeneratorTest {
 
     @Test
     public void test1() throws Exception {
-        List<PageUiSpec> pages = parseTestFile("shuxiang-spec.xml");
+//        List<PageUiSpec> pages = parseTestFile("shuxiang-spec.xml");
         String fileName = "shuxiang-spec-working.xml";
         genCodeBySpecFile(fileName);
     }

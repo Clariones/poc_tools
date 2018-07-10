@@ -9,8 +9,17 @@ import uispec.parser.datasource.DataSourceInfo;
 public class ContainerUiSpec extends BaseUiSpecElement {
     protected String targetId;
     protected DataSourceInfo targetIdDataSourceInfo;
+    protected String active;
     
     
+    public String getActive() {
+        return active;
+    }
+
+    public void setActive(String active) {
+        this.active = active;
+    }
+
     public DataSourceInfo getTargetIdDataSourceInfo() {
         return targetIdDataSourceInfo;
     }
