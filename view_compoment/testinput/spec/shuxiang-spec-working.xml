@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root xmlns:c="http://clariones.doublechaintech.com/uischema.xml"
+	template="mobile">
+
+	<!-- 借阅详情 -->
+	<c:page name="customer-borrow-detail" title="借阅详情">
+    	<c:data-source record="$(borrowing_history)"/>
+    	
+    	<c:row name="messge" class="align-center">
+    		<c:text class="text-size-section-title text-color-marked-main" data-source="$(record._by_key_message)"></c:text>
+    	</c:row>
+    	<c:row class="card normal-bottom-space" link-to-url="/wxaService/bookCopyDetail/$(record.book_copy.id)/">
+    		<c:column class="wide_block">
+    			<c:image class="image-size-thumbnail" src-url="$(record.book.book_cover)">图书封面</c:image>
+    		</c:column>
+    		<c:column class="roomy_block">
+    			<c:text class="text-size-section-title text-color-marked-main" data-source="$(record.book.book_name)">书名</c:text>
+    			<c:text class="text-size-main text-color-main" data-source="$(record.book.book_recommend.name)">推荐类别</c:text>
+    		</c:column>
+    	</c:row>
+    	<c:row name="from-store-name" class="align-both-ends card" >
+    		<c:text class="text-size-main text-color-main">借书门店</c:text>
+    		<c:text class="text-size-main text-color-main" data-source="$(record.lending_store.store_name)">店名</c:text>
+    	</c:row>
+    	<c:row name="borrow-time" class="align-both-ends card" >
+    		<c:text class="text-size-main text-color-main">借书日期</c:text>
+    		<c:date class="text-size-main text-color-main" data-source="$(record.lending_datetime)" format="yyyy-MM-dd">借书日</c:date>
+    	</c:row>
+    	<c:row name="expire-date" class="align-both-ends card" >
+    		<c:text class="text-size-main text-color-main">免费阅读至</c:text>
+    		<c:date class="text-size-main text-color-main" data-source="$(record.free_lending_expired_datetime)" format="yyyy-MM-dd">借书日</c:date>
+    	</c:row>
+    	<c:row name="return-store-name" class="align-both-ends card">
+    		<c:text class="text-size-main text-color-main">还书门店</c:text>
+    		<c:text class="text-size-main text-color-main" data-source="$(record.return_store.store_name)">店名</c:text>
+    	</c:row>
+    	<c:row name="return-time" class="align-both-ends card" >
+    		<c:text class="text-size-main text-color-main">还书日期</c:text>
+    		<c:date class="text-size-main text-color-main" data-source="$(record.return_datetime)" format="yyyy-MM-dd">还书日</c:date>
+    	</c:row>
+    	<c:row name="expire-prompt" class="align-both-ends card">
+    		<c:text class="text-size-main text-color-warning" data-source="您借阅的《$(record.book.book_name)》已经超过免费阅读期了，请尽快到附近的门店归还。">逾期提醒</c:text>
+    	</c:row>
+    	<c:row name="expire-days" class="align-both-ends card" >
+    		<c:text class="text-size-main text-color-main">逾期天数</c:text>
+    		<c:text class="text-size-main text-color-main" data-source="$(record._by_key_expiredDays)天"></c:text>
+    	</c:row>
+    	<c:row name="expire-fee" class="align-both-ends card" >
+    		<c:text class="text-size-main text-color-main">逾期费用</c:text>
+    		<c:money class="text-size-main text-color-main" data-source="$(record._by_key_expireFee)" format="#,##0.##元"></c:money>
+    	</c:row>
+    	
+    	<c:row name="actions" class="fixed-at-bottom">
+    		<c:button name="pay" link-to-url="/wxaService/customerStartPayOrder/$(record._by_key_orderId)/">支付
+    			<c:font-icon>credit-card</c:font-icon>
+    		</c:button>
+    	</c:row>
+    </c:page>
+	
+</root>

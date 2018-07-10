@@ -187,6 +187,7 @@
     	me.setContent(getSrcUrl4${uiSpec.jobInfo.methodName}(<@utils.makeRenderMethodCallParameters uiSpec/>${uiSpec.jobInfo.localDataVar}));
     	</#if>
     </#if>
+    	me.setClickToBiggerView(${uiSpec.clickToViewBig?c});
         <@gen_component_chidren_ifhas uiSpec/>
 </#macro>
 

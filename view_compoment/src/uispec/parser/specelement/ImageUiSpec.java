@@ -9,6 +9,16 @@ import uispec.parser.datasource.DataSourceInfo;
 public class ImageUiSpec extends BaseUiSpecElement {
     protected String srcUrl;
     protected DataSourceInfo srcUrlDataSourceInfo;
+    protected boolean clickToViewBig = false;
+    
+    
+    public boolean isClickToViewBig() {
+        return clickToViewBig;
+    }
+
+    public void setClickToViewBig(boolean clickToViewBig) {
+        this.clickToViewBig = clickToViewBig;
+    }
 
     public String getSrcUrl() {
         if (srcUrl == null) {

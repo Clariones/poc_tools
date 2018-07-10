@@ -24,15 +24,15 @@ public class RenderTemplateGeneratorTest {
     @Test
     public void test1() throws Exception {
         List<PageUiSpec> pages = parseTestFile("shuxiang-spec.xml");
-        String fileName = "shuxiang-spec.xml";
+        String fileName = "shuxiang-spec-working.xml";
         genCodeBySpecFile(fileName);
     }
     
-    @Test
-    public void test2() throws Exception {
-        String fileName = "shuxiang-spec-cla.xml";
-        genCodeBySpecFile(fileName);
-    }
+//    @Test
+//    public void test2() throws Exception {
+//        String fileName = "shuxiang-spec-cla.xml";
+//        genCodeBySpecFile(fileName);
+//    }
 
     private void genCodeBySpecFile(String fileName) throws Exception {
         // String inputFileName =
