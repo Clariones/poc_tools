@@ -68,4 +68,11 @@ public class ImageUiSpec extends BaseUiSpecElement {
         }
         return false;
     }
+
+    @Override
+    protected String getBindedClass() {
+        return "image--default";
+    }
+    
+    
 }

@@ -26,6 +26,9 @@ public class XMLSpecParser extends BaseSpecParser {
         List<Map<String, Object>> pages = (List<Map<String, Object>>) root.get("children");
         List<PageUiSpec> pageSpecs = new ArrayList<PageUiSpec>();
 
+        if(pageSpecs == null || pageSpecs.isEmpty()) {
+            return null;
+        }
         for (Map<String, Object> page : pages) {
             PageUiSpec pageSpec = (PageUiSpec) parseUiSpecElement(root, page);
             if (pageSpec != null) {

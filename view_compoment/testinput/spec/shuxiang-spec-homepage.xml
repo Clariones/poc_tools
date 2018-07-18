@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root xmlns:c="http://clariones.doublechaintech.com/uischema.xml" template="mobile">
+	<!-- 首页 -->
+	<c:page name="customer-home-page" title="书香社区">
+		<c:data-source user="$(customer)" />
+		<c:data-source shop="$(store)" />
+
+		<c:row name="header-bar" link-to-url="/wxaService/storeList/" class="padding--default">
+				<c:text class="text-title" data-source="$(shop.store_name)"></c:text>
+				<c:text class="text-title text--color-highlight">&lt;切换&gt;</c:text>
+			<!-- 搜索功能暂时没用 <c:container class="container-horizontal align-right"> <c:search api-url="/wxaService/searchInHomePage/">搜索</c:search> 
+				</c:container> -->
+		</c:row>
+		<c:container class="container--empty"></c:container>
+		
+		<c:carousel name="ad-block" data-source="$(shop.store_slide)" data-source-link="$(wxa_link_url)"
+			data-source-image="$(banner_image)" data-source-tips="$(tips)">
+			<c:image
+				src-url="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTL0zJ2f6DwWOw6xkuc16pDAyxfGv5_udkV1c0VbAUctmFULbbD" />
+			<c:image
+				src-url="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQY2RLztnCf306MdR4wm9RUTJy2r0HHc0c3HY2oQyjXLUR9nBZ9" />
+			<c:image src-url="https://i0.hdslb.com/bfs/article/4486e9c92b7add273a5b55f86a816d0603c1313f.jpg" />
+		</c:carousel>
+		<c:container class="container--empty"></c:container>
+		
+		<c:row class="padding--default text--size-middle align-both-ends" name="action-bar">
+			<c:column class="icon-item" link-to-url="/wxaService/wantBorrowBook/scanCode/">
+				<c:image src-url="/images/borrowBook.png" class="image--size-icon" />
+				<c:text>借书</c:text>
+			</c:column>
+			<c:column class="icon-item" link-to-url="/wxaService/wantBuyBook/">
+				<c:image src-url="/images/buyBook.png" class="image--size-icon" />
+				<c:text>买书</c:text>
+			</c:column>
+			<c:column class="icon-item" link-to-url="/wxaService/wantShareBook/$(shop.id)/">
+				<c:image src-url="/images/shareBook.png" class="image--size-icon" />
+				<c:text>共享</c:text>
+			</c:column>
+			<c:column class="icon-item" link-to-url="/wxaService/myMessageList/">
+				<c:image src-url="/images/myMessages.png" class="image--size-icon" />
+				<c:text>提醒</c:text>
+			</c:column>
+		</c:row>
+		<c:container class="container--empty"></c:container>
+		
+		<c:row class="padding--default align-both-ends text-title" name="campagin-header">
+			<c:text class="flex--0">活动</c:text>
+			<c:row link-to-url="./wxaService/storeCampaignList/$(shop.id)/" class="flex--0 text--color-highlight">
+				<c:text>更多</c:text>
+				<c:font-icon>caret-right</c:font-icon>
+			</c:row>
+		</c:row>
+		<c:column>
+			<c:row data-source="$(shop.campaign)" link-to-url="/wxaService/campaignDetail/$(id)/" class="padding--default border--bottom">
+				<c:column class="flex--5-2">
+					<c:image src-url="$(campaign_image)"></c:image>
+					<c:text class="text--color-highlight pin-to-left-top background--float-tag"
+						data-source="$(campaign_status)">状态</c:text>
+				</c:column>
+				<c:column class="flex--5-3 padding--left-default" name="campaign-info-block">
+					<c:text class="text--size-middle text--color-default" data-source="$(campaign_name)">标题</c:text>
+					<c:row class="text--size-default text--color-info" >
+						<c:date name="campaign-hold-time" data-source="$(campaign_start_time)" format="yyyy-MM-dd HH:mm">时间</c:date>
+						<c:text>~</c:text>
+						<c:date name="campaign-finish-time" data-source="$(campaign_finish_time)" format="HH:mm">时间</c:date>
+					</c:row>
+					<c:text class="text--size-default text--color-info" data-source="$(campaign_hold_address)" format="2,...,12">地点</c:text>
+					<c:row class="align-both-ends">
+						<c:text name="register-info" class="text--color-highlight" data-source="$(_by_key_reg_cnt)/$(available_register_quantity)人" ></c:text>
+						<c:container class="container--tag-mark">
+							<c:text>立即报名</c:text>
+						</c:container>
+					</c:row>
+				</c:column>
+			</c:row>
+		</c:column>
+	</c:page>
+
+	<!-- 首页：切换门店 -->
+	<c:page name="customer-store-list" title="切换门店">
+        <c:data-source user="$(customer)"/>
+        <c:data-source plateform="$(book_sharing_platform)"/>
+        <!-- 
+        <c:row class="align-center flat-bar background-main">
+        	<c:text class="text-size-section-title text-color-marked-main">附近的门店</c:text>
+        </c:row>
+         -->
+        <c:column>
+        	<c:row class="padding--default border--bottom" name="store-info-block" link-to-url="/wxaService/selectStore/$(id)/" data-source="$(plateform.store)">
+        		<c:column class="flex--5-2">
+        			<c:image src-url="$(store_image)"></c:image>
+        		</c:column>
+        		<c:column name="store-desc-block" class="container-full flex--5-3 margin--left-default">
+        			<c:text class="text-title" data-source="$(store_name)">名称</c:text>
+        			<c:row class="padding--top-near">
+        				<c:font-icon>clock-o</c:font-icon>
+        				<c:text class="text--color-info" data-source="$(store_open_time)">营业时间</c:text>
+        			</c:row>
+        			<c:row class="align-both-ends">
+	        			<c:row class="flex--0">
+	        				<c:font-icon>map-marker</c:font-icon>
+	        				<c:text class="text--color-info" data-source="$(store_address) $(store_room_number)">地址</c:text>
+        				</c:row>
+        				<c:row class="flex--0">
+			        		<c:text name="store-distance" class="text--color-highlight" data-source="$(_by_key_distance)">距离</c:text>
+	        			</c:row>
+        			</c:row>
+        		</c:column>
+        	</c:row>
+        </c:column>
+    </c:page>
+
+</root>

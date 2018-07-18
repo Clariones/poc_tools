@@ -2,6 +2,7 @@ package test.generator.render;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.FilenameFilter;
 import java.io.OutputStreamWriter;
 import java.util.List;
 import java.util.Map;
@@ -14,9 +15,10 @@ import uispec.parser.specparser.XMLSpecParser;
 
 public class RenderTemplateGeneratorTest {
     private XMLSpecParser parser;
+    private static String baseFolder = "/works/jobs/sx_shequ/eclips_ws/POC_viewComponent/testinput/spec";
 
     private List<PageUiSpec> parseTestFile(String fileName) throws Exception {
-        String baseFolder = "/works/jobs/sx_shequ/eclips_ws/POC_viewComponent/testinput/spec";
+        
         parser = new XMLSpecParser();
         return parser.parseFile(new File(new File(baseFolder), fileName));
     }
@@ -24,8 +26,31 @@ public class RenderTemplateGeneratorTest {
     @Test
     public void test1() throws Exception {
 //        List<PageUiSpec> pages = parseTestFile("shuxiang-spec.xml");
+//        String fileName = "shuxiang-spec-working.xml";
         String fileName = "shuxiang-spec-working.xml";
+//        String fileName = "shuxiang-spec-v2.xml";
         genCodeBySpecFile(fileName);
+    }
+    
+    @Test
+    public void test_all() throws Exception {
+        File inputFolder = new File(baseFolder);
+        File[] files = inputFolder.listFiles(new FilenameFilter() {
+
+            @Override
+            public boolean accept(File dir, String name) {
+                return name.matches("^shuxiang\\-spec\\-.+\\.xml$");
+            }
+            
+        });
+//        List<PageUiSpec> pages = parseTestFile("shuxiang-spec.xml");
+//        String fileName = "shuxiang-spec-working.xml";
+//        String fileName = "shuxiang-spec-working.xml";
+//        String fileName = "shuxiang-spec-v2.xml";
+        for(File file : files) {
+        String fileName = file.getName();
+        genCodeBySpecFile(fileName);
+        }
     }
     
 //    @Test
@@ -43,6 +68,9 @@ public class RenderTemplateGeneratorTest {
         System.setProperty("skynet.output.basefolder", "/works/jobs/sx_shequ/workspace");
         
         List<PageUiSpec> pages = parseTestFile(fileName);
+        if (pages == null || pages.isEmpty()) {
+            return;
+        }
         //DebugUtil.dumpObjectToJson("初步读取结果：", pages);
 
         RenderTemplateGenerator worker = new RenderTemplateGenerator();

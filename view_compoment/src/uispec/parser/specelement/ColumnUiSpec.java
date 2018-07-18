@@ -11,9 +11,9 @@ public class ColumnUiSpec extends ContainerUiSpec {
     public String getCssClass() {
         String clazz = super.getCssClass();
         if (clazz == null || clazz.isEmpty()) {
-            return "container-vertical";
+            return "container--column";
         }
-        return "container-vertical " + clazz;
+        return "container--column " + clazz;
     }
 
 }

@@ -1,62 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<root xmlns:c="http://clariones.doublechaintech.com/uischema.xml"
-	template="mobile">
-	<c:page name="customer-account-detail" title="我的余额" front-color="#000000" background-color="#4BB86E" >
-    	<c:data-source user="$(customer)"/>
-    	
-    	<c:column class="card normal-bottom-space background-green">
-    		<c:text class="white-text">当前余额（元）</c:text>
-    		<c:money class="balance-money" data-source="$(user.account_balance)" format="#,##0.00"></c:money>
-    	</c:column>
-    	<c:row class="align-both-ends" link-to-url="/wxaService/customerAccountHistory/">
-    		<c:text>明细</c:text>
-    		<c:font-icon>caret-down</c:font-icon>
-    	</c:row>
-    	<c:row class="fixed-at-bottom">
-    		<c:button link-to-url="/wxaService/customerStartRecharge/">充值</c:button>
-    	</c:row>
-     </c:page>
-     
-	<c:page name="customer-start-recharge" title="余额充值" >
-    	<c:row class="align-center">
-    		<c:text class="text-size-article-title">选择充值金额</c:text>
-    	</c:row>
-    	<c:row class="list-as-grid-row align-left">
-  				<c:column class="list-as-grid-row-item card each-row-3" target-id="rc_10" active="true">
-  					<c:text>10元</c:text>
-  				</c:column>
-  				<c:column class="list-as-grid-row-item card each-row-3" target-id="rc_20">
-  					<c:text>20元</c:text>
-  				</c:column>
-  				<c:column class="list-as-grid-row-item card each-row-3" target-id="rc_50">
-  					<c:text>50元</c:text>
-  				</c:column>
-  				<c:column class="list-as-grid-row-item card each-row-3" target-id="rc_100">
-  					<c:text>100元</c:text>
-  				</c:column>
-  				<c:column class="list-as-grid-row-item card each-row-3" target-id="rc_200">
-  					<c:text>200元</c:text>
-  				</c:column>
-  				<c:column class="list-as-grid-row-item card each-row-3" target-id="rc_500">
-  					<c:text>500元</c:text>
-  				</c:column>
-  			</c:row>
-  		<c:form>
-  			<c:field type="radio" visible="false" name="recharge_amount" content="10">
-  				<c:option id="rc_10" value="10" display-text="10元"/>
-  				<c:option id="rc_20" value="20" display-text="20元"/>
-  				<c:option id="rc_50" value="50" display-text="50元"/>
-  				<c:option id="rc_100" value="100" display-text="100元"/>
-  				<c:option id="rc_200" value="200" display-text="200元"/>
-  				<c:option id="rc_500" value="500" display-text="500元"/>
-  			</c:field>
-  			
-  			<c:field type="radio" name="payment_method">
-  				<c:option value="wechat" display-text="微信支付" checked="true"></c:option>
-  				<c:option value="agency" display-text="好友代付" ></c:option>
-  			</c:field>
-  			<c:action name="submitRechargeForm" link-to-url="/wxaService/placeRechargeOrder/">充值</c:action>
-    	</c:form>
-     </c:page>
-     
+<root xmlns:c="http://clariones.doublechaintech.com/uischema.xml" template="mobile">
+	<!-- 可以设置有限的几个view model级别的bian'l <c:data-source message="var: string" /> <c:data-source doIt="var: boolean" /> <c:data-source 
+		when="var: date" /> <c:data-source more="var: object" /> -->
+	
+	
+	
 </root>

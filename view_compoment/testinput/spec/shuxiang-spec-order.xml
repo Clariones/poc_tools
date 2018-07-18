@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root xmlns:c="http://clariones.doublechaintech.com/uischema.xml" template="mobile">
+	<!-- 可以设置有限的几个view model级别的bian'l <c:data-source message="var: string" /> <c:data-source doIt="var: boolean" /> <c:data-source 
+		when="var: date" /> <c:data-source more="var: object" /> -->
+	
+	<!-- 订单： 订单列表 -->
+	<c:page name="customer-order-list" title="我的订单">
+     	<c:data-source user="$(customer)"/>
+     	<c:tabs name="order-type" link-to-url="/wxaService/customerOrderList/" stat-in-page="false" active-tab="$(user._by_key_activeTab)"
+     			class-selected="text-color-marked-main" class-unselected="text-color-main">
+     		<c:option value="needPay" display-text="待付款"/>
+     		<c:option value="closed" display-text="已完成"/>
+     		<c:option value="all" display-text="全部"/>
+     	</c:tabs>
+     	<c:column>
+     		<c:column data-source="$(user.main_order)">
+		     	<c:column class="padding--far" link-to-url="/wxaService/customerOrderDetail/$(id)/">
+		     		<c:text class="text--size-middle" data-source="订单编号：$(id)">订单编号</c:text>
+	     			<c:row name="line-item" data-source="$(line_item)">
+	     				<c:image class="image-in-user-borrwing-history" src-url="$(cover_image)"></c:image>
+	     				<c:column>
+	     					<c:text class="text-title" data-source="$(name)"></c:text>
+	     					<c:text class="text--color-info" data-source="$(summary)"></c:text>
+	     					<c:text class="text--color-into"> </c:text>
+	     					<c:row class="pin-to-left-bottom">
+	     						<c:money name="item-pay-value" class="text--color-highlight text-title" data-source="$(item_discount)"></c:money>
+	     						<c:money name="item-price" visible="false" class="text-size-note text-color-note" data-source="$(raw_price)"></c:money>
+	     					</c:row>
+	     				</c:column>
+	     			</c:row>
+	     			<c:row name="pay-action" class="align-both-ends">
+	     				<c:money data-source="$(actual_amount)" format="应付：￥#,##0.##元" class="text--color-highlight text-title"></c:money>
+	     				<c:container class="container--tag-mark" name="pay-order" link-to-url="/wxaService/customerStartPayOrder/$(id)/">
+	     					<c:text class="padding--left-near padding--right-near padding--top-small padding--bottom-small">立即支付</c:text>
+	     				</c:container>
+	     				<c:button name="authorize" visible="false" type="getPhoneNumber" link-to-url="/wxaService/customerStartPayOrder/$(id)/" call-back-url="/wxaService/updateUserPhoneNumber/">付款</c:button>
+	     			</c:row>
+	     		</c:column>
+	     		<c:container class="container--empty"></c:container>
+     		</c:column>
+     	</c:column>
+     	<c:container class="container--empty"></c:container>
+     	<c:text name="nothing" class="text-title padding--default margin--top-default"></c:text>
+     </c:page>
+	
+	
+	<!-- 订单详情 -->
+	<c:page name="customer-order-detail" title="订单详情">
+		<c:data-source borrowRecord="$(borrowing_history)"/>
+		<c:data-source book="$(book_copy)"/>
+		<c:data-source memberService="$(member_service_bundle_sku)" />
+		<c:data-source user="$(customer)"/>
+		<c:data-source order="$(main_order)"/>
+		<c:data-source payment="$(main_order_payment)"/>
+		
+		<c:row name="line-item-block" class="card normal-bottom-space" data-source="$(order.line_item)">
+			<c:image class="image-size-list-thumbnail" src-url="$(cover_image)">商品图片</c:image>
+			<c:column class="no-flex-weight">
+				<c:text class="text-color-marked-main" data-source="$(name)"></c:text>
+				<c:text class="text-color-main" data-source="$(summary)"></c:text>
+				<c:row class="align-both-ends pin-to-left-bottom">
+					<c:money name="item-pay-value" class="text-size-main text-color-marked-main" data-source="$(item_discount)"></c:money>
+					<c:money name="item-price" class="text-size-note text-color-note" data-source="$(raw_price)"></c:money>
+				</c:row>
+			</c:column>
+		</c:row>
+		<c:row name="borrow-record-block" class="card normal-bottom-space">
+			<c:text class="text-size-section-title text-color-marked-main">图书借阅</c:text>
+			<c:column class="align-both-ends">
+				<c:text>借书门店</c:text>
+				<c:text data-source="$(borrowRecord.lending_store.store_name)"></c:text>
+			</c:column>
+			<c:column class="align-both-ends">
+				<c:text>借书日期</c:text>
+				<c:date data-source="$(borrowRecord.lending_datetime)" format="yyyy-MM-dd"></c:date>
+			</c:column>
+			<c:column class="align-both-ends">
+				<c:text>免费阅读至</c:text>
+				<c:date data-source="$(borrowRecord.free_lending_expired_datetime)" format="yyyy-MM-dd"></c:date>
+			</c:column>
+			<c:column class="align-both-ends">
+				<c:text>还书门店</c:text>
+				<c:text data-source="$(borrowRecord.return_store.store_name)"></c:text>
+			</c:column>
+			<c:column class="align-both-ends">
+				<c:text>还书日期</c:text>
+				<c:date data-source="$(borrowRecord.return_datetime)" format="yyyy-MM-dd"></c:date>
+			</c:column>
+			<c:column class="align-both-ends">
+				<c:text>逾期天数</c:text>
+				<c:text data-source="$(borrowRecord._by_key_expiredDays)"></c:text>
+			</c:column>
+			<c:column class="align-both-ends">
+				<c:text>逾期费用</c:text>
+				<c:money data-source="$(borrowRecord._by_key_expiredFee)" format="#,##0.##元"></c:money>
+			</c:column>
+		</c:row>
+		
+		<c:column name="member-service-block" class="card normal-bottom-space">
+			<c:text class="text-size-section-title text-color-marked-main">会员服务:</c:text>
+			<c:column class="align-both-ends">
+				<c:text>会员生效日期:</c:text>
+				<c:date data-source="$(user.member_service_start_date)" format="yyyy-MM-dd"></c:date>
+			</c:column>
+			<c:column class="align-both-ends">
+				<c:text>会员到期日期:</c:text>
+				<c:date data-source="$(user.member_service_expire_date)" format="yyyy-MM-dd"></c:date>
+			</c:column>
+		</c:column>
+		
+		<c:column name="order-block" class="card normal-bottom-space">
+			<c:text class="text-size-section-title text-color-marked-main">订单信息</c:text>
+			<c:row class="align-both-ends">
+				<c:text>订单编号:</c:text>
+				<c:text data-source="$(order.id)"></c:text>
+			</c:row>
+			<c:row class="align-both-ends">
+				<c:text>下单时间:</c:text>
+				<c:date data-source="$(order.create_time)" format="yyyy-MM-dd HH:mm:ss"></c:date>
+			</c:row>
+			<c:row class="align-both-ends">
+				<c:text>商品金额</c:text>
+				<c:money data-source="$(order.original_amount)" format="#,##0.##元"></c:money>
+			</c:row>
+			<c:row class="align-both-ends">
+				<c:text>实付金额</c:text>
+				<c:money class="text-color-marked-main" data-source="$(order.actual_amount)" format="#,##0.##元"></c:money>
+			</c:row>
+		</c:column>
+		
+		<c:column name="payment-block" class="card normal-bottom-space">
+			<c:text class="text-size-section-title text-color-marked-main">支付信息</c:text>
+			<c:row class="align-both-ends">
+				<c:text>支付方式:</c:text>
+				<c:text data-source="$(payment.payment_method)"></c:text>
+			</c:row>
+			<c:row class="align-both-ends">
+				<c:text>支付时间:</c:text>
+				<c:date data-source="$(payment.last_update_time)" format="yyyy-MM-dd HH:mm:ss"></c:date>
+			</c:row>
+			<c:row class="align-both-ends">
+				<c:text>支付金额</c:text>
+				<c:money class="text-color-marked-main" data-source="$(payment.paid_amount)" format="#,##0.##元"></c:money>
+			</c:row>
+		</c:column>
+		
+		<c:row class="action-buttons-bar">
+			<c:button link-to-url="/wxaService/viewHomePage/">回首页</c:button>
+			<c:button name="to_pay" link-to-url="/wxaService/customerStartPayOrder/$(order.id)/">去支付</c:button>
+		</c:row>
+	</c:page>
+	
+	
+	
+
+	
+</root>

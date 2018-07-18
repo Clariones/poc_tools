@@ -316,8 +316,11 @@ public class DataSourceUtil {
             DataSourceInfo parentDataSourceInfo, String dataSourceName, String dataSourceExpression) {
         String[] inputs = dataSourceExpression.split("\\s*:\\s*");
         String typeName = inputs[1].trim().toLowerCase();
-        return new DataSourceInfo(DataSourceInfo.TYPE_JAVA_VARIABLE, supportedVariableTypes.get(typeName),
+        DataSourceInfo result = new DataSourceInfo(DataSourceInfo.TYPE_JAVA_VARIABLE, supportedVariableTypes.get(typeName),
                 dataSourceExpression, dataSourceName == null ? getAnonymoseVarName() : dataSourceName);
+        result.setJavaTypeName(result.getDeclaredTypeName());
+        result.setList(dataSourceExpression.startsWith("list:"));
+        return result;
     }
 
     private static String getAnonymoseVarName() {
@@ -374,7 +377,7 @@ public class DataSourceUtil {
         if (m.matches()) {
             String declarePrefix = m.group(1);
             String declareType = m.group(2);
-            if (declarePrefix.equals("var") || isSupportedVarType(declareType)) {
+            if ((declarePrefix.equals("var") || declarePrefix.equals("list"))&& isSupportedVarType(declareType)) {
                 System.out.println("分析表达式：" + dataSourceExpression + ", 是一个ViewMode内部的" + declareType + "变量");
                 return EXPRESSION_TYPE_PAGE_VARIABLE;
             }
@@ -394,7 +397,9 @@ public class DataSourceUtil {
     private static final Map<String, String> supportedVariableTypes = new HashMap<String, String>();
     static {
         supportedVariableTypes.put("string", "String");
-        supportedVariableTypes.put("boolean", "boolean");
+        supportedVariableTypes.put("boolean", "Boolean");
+        supportedVariableTypes.put("date", "Date");
+        supportedVariableTypes.put("object", "Object");
     }
 
     public static final boolean isVariableExpression(String expr) {

@@ -92,6 +92,17 @@
         <@gen_component_chidren_ifhas uiSpec/>
 </#macro>
 
+<#macro gen_component_toast  uiSpec>
+        ToastViewComponent me = new ToastViewComponent();
+        <@gen_component_common_part uiSpec/>
+	<#if uiSpec.bindedDataSourceInfo??>
+        me.setContent(data);
+	<#else>
+        me.setContent("${uiSpec.elementTextContent!}");
+	</#if>
+        <@gen_component_chidren_ifhas uiSpec/>
+</#macro>
+
 <#macro gen_component_text  uiSpec>
         TextViewComponent me = new TextViewComponent();
         <@gen_component_common_part uiSpec/>

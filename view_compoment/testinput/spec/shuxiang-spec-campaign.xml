@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root xmlns:c="http://clariones.doublechaintech.com/uischema.xml" template="mobile">
+	
+	<!-- 活动详情 -->
+	<c:page name="campaign-detail" title="活动详情">
+    	<c:data-source campaign="$(campaign)"/>
+    	<c:data-source customer="$(customer)"/>
+    	
+    	<c:column class="padding--default">
+	    	<c:text	class="text-title" data-source="$(campaign.campaign_name)">名称</c:text>
+	    	<c:row class="align-both-ends padding--top-near">
+	    		<c:text class="text-status" data-source="$(campaign.campaign_status)">状态</c:text>
+	    		<c:row class="flex--0" stat-in-page="true">
+			    	<c:row stat-in-page="true" class="flex--0 text--color-highlight text--size-middle" link-to-url="/wxaService/praiseCampaign/$(campaign.id)/$(campaign._by_key_alreadyPraised)/">
+				    	<c:font-icon name="campaign-like">heart-o</c:font-icon>
+				    	<c:text data-source="$(campaign._by_key_praiseCount)"></c:text>
+			    	</c:row>
+			    	<!-- 
+			    	<c:font-icon class="text-size-main">comment-o</c:font-icon>
+			    	<c:text class="text-size-note common-text-piece" data-source="$(campaign._by_key_reviewCount)"></c:text>
+			    	 -->
+			    	
+			    </c:row>
+	    	</c:row>
+	    	<c:row class="text--color-info padding--top-near">
+	    		<c:text>活动时间：</c:text>
+	    		<c:date data-source="$(campaign.campaign_start_time)" format="yyyy-MM-dd HH:mm"></c:date>
+	    	</c:row>
+	    	<c:row class="text--color-info padding--top-near">
+	    		<c:text>结束时间：</c:text>
+	    		<c:date data-source="$(campaign.campaign_finish_time)" format="yyyy-MM-dd HH:mm"></c:date>
+	    	</c:row>
+	    	<c:row name="campaign-images" class="padding--top-default">
+	    		<c:image class="image--size-list-thumbnail image--fill" data-source="$(campaign.campaign_image)"></c:image>
+	    	</c:row>
+    	</c:column>
+    	<c:container class="container--empty"></c:container>
+    	
+		<c:row class="padding--default" >
+			<c:font-icon class="text--size-default">map-marker</c:font-icon>
+			<c:text class="text--size-default" data-source="$(campaign.campaign_hold_address)">地点</c:text>
+		</c:row>
+		<c:container class="container--empty"></c:container>
+		
+		<c:column class="padding--default" >
+			<c:text name="member-count" class="text--color-info" data-source="已报名$(campaign._by_key_memberCount) / 限$(campaign.available_register_quantity)人">人数</c:text>
+			<c:row name="register-logo" class="padding--top-near" >
+				<c:image class="image-icon" src-url="$(register_member.logo_image)"
+					data-source="$(campaign.campaign_register_history)" />
+				<c:font-icon name="more-register" class="pin-to-right">ellipsis-h</c:font-icon>
+			</c:row>
+		</c:column>
+		<c:container class="container--empty"></c:container>
+		
+		<c:column class="padding--default" >
+			<c:text class="text-title">活动详情</c:text>
+			<c:rich-text class="padding--top-near" data-source="$(campaign.campaign_content)" />
+		</c:column>
+		<c:container class="container--empty"></c:container>
+		
+	    <c:column name="review-list" class="card normal-top-space">
+		    <c:text class="text-title">评论</c:text>
+		</c:column>
+	    <c:column class="background-main small-bottom-space" data-source="$(campaign.campaign_review)">
+    		<c:row class="align-both-ends">
+    			<c:row>
+    				<c:image class="image-size-icon" src-url="$(reviewer.logo_image)"/>
+    				<c:column>
+    					<c:text class="text-size-main text-color-marked-main" data-source="$(reviewer.nick_name)"></c:text>
+    					<c:date name="review-post-time" class="text-size-note" data-source="$(last_update_time)" format="fuzz_after_1_hour"/>
+    				</c:column>
+    			</c:row>
+    			<c:row>
+	    			<c:row class="align-right" stat-in-page="true" link-to-url="/wxaService/praiseCampaignReview/campaign/$(campaign.id)/$(id)/$(_by_key_thumbsUp)/">
+	    				<c:font-icon name="my-comment-icon" class="text-size-main">comment-o</c:font-icon>
+	    				<c:text class="text-size-note common-text-piece" data-source="$(_by_key_praiseCount)"/>
+	    			</c:row>
+    				<c:ugc-control title-block="屏蔽" title-report="举报" link-to-url="/wxaService/ugcContentControl/$(id)/campaign/">...</c:ugc-control>
+    			</c:row>
+    		</c:row>
+    		<c:text max-line="4" class="text-size-main" data-source="$(review_content)"/>
+    	</c:column>
+	    	
+	    	<!-- 
+	    	<c:text class="text-size-main" link-to-url="/wxaService/campaignreviews/$(campaign.id)/">
+	    		查看更多...
+	    	</c:text>
+	    	 -->
+		<c:form>
+			<c:field type="hidden" name="campaign_id" label="" data-source="$(campaign.id)"/>
+			<c:field type="longtext" name="review_content" label="发表评论" max-value="1024"/>
+			<c:row class="row-of-button-line">
+				<c:button type="share" class="btn btn--in-same-line" 
+						sharing-title="$(campaign.campaign_name)" image-url="$(campaign.campaign_image)" link-to-url="/wxaService/campaignDetail/$(campaign.id)/">
+					分享
+				</c:button>
+				<c:button name="bottom-line" class="btn btn--in-same-line" data-source="$(campaign._by_key_scene)"
+						link-to-url="/wxaService/campaignApplyResult/$(campaign.id)/$(campaign._by_key_scene_code)/">
+					报名活动
+				</c:button>
+				<c:action name="submitCampaignReviewForm" class="btn btn--in-same-line" level="primary" link-to-url="/wxaService/postCampaignReview/">提交评论</c:action>
+			</c:row>
+		</c:form>
+    </c:page>
+    
+</root>

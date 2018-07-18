@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root xmlns:c="http://clariones.doublechaintech.com/uischema.xml" template="mobile">
+	
+	<!-- *************************** footer ********************************* -->
+	<!-- 动态 -->
+	<c:page name="book-review-list" title="书评列表">
+		<c:data-source plaza="$(book_plaza)" />
+		<c:column data-source="$(plaza.book_review)" class="normal-bottom-space">
+			<!-- 评论头部，包括头像，名字，时间，点赞数和点赞功能，举报功能 -->
+			<c:row class="align-both-ends card">
+				<c:row class="no-flex-weight align-left">
+					<c:image class="image-size-icon" src-url="$(reviewer.logo_image)" />
+					<c:column class="no-flex-weight">
+						<c:text class="text-size-section-title" data-source="$(reviewer.nick_name)" />
+						<c:date name="post-time" class="text-size-note text-color-note" data-source="$(review_publish_datetime)"
+							format="1_hour_or_earlier" />
+					</c:column>
+				</c:row>
+				<c:row class="align-right">
+					<c:font-icon name="thumbUp" class="text-size-note">heart-o</c:font-icon>
+					<c:text name="prise-count" class="text-size-note" data-source="$(_by_key_praiseCount)" />
+					<c:ugc-control class="text-size-main text-color-main normal-left-space"
+						link-to-url="/wxaService/ugcContentControl/$(id)/book/" title-block="屏蔽" title-report="举报">
+						...
+					</c:ugc-control>
+				</c:row>
+			</c:row>
+			<!-- 评论主体，包括内容和图书链接 -->
+			<c:column class="card normal-bottom-space">
+				<c:text class="text-size-main" data-source="$(review_content)" max-line="3" />
+				<c:row class="card small-top-space" link-to-url="/wxaService/bookDetailPage/$(book_info.id)/">
+					<c:image class="image-size-thumbnail" src-url="$(book_info.book_cover)" />
+					<c:column>
+						<c:text class="text-size-section-title text-color-marked-main" data-source="$(book_info.book_name)" />
+						<c:text class="text-size-main" data-source="$(book_info.book_recommend.name)" />
+					</c:column>
+				</c:row>
+			</c:column>
+		</c:column>
+	</c:page>
+
+	<!-- 历程 -->
+	<c:page name="customer-footprint" title="历程">
+		<c:data-source user="$(customer)"/>
+		
+		<c:column data-source="$(user.customer_footprint)">
+			<c:column class="padding--default">
+				<c:row class="align-both-ends" name="footprint">
+					<c:row>
+						<c:font-icon class="text-size-small">clock-o</c:font-icon>
+						<c:date class="text-title" data-source="$(create_time)" format="fuzz_after_1_hour"></c:date>
+					</c:row>
+					<c:text class="text-title" data-source="$(title)" format="15,..."></c:text>
+				</c:row>
+				<c:row name="related-item" class="padding--top-near">
+					<c:column>
+						<c:image class="image--size-thumbnail" src-url="$(item_image)"></c:image>
+					</c:column>
+					<c:column class="padding--left-default">
+						<c:text class="text-title" data-source="$(item_title)" format="10,...,3"></c:text>
+						<c:text class="text--color-info" data-source="$(item_description)"></c:text>
+					</c:column>
+				</c:row>
+				<c:rich-text class="text--color-info" data-source="$(description)" max-line="4"/>
+			</c:column>
+			<c:container class="container--empty"></c:container>
+		</c:column>
+
+		<c:column name="nothing" class="padding--default">
+			<c:text class="text-title">您还没有留下任何足迹</c:text>
+		</c:column>
+	</c:page>
+</root>

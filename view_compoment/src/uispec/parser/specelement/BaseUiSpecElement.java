@@ -186,7 +186,18 @@ public class BaseUiSpecElement {
     }
 
     public String getCssClass() {
-        return cssClass;
+        if (this.getBindedClass() == null) {
+            return cssClass;
+        }
+        if (cssClass == null) {
+            return this.getBindedClass();
+        }
+        return this.getBindedClass()+" " + cssClass;
+    }
+
+    protected String getBindedClass() {
+        // TODO Auto-generated method stub
+        return null;
     }
 
     public void setCssClass(String cssClass) {

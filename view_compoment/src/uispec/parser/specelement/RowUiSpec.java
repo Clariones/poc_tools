@@ -11,9 +11,9 @@ public class RowUiSpec extends ContainerUiSpec {
     public String getCssClass() {
         String clazz = super.getCssClass();
         if (clazz == null || clazz.isEmpty()) {
-            return "container-horizontal";
+            return "container--row";
         }
-        return "container-horizontal " + clazz;
+        return "container--row " + clazz;
     }
 
 }
