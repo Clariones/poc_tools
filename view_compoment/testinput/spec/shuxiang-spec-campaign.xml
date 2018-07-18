@@ -86,19 +86,40 @@
 	    		查看更多...
 	    	</c:text>
 	    	 -->
-		<c:form>
+		<c:form class="review_form">
 			<c:field type="hidden" name="campaign_id" label="" data-source="$(campaign.id)"/>
-			<c:field type="longtext" name="review_content" label="发表评论" max-value="1024"/>
+			<c:field type="longtext" name="review_content" label=""  placeholder="发表评论" max-value="1024"/>
 			<c:row class="row-of-button-line">
-				<c:button type="share" class="btn btn--in-same-line" 
-						sharing-title="$(campaign.campaign_name)" image-url="$(campaign.campaign_image)" link-to-url="/wxaService/campaignDetail/$(campaign.id)/">
-					分享
-				</c:button>
-				<c:button name="bottom-line" class="btn btn--in-same-line" data-source="$(campaign._by_key_scene)"
-						link-to-url="/wxaService/campaignApplyResult/$(campaign.id)/$(campaign._by_key_scene_code)/">
-					报名活动
-				</c:button>
-				<c:action name="submitCampaignReviewForm" class="btn btn--in-same-line" level="primary" link-to-url="/wxaService/postCampaignReview/">提交评论</c:action>
+				<c:row class="btn btn--in-same-line">
+					<c:column class="align-center">
+						<c:font-icon>share-alt</c:font-icon>
+					</c:column>
+					<c:column class="align-center">
+					<c:button type="share"  sharing-title="$(campaign.campaign_name)" 
+							image-url="$(campaign.campaign_image)" link-to-url="/wxaService/campaignDetail/$(campaign.id)/">
+						分享
+					</c:button>
+					</c:column>
+				</c:row>
+				<c:row name="register-campaign" class="btn btn--in-same-line">
+					<c:column class="align-center">
+					<c:font-icon>paw</c:font-icon>
+					</c:column>
+					<c:column class="align-center">
+					<c:button name="register-campaign" data-source="$(campaign._by_key_scene)"
+							link-to-url="/wxaService/campaignApplyResult/$(campaign.id)/$(campaign._by_key_scene_code)/">
+						报名活动
+					</c:button>
+					</c:column>
+				</c:row>
+				<c:row name="submit-campaign-review-form" class="btn btn--in-same-line" >
+					<c:column class="align-center">
+					<c:font-icon>commenting</c:font-icon>
+					</c:column>
+					<c:column class="align-center">
+					<c:action level="primary" link-to-url="/wxaService/postCampaignReview/">提交评论</c:action>
+					</c:column>
+				</c:row>
 			</c:row>
 		</c:form>
     </c:page>
