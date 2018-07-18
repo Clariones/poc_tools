@@ -179,6 +179,11 @@
 <#macro gen_component_scanner uiSpec>
         CodeScannerComponent me = new CodeScannerComponent();
         <@gen_component_common_part uiSpec/>
+    <#if uiSpec.bindedDataSourceInfo??>
+        me.setContent(data);
+	<#else>
+        me.setContent("${uiSpec.elementTextContent!}");
+	</#if>
     <#if uiSpec.apiUrlDataSourceInfo??>
     	<#if uiSpec.apiUrlDataSourceInfo.type="const_string">
     	me.setApi("${uiSpec.apiUrlDataSourceInfo.dataSourceExpression}");

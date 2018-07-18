@@ -130,6 +130,10 @@
 </#macro>
 
 <#macro gen_string_concat_builder_part uiSpec, dsInfo, postFix>
+<#if !dsInfo.children?has_content>
+        sb.append(viewModel.get${dsInfo.variableName?cap_first}());
+	<#return>
+</#if>
 <#assign geneticDsInfo = dsInfo.children[0] />
 <#assign startVarName="inputData"/>
 <#if geneticDsInfo.varScope = "page">

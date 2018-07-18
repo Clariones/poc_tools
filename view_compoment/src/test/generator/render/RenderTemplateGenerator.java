@@ -123,6 +123,9 @@ public class RenderTemplateGenerator {
         page.initImportedList();
         // 然后开始分析各级组件内包含的变量
         for (BaseUiSpecElement child : page.getChildren()) {
+            if (!child.isShouldBeRender()) {
+                continue;
+            }
             parseDataSource(page, globalVarTable, null, child);
         }
     }

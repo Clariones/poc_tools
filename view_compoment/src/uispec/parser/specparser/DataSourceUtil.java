@@ -398,6 +398,7 @@ public class DataSourceUtil {
     static {
         supportedVariableTypes.put("string", "String");
         supportedVariableTypes.put("boolean", "Boolean");
+        supportedVariableTypes.put("int", "Integer");
         supportedVariableTypes.put("date", "Date");
         supportedVariableTypes.put("object", "Object");
     }

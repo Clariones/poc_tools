@@ -4,31 +4,7 @@
     
 	
 
-    <c:page name="customer-borrow-book" title="借书">
-        <c:data-source text-message-1="var: string"/>
-        <c:data-source text-message-2="var: string"/>
-        <c:data-source user="$(customer)"/>
-
-        <c:column class="align-center borrow-book-block" >
-        	<c:text name="first-line" class="text-size-section-title text-color-marked-main big-top-space" data-source="$(user._by_key_borrowed)">第一行</c:text>
-        	<c:text name="second-line" class="text-size-section-title text-color-marked-main normal-top-space" data-source="$(user._by_key_total_allowed)">第二行</c:text>
-        	<c:button name="view-borrow-history" class="btn btn-primary normal-top-space" link-to-url="/wxaService/customerBorrowHistory/$(user.id)">查看借阅详情</c:button>
-        	<c:bar_or_qr_code name="my-code" class="image-size-main" data-source="$(user.id)">我的二维码</c:bar_or_qr_code>
-        	<c:text name="bottom-line" class="text-size-note text-color-note small-top-space" data-source="$(user._by_key_scene)">底行</c:text>
-        	<c:scanner name="BorrowBook" class="wxa-scanner" api-url="/wxaService/customerBorrowBook/"></c:scanner>
-        </c:column>
-       	<c:row class="align-equidisant">
-       		<c:column name="showQrCode" class="icon-item" link-to-url="/wxaService/wantBorrowBook/showCode/">
-       			<c:image class="image-size-icon" src-url="/images/showMyQrCode.png"></c:image>
-       			<c:text class="text-size-section-title">我的借书码</c:text>
-       		</c:column>
-       		<c:column name="scanToBorrow" class="icon-item" link-to-url="/wxaService/wantBorrowBook/scanCode/">
-       			<c:image class="image-size-icon" src-url="/images/scanner.png"></c:image>
-       			<c:text class="text-size-section-title">自助借书</c:text>
-       		</c:column>
-       	</c:row>
-
-    </c:page>
+    
  
     
     <c:page name="customer-buy-book" title="买书">
@@ -193,33 +169,7 @@
     	</c:column>
     </c:page>
            
-    <c:page name="customer-review-list" title="我的书评">
-    	<c:data-source user="$(customer)"/>
-    	<c:column>
-    		<c:column class="review-record-container" data-source="$(user.book_review)">
-    			<c:row>
-    				<c:font-icon>clock-o</c:font-icon>
-    				<c:date data-source="$(review_publish_datetime)" format="yyyy-MM-dd HH:mm"></c:date>
-    			</c:row>
-    			<c:row class="card" link-to-url="/wxaService/bookDetailPage/$(book_info.id)/true/">
-    				<c:image src-url="$(book_info.book_cover)" class="image-size-thumbnail"></c:image>
-    				<c:column>
-    					<c:text class="text-size-section-title" data-source="$(book_info.book_name)"></c:text>
-    					<c:text data-source="$(book_info.book_recommend.name)"/>
-    				</c:column>
-    			</c:row>
-    			<c:text data-source="$(review_content)" max-line="4"></c:text>
-    			<c:row class="align-right">
-    				<c:font-icon>heart</c:font-icon>
-    				<c:text>赞</c:text>
-    				<c:text data-source="$(_by_key_praiseCount)"></c:text>
-    			</c:row>
-    		</c:column>
-    	</c:column>
-    	<c:column name="nothing_to_show">
-    		<c:text>您什么也没评论过</c:text>
-    	</c:column>
-    </c:page>
+    
           
     
   
