@@ -116,7 +116,13 @@
         <#assign varName="data_"+(segDsInfo?index+1)+postFix />
         ${segDsInfo.javaTypeName} ${varName} = ${startVarName}.get${segDsInfo.variableName?cap_first}();
         if (${varName} == null){
+        <#if uiSpec.jobInfo.localDataTypeName == 'int'>
+        	return 0;
+        <#elseif uiSpec.jobInfo.localDataTypeName == 'boolean'>
+        	return false;
+        <#else>
             return null;
+        </#if>
         }
         <#assign startVarName=varName/>
     <#else>

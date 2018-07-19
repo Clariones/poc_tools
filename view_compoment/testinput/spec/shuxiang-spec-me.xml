@@ -32,37 +32,37 @@
 		<c:container class="container--empty"></c:container>
 
 		<c:row name="item-list" class="list-as-grid-row each-row-3">
-			<c:column class="grid-cell" link-to-url="/wxaService/customerMemberRights/">
+			<c:column class="grid-cell cell-default-border" link-to-url="/wxaService/customerMemberRights/">
 				<c:row class="align-center">
 					<c:image src-url="/images/1.png"></c:image>
 				</c:row>
 				<c:text class="text-size-section-title text-color-main">我的权益</c:text>
 			</c:column>
-			<c:column class="grid-cell" link-to-url="/wxaService/customerBorrowHistory/">
+			<c:column class="grid-cell cell-default-border" link-to-url="/wxaService/customerBorrowHistory/">
 				<c:row class="align-center">
 					<c:image src-url="/images/1.png"></c:image>
 				</c:row>
 				<c:text class="text-size-section-title text-color-main">我的借阅</c:text>
 			</c:column>
-			<c:column class="grid-cell" link-to-url="/wxaService/customerCampaingList/">
+			<c:column class="grid-cell cell-default-border" link-to-url="/wxaService/customerCampaingList/">
 				<c:row class="align-center">
 					<c:image src-url="/images/1.png"></c:image>
 				</c:row>
 				<c:text class="text-size-section-title text-color-main">我的活动</c:text>
 			</c:column>
-			<c:column class="grid-cell" link-to-url="/wxaService/customerAccountDetail/">
+			<c:column class="grid-cell cell-default-border" link-to-url="/wxaService/customerAccountDetail/">
 				<c:row class="align-center">
 					<c:image src-url="/images/1.png"></c:image>
 				</c:row>
 				<c:text class="text-size-section-title text-color-main">我的余额</c:text>
 			</c:column>
-			<c:column class="grid-cell" link-to-url="/wxaService/customerReviewList/">
+			<c:column class="grid-cell cell-default-border" link-to-url="/wxaService/customerReviewList/">
 				<c:row class="align-center">
 					<c:image src-url="/images/1.png"></c:image>
 				</c:row>
 				<c:text class="text-size-section-title text-color-main">我的书评</c:text>
 			</c:column>
-			<c:column class="grid-cell" link-to-url="/wxaService/customerOrderList/needPay/">
+			<c:column class="grid-cell cell-default-border" link-to-url="/wxaService/customerOrderList/needPay/">
 				<c:row class="align-center">
 					<c:image src-url="/images/1.png"></c:image>
 				</c:row>
@@ -197,50 +197,7 @@
 		</c:row>
 		
 	</c:page>
-	<!-- 我的 余额充值选择 -->
-	<c:page name="customer-start-recharge" title="余额充值">
-		<c:row class="align-center">
-			<c:text class="text-size-article-title">选择充值金额</c:text>
-		</c:row>
-		<c:container class="container--empty"></c:container>
-		
-		<c:row class="list-as-grid-row align-left each-row-3">
-			<c:column class="grid-cell card" target-id="rc_10" active="true">
-				<c:text>10元</c:text>
-			</c:column>
-			<c:column class="grid-cell card" target-id="rc_20">
-				<c:text>20元</c:text>
-			</c:column>
-			<c:column class="grid-cell card" target-id="rc_50">
-				<c:text>50元</c:text>
-			</c:column>
-			<c:column class="grid-cell card" target-id="rc_100">
-				<c:text>100元</c:text>
-			</c:column>
-			<c:column class="grid-cell card" target-id="rc_200">
-				<c:text>200元</c:text>
-			</c:column>
-			<c:column class="grid-cell card" target-id="rc_500">
-				<c:text>500元</c:text>
-			</c:column>
-		</c:row>
-		<c:form>
-			<c:field type="radio" visible="false" name="recharge_amount" content="10">
-				<c:option id="rc_10" value="10" display-text="10元" />
-				<c:option id="rc_20" value="20" display-text="20元" />
-				<c:option id="rc_50" value="50" display-text="50元" />
-				<c:option id="rc_100" value="100" display-text="100元" />
-				<c:option id="rc_200" value="200" display-text="200元" />
-				<c:option id="rc_500" value="500" display-text="500元" />
-			</c:field>
-
-			<c:field type="radio" name="payment_method">
-				<c:option value="wechat" display-text="微信支付" checked="true"></c:option>
-				<c:option value="agency" display-text="好友代付"></c:option>
-			</c:field>
-			<c:action name="submitRechargeForm" link-to-url="/wxaService/placeRechargeOrder/">充值</c:action>
-		</c:form>
-	</c:page>
+	
 
 	<!-- 我的：选择会员 -->
 	<c:page name="select-member-service" title="选择会员">
@@ -277,7 +234,88 @@
 			</c:column>
 		</c:row>
 	</c:page>
-	
+	<!-- 我的 余额充值选择 -->
+	<c:page name="customer-start-recharge" title="余额充值">
+		<c:row class="padding--far">
+			<c:text class="text-size-article-title">选择充值金额</c:text>
+		</c:row>
+		
+		<c:row class="list-as-grid-row each-row-3 padding--left-far padding--right-far padding--bottom-far">
+			<c:row class="grid-cell" target-id="rc_10" active="true">
+				<c:column class="recharge-card">
+					<c:text class="text--size-big">10元</c:text>
+					<c:text>充值10元</c:text>
+				</c:column>
+			</c:row>
+			<c:row class="grid-cell" target-id="rc_20">
+				<c:column class="recharge-card">
+					<c:text class="text--size-big">20元</c:text>
+					<c:text>充值20元</c:text>
+				</c:column>
+			</c:row>
+			<c:row class="grid-cell" target-id="rc_50">
+				<c:column class="recharge-card">
+					<c:text class="text--size-big">50元</c:text>
+					<c:text>充值50元</c:text>
+				</c:column>
+			</c:row>
+			<c:row class="grid-cell" target-id="rc_100">
+				<c:column class="recharge-card">
+					<c:text class="text--size-big">100元</c:text>
+					<c:text>充值100元</c:text>
+				</c:column>
+			</c:row>
+			<c:row class="grid-cell" target-id="rc_200">
+				<c:column class="recharge-card">
+					<c:text class="text--size-big">200元</c:text>
+					<c:text>充值200元</c:text>
+				</c:column>
+			</c:row>
+			<c:row class="grid-cell" target-id="rc_500">
+				<c:column class="recharge-card">
+					<c:text class="text--size-big">500元</c:text>
+					<c:text>充值500元</c:text>
+				</c:column>
+			</c:row>
+			
+		</c:row>
+		<c:container class="container--empty"/>
+		<c:form>
+			<c:field type="radio" visible="false" name="recharge_amount" content="10">
+				<c:option id="rc_10" value="10" display-text="10元" checked="true" />
+				<c:option id="rc_20" value="20" display-text="20元" />
+				<c:option id="rc_30" value="30" display-text="30元" />
+				<c:option id="rc_50" value="50" display-text="50元" />
+				<c:option id="rc_100" value="100" display-text="100元" />
+				<c:option id="rc_200" value="200" display-text="200元" />
+				<c:option id="rc_500" value="500" display-text="500元" />
+			</c:field>
+
+			<c:field type="radio" name="payment_method">
+				<c:option value="wechat" display-text="微信支付" checked="true"></c:option>
+				<c:option value="agency" display-text="好友代付"></c:option>
+			</c:field>
+			<c:row class="row-of-button-line fixed-at-bottom">
+				<c:row class="btn btn--in-same-line">
+					<c:column class="align-center">
+						<c:font-icon>chevron-circle-left</c:font-icon>
+					</c:column>
+					<c:column class="align-center">
+						<c:button link-to-url="/wxaService/customerProfile/">取消</c:button>
+					</c:column>
+				</c:row>
+				<c:row name="submit-campaign-review-form" class="btn btn--in-same-line" >
+					<c:column class="align-center">
+						<c:font-icon>cny</c:font-icon>
+					</c:column>
+					<c:column class="align-center">
+						<c:action name="submitRechargeForm" link-to-url="/wxaService/placeRechargeOrder/">充值</c:action>
+					</c:column>
+				</c:row>
+			</c:row>
+			
+		</c:form>
+	</c:page>
 	<c:page name="customer-account-history" title="余额明细">
      	<c:data-source user="$(customer)"/>
      	

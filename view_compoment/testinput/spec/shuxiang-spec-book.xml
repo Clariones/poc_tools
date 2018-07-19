@@ -138,4 +138,53 @@
 		</c:row>
 	</c:page>
 
+	<!-- 借书成功 -->
+	<c:page name="borrow-book-success" title="借书">
+		<c:data-source borrowRecord="$(borrowing_history)"/>
+		<c:data-source alreadyBorrowed="var: int"/>
+		<c:data-source stillCanBorrow="var: int"/>
+		
+		<c:row class="empty-space-header-block align-center">
+			<c:font-icon class="font-icon--big-flag">check-circle-o</c:font-icon>
+			<c:column>
+				<c:text class="text-title">借书成功</c:text>
+				<c:text class="text--color-info" data-source="已借$(alreadyBorrowed)本，还可以借$(stillCanBorrow)本"/>
+			</c:column>
+		</c:row>
+		<c:container class="container--empty"/>
+		
+		<c:row class="padding--far">
+			<c:image class="image--size-thumbnail" src-url="$(borrowRecord.book.book_cover)"/>
+			<c:column>
+				<c:text class="text-title" data-source="$(borrowRecord.book.book_name)"></c:text>
+				<c:text class="text--color-info" data-source="$(borrowRecord.book.book_recommend.name)" />
+				<c:text class="padding--far"></c:text>
+				<c:date class="text--color-info" data-source="$(borrowRecord.lending_datetime)" format="借阅日期： yyyy.MM.dd"/>
+				<c:date class="text--color-info" data-source="$(borrowRecord.free_lending_expired_datetime)" format="截止日期： yyyy.MM.dd"/>
+			</c:column>
+		</c:row>
+		
+		<c:row class="row-of-button-line fixed-at-bottom">
+			<c:row class="btn btn--in-same-line">
+				<c:column class="align-center">
+					<c:font-icon>book</c:font-icon>
+				</c:column>
+				<c:column class="align-center">
+				<c:button  link-to-url="/wxaService/borrowingHistoryDetail/$(borrowRecord.id)/">
+					查看详情
+				</c:button>
+				</c:column>
+			</c:row>
+			<c:row name="register-campaign" class="btn btn--in-same-line">
+				<c:column class="align-center">
+				<c:font-icon>spinner fa-spin</c:font-icon>
+				</c:column>
+				<c:column class="align-center">
+				<c:button link-to-url="/wxaService/wantBorrowBook/scanCode/">
+					继续借阅
+				</c:button>
+				</c:column>
+			</c:row>
+		</c:row>
+	</c:page>
 </root>

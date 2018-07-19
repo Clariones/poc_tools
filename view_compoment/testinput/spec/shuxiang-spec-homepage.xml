@@ -109,5 +109,72 @@
         	</c:row>
         </c:column>
     </c:page>
+    
+    <!-- 首页：借书 -->
+    <c:page name="customer-borrow-book" title="借书">
+        <c:data-source user="$(customer)"/>
+		<c:data-source totalCanBorrow="var: int"/>
+		<c:data-source alreadyBorrowed="var: int"/>
+		<c:data-source leftBorrowCount="var: int"/>
+		<c:data-source allowedAmountLimit="var: object"/>
+		<c:data-source alreadyBorrowedAmount="var: object"/>
+		<c:data-source leftBorrowedAmount="var: object"/>
+		
+		<c:column name="can-borrow" class="align-center borrow-book-page">
+			<c:text data-source="当前已借$(alreadyBorrowed)本书"></c:text>
+			<c:text data-source="还可借$(leftBorrowCount)本书"></c:text>
+			<c:bar_or_qr_code name="my-code" class="image-size-main padding--top-far padding--bottom-far" data-source="$(user.id)">我的二维码</c:bar_or_qr_code>
+			<c:text class="text--size-small text--color-info padding--bottom-far">请向门店员工出示借书码进行借书</c:text>
+			<c:button type="scanner" class="btn btn--green btn--half" link-to-url="/wxaService/customerBorrowBook/">自助扫码借书</c:button>
+		</c:column>
+		
+		<c:column name="no-member-service" class="align-center borrow-book-page">
+			<c:text>您未购买会员服务</c:text>
+			<c:text>借书请购买会员服务</c:text>
+			<c:image class="can-not-borrow-image padding--top-far padding--bottom-far" src-url="/images/can_not_borrow_book.png"></c:image>
+			<c:button class="btn btn--green btn--half" link-to-url="/wxaService/customerMemberService/">查看会员服务</c:button>
+		</c:column>
+		
+		<c:column name="member-service-expire" class="align-center borrow-book-page">
+			<c:text>您的会员服务已过期</c:text>
+			<c:text>借书请继续购买会员服务</c:text>
+			<c:image class="can-not-borrow-image padding--top-far padding--bottom-far" src-url="/images/can_not_borrow_book.png"></c:image>
+			<c:button class="btn btn--green btn--half" link-to-url="/wxaService/customerMemberService/">查看会员服务</c:button>
+		</c:column>
+		
+		<c:column name="number-limit" class="align-center borrow-book-page">
+			<c:text>您已借满$(totalCanBorrow)本书</c:text>
+			<c:image class="can-not-borrow-image padding--top-far padding--bottom-far" src-url="/images/can_not_borrow_book.png"></c:image>
+			<c:button class="btn btn--green btn--half" link-to-url="/wxaService/customerBorrowHistory/">查看借阅详情</c:button>
+		</c:column>
+		
+		<c:column name="ammount-limit" class="align-center borrow-book-page">
+			<c:money data-source="$(allowedAmountLimit)" format="您所借图书已经超过#,###.##元"/>
+			<c:image class="can-not-borrow-image padding--top-far padding--bottom-far" src-url="/images/can_not_borrow_book.png"></c:image>
+			<c:button class="btn btn--green btn--half" link-to-url="/wxaService/customerBorrowHistory/">查看借阅详情</c:button>
+		</c:column>
+		
+		<c:column name="book-expired" class="align-center borrow-book-page">
+			<c:text>您有借阅的图书已超期</c:text>
+			<c:text>不能借阅新的图书</c:text>
+			<c:image class="can-not-borrow-image padding--top-far padding--bottom-far" src-url="/images/can_not_borrow_book.png"></c:image>
+			<c:button class="btn btn--green btn--half" link-to-url="/wxaService/customerBorrowHistory/">查看借阅详情</c:button>
+		</c:column>
+		
+		<c:column name="expired-unpaid" class="align-center borrow-book-page">
+			<c:text>您有超期罚金未支付</c:text>
+			<c:text>不能借阅新的图书</c:text>
+			<c:image class="can-not-borrow-image padding--top-far padding--bottom-far" src-url="/images/can_not_borrow_book.png"></c:image>
+			<c:button class="btn btn--green btn--half" link-to-url="/wxaService/customerBorrowHistory/">查看借阅详情</c:button>
+		</c:column>
+		
+    </c:page>
 
+	<!-- 首页：买书 -->
+	<c:page name="customer-buy-book" title="买书">
+        <c:container class="container-vertical align-center buy-book-page" >
+        	<c:button type="scanner" name="buy-book" class="btn btn--green btn--half" link-to-url="/wxaService/customerBuyBook/">扫码购书</c:button>
+        	<c:text name="bottom-line" class="text--color-info padding--far">点击上面按钮，然后请将要购买书籍的二维码放入框内，即可扫描购买</c:text>
+        </c:container>
+    </c:page>
 </root>

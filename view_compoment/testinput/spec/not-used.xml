@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root xmlns:c="http://clariones.doublechaintech.com/uischema.xml"
+      template="mobile">
+      
+      <c:page name="book-copy-detail" title="书籍详情">
+        <c:data-source bookData="$(book)"/>
+        <c:data-source bookCopyData="$(book_copy)"/>
+        <c:column>
+            <c:row name="book-info-block" class="card">
+            	<c:column class="align-center">
+                	<c:image class="image-size-thumbnail" src-url="$(bookData.book_cover)"/>
+            	</c:column>
+                <c:column class="roomy_block">
+                    <c:text class="text-size-section-title text-color-marked-main" data-source="$(bookData.book_name)">名称</c:text>
+                    <c:text class="text-size-note" data-source="作者:$(bookData.book_author)">作者</c:text>
+                    <c:text class="text-size-note" data-source="出版社:$(bookData.book_publisher)">出版社</c:text>
+                    <c:date class="text-size-note" data-source="$(bookData.book_pubdate)" format="出版时间:yyyy-MM">出版时间</c:date>
+                    <c:money class="text-size-note" data-source="$(bookData.list_price)" format="定价：￥#,##0.00">定价</c:money>
+                    <c:money class="text-size-note text-color-marked-main" data-source="$(bookCopyData.evaluation_price)" format="评估价：￥#,##0.00">定价</c:money>
+                    <c:text class="text-size-note" data-source="ISBN: $(bookData.book_isbn13)">ISBN</c:text>
+                    <c:text name="isbn10" class="text-size-note" data-source="ISBN: $(bookData.book_isbn10)">ISBN</c:text>
+                </c:column>
+            </c:row>
+            <c:row class="flat-bar background-main">
+                <c:font-icon class="text-size-note normal-left-space">book</c:font-icon>
+                <c:text class="text-size-section-title text-color-marked-main">本书简介</c:text>
+            </c:row>
+            <c:column class="card">
+	            <c:text class="text-size-main" data-source="$(bookData.book_summary)" max-line="8"></c:text>
+            </c:column>
+            <c:row class="card">
+                <c:font-icon class="text-size-note normal-left-space">bookmark</c:font-icon>
+                <c:text class="text-size-note" data-source="$(bookData.book_recommend.name)">推荐</c:text>
+            </c:row>
+                
+			<c:column name="recent-borrowers" class="card">
+				<c:row>
+            		<c:font-icon class="text-size-note normal-left-space">group</c:font-icon>
+            		<c:text class="text-size-note">最近借阅</c:text>
+				</c:row>
+				<c:row class="align-both-ends">
+					<c:row>
+		            	<c:container class="no-flex-weight" data-source="$(bookData.borrowing_history)"> 
+		            		<c:image class="image-size-note" src-url="$(borrower.logo_image)"/>
+		            	</c:container>
+					</c:row>
+	            	<c:text link-to-url="/wxaService/bookBorrowerDetail/$(bookData.id)/">...</c:text>
+				</c:row>
+            </c:column>
+            <c:row class="card normal-top-space">
+                <c:font-icon class="text-size-note normal-left-space">comment-o</c:font-icon>
+                <c:text class="text-size-section-title text-color-marked-main">书评</c:text>
+            </c:row>
+            
+            <c:column data-source="$(bookData.book_review)" class="card small-bottom-space">
+            	<c:row class="align-both-ends">
+            		<c:row class="no-flex-weight">
+            			<c:image class="image-size-note" src-url="$(reviewer.logo_image)"/>
+            			<c:text class="text-size-main text-color-marked-main" data-source="$(reviewer.nick_name)">名字</c:text>
+            		</c:row>
+					<c:ugc-control
+						class="text-size-main text-color-main"
+						link-to-url="/wxaService/ugcContentControl/$(id)/book/"
+						title-block="屏蔽" title-report="举报">
+						...
+					</c:ugc-control>
+            	</c:row>
+            	<c:text max-line="6" class="text-size-main small-space" data-source="$(review_content)"/>
+            	<c:row class="align-both-ends">
+	                <c:row class="no-flex-weight">
+	                    <c:font-icon class="text-size-note">clock-o</c:font-icon>
+	                    <c:date name="post-time" class="text-size-note" data-source="$(review_publish_datetime)"
+	                            format="1_hour_or_earlier">
+	                        时间
+	                    </c:date>
+	                </c:row>
+	                <c:row class="no-flex-weight"  stat-in-page="true" link-to-url="/wxaService/praiseBookReview/bookcopy/$(bookCopyData.id)/$(id)/$(_by_key_thumbUp)/">
+	                    <c:font-icon name="thumbUp" class="text-size-note">heart-o</c:font-icon>
+	                    <c:text class="small-left-space small-right-space">赞</c:text>
+	                    <c:text name="praise-count" class="text-size-note"
+	                            data-source="$(_by_key_praiseCount)">100
+	                    </c:text>
+	                </c:row>
+	            </c:row>
+            </c:column>
+            
+            <c:button link-to-url="/wxaService/bookDetailPage/$(bookData.id)/">更多图书信息...</c:button>
+            <c:row class="align-center">
+            	<c:button name="borrow" link-to-url="/wxaService/selectStore/$(bookCopyData.location_store.id)/">回到首页</c:button>
+            	<c:button name="borrow" link-to-url="/wxaService/customerBorrowBook/$(bookCopyData.id)/">借阅</c:button>
+            </c:row>
+        </c:column>
+    </c:page>
+    
+    </root>
