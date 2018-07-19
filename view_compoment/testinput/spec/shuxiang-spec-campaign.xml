@@ -95,29 +95,29 @@
 						<c:font-icon>share-alt</c:font-icon>
 					</c:column>
 					<c:column class="align-center">
-					<c:button type="share"  sharing-title="$(campaign.campaign_name)" 
-							image-url="$(campaign.campaign_image)" link-to-url="/wxaService/campaignDetail/$(campaign.id)/">
-						分享
-					</c:button>
+						<c:button type="share"  sharing-title="$(campaign.campaign_name)" 
+								image-url="$(campaign.campaign_image)" link-to-url="/wxaService/campaignDetail/$(campaign.id)/">
+							分享
+						</c:button>
 					</c:column>
 				</c:row>
 				<c:row name="register-campaign" class="btn btn--in-same-line">
 					<c:column class="align-center">
-					<c:font-icon>paw</c:font-icon>
+						<c:font-icon>paw</c:font-icon>
 					</c:column>
 					<c:column class="align-center">
-					<c:button name="register-campaign" data-source="$(campaign._by_key_scene)"
-							link-to-url="/wxaService/campaignApplyResult/$(campaign.id)/$(campaign._by_key_scene_code)/">
-						报名活动
-					</c:button>
+						<c:button name="register-campaign" data-source="$(campaign._by_key_scene)"
+								link-to-url="/wxaService/campaignApplyResult/$(campaign.id)/$(campaign._by_key_scene_code)/">
+							报名活动
+						</c:button>
 					</c:column>
 				</c:row>
 				<c:row name="submit-campaign-review-form" class="btn btn--in-same-line" >
 					<c:column class="align-center">
-					<c:font-icon>commenting</c:font-icon>
+						<c:font-icon>commenting</c:font-icon>
 					</c:column>
 					<c:column class="align-center">
-					<c:action level="primary" link-to-url="/wxaService/postCampaignReview/">提交评论</c:action>
+						<c:action level="primary" link-to-url="/wxaService/postCampaignReview/">提交评论</c:action>
 					</c:column>
 				</c:row>
 			</c:row>

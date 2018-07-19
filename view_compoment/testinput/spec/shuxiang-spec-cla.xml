@@ -259,61 +259,10 @@
     	</c:column>
     </c:page>
     
-    <c:page name="campaign-list" title="全部活动">
-		<c:data-source store="$(store)" />
-		<c:column>
-			<c:row class="card"	name="campaign-info-block" link-to-url="/wxaService/campaignDetail/$(id)/" data-source="$(store.campaign)">
-				<c:image class="image-size-thumbnail" src-url="$(campaign_image)"></c:image>
-				<c:column name="campaign-desc-block">
-					<c:text class="text-size-main text-color-marked-main common-text-piece" data-source="$(campaign_name)">名称</c:text>
-					<c:date name="hold-time" class="text-size-main common-text-piece" data-source="$(campaign_start_time)" format="MM-dd HH:mm">举办时间</c:date>
-					<c:text class="text-size-main common-text-piece" data-source="$(campaign_hold_address)">举办地点</c:text>
-				</c:column>
-				<c:row class="align-right">
-					<c:text name="campaign-application-state" class="text-size-main btn btn-primary" data-source="$(_by_key_memberCount)">状态</c:text>
-				</c:row>
-			</c:row>
-		</c:column>
-	</c:page>
+    
 	
     
-    <c:page name="start_pay_order" title="在线支付">
-    	<c:data-source order="$(main_order)"/>
-    	<c:data-source payment="$(main_order_payment)"/>
-    	
-    	<c:text class="text-size-section-title">商品信息</c:text>
-    	<c:column >
-	    	<c:row name="line-item-block" data-source="$(order.line_item)" link-to-url="/wxaService/viewObject/$(sku_type)/$(sku_id)/">
-	    		<c:image class="image-size-thumbnail" src-url="$(cover_image)"></c:image>
-	    		<c:column>
-	    			<c:text class="text-size-section-title text-color-marked-main" data-source="$(name)"></c:text>
-	    			<c:text class="text-size-main text-color-main" data-source="$(summary)"></c:text>
-	    			<c:row>
-	    				<c:money class="text-color-marked-main" data-source="$(raw_price)" ></c:money>
-	    				<c:money class="text-color-note" data-source="$(item_discount)" ></c:money>
-	    			</c:row>
-	    		</c:column>
-	    	</c:row>
-    	</c:column>
-    	<c:column>
-	    	<c:row class="align-both-ends">
-	    		<c:text>商品金额</c:text>
-	    		<c:money class="text-color-note" data-source="$(order.original_amount)"></c:money>
-	    	</c:row>
-	    	<c:row class="align-both-ends">
-	    		<c:text>实付金额</c:text>
-	    		<c:money class="text-color-marked-main" data-source="$(order.actual_amount)"></c:money>
-	    	</c:row>
-    	</c:column>
-    	<c:form>
-    		<c:field type="hidden" name="order-id" label="订单号" data-source="$(order.id)"></c:field>
-    		<c:field type="select" name="payment-method" label="请选择支付方式">
-    			<c:option value="wechat" display-text="微信支付" checked="true"></c:option>
-    			<c:option value="wallet" display-text="余额支付"></c:option>
-    		</c:field>
-    		<c:online-payment name="online-payment" link-to-url="/wxaService/doOnlinePayment/$(order.id)/">确定支付</c:online-payment>
-    	</c:form>
-    </c:page>
+    
     
     
     

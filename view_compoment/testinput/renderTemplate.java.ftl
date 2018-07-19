@@ -37,6 +37,7 @@ public class ${pageSpec.className}BaseRender extends BasicRender{
         // 渲染page对象
         PageViewComponent me = createPageViewComponent("${pageSpec.page.title}");
         RenderingContext context = initRenderingContext(userContext);
+        <#if pageSpec.page.cssClass?has_content>me.setClasses("${pageSpec.page.cssClass}");</#if>
         <#if pageSpec.page.frontColor?has_content>me.setFrontColor("${pageSpec.page.frontColor}");</#if>
         <#if pageSpec.page.backgroundColor?has_content>me.setBackgroundColor("${pageSpec.page.backgroundColor}");</#if>
         <@utils.makePageChildrenCall pageSpec.page/>
