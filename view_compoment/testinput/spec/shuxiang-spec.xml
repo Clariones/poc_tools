@@ -278,46 +278,7 @@
         <!--</c:column>-->
     <!--</c:page>-->
 
-    <c:page name="campaign-apply-result" title="活动报名">
-        <c:data-source campaign="$(campaign)"/>
-        <c:column class="card">
-            <c:row class="align-center">
-                <c:font-icon class="text-size-section-title">check-circle</c:font-icon>
-                <c:text name="apply-result" class="text-size-section-title text-color-marked-main"
-                        data-source="$(campaign._by_key_resultTitle)">结果
-                </c:text>
-            </c:row>
-            <c:column name="campaign-info-block" class="normal-top-space">
-                <c:image class="image-size-main" src-url="$(campaign.campaign_image)"/>
-                <c:text class="text-size-main text-color-marked-main small-top-space"
-                        data-source="$(campaign.campaign_name)">名称
-                </c:text>
-                <c:row>
-                    <c:font-icon class="text-size-main">clock-o</c:font-icon>
-                    <c:text class="text-size-main small-left-space">时间</c:text>
-                    <c:text name="hold_time" class="text-size-main small-left-space"
-                            data-source="$(campaign._by_key_holdTime)">时间
-                    </c:text>
-                </c:row>
-                <c:row>
-                    <c:font-icon class="text-size-main">map-marker</c:font-icon>
-                    <c:text class="text-size-main small-left-space">地点</c:text>
-                    <c:text class="text-size-main small-left-space" data-source="$(campaign.campaign_hold_address)">地点
-                    </c:text>
-                </c:row>
-                <c:button name="to-detail-btn" class="btn btn-primary"
-                        link-to-url="./wxaService/campaignDetail/$(campaign.id)/">查看详情
-                </c:button>
-                <!--  分享移到详情页
-                <c:column class="align-center">
-                    <c:text class="text-size-section-title">——邀请好友一同参加——</c:text>
-                    <c:font-icon>wechat</c:font-icon>
-                </c:column>
-                 -->
-            </c:column>
-        </c:column>
-    </c:page>
-
+    
     
 
     <!--<c:page name="book-review-detail" title="书评详情">-->

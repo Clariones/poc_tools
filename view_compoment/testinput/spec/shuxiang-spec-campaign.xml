@@ -6,7 +6,7 @@
     	<c:data-source campaign="$(campaign)"/>
     	<c:data-source customer="$(customer)"/>
     	
-    	<c:column class="padding--default">
+    	<c:column class="padding--far">
 	    	<c:text	class="text-title" data-source="$(campaign.campaign_name)">名称</c:text>
 	    	<c:row class="align-both-ends padding--top-near">
 	    		<c:text class="text-status" data-source="$(campaign.campaign_status)">状态</c:text>
@@ -36,13 +36,13 @@
     	</c:column>
     	<c:container class="container--empty"></c:container>
     	
-		<c:row class="padding--default" >
+		<c:row class="padding--far" >
 			<c:font-icon class="text--size-default">map-marker</c:font-icon>
 			<c:text class="text--size-default" data-source="$(campaign.campaign_hold_address)">地点</c:text>
 		</c:row>
 		<c:container class="container--empty"></c:container>
 		
-		<c:column class="padding--default" >
+		<c:column class="padding--far" link-to-url="/wxaService/campaignRegistersList/$(campaign.id)/">
 			<c:text name="member-count" class="text--color-info" data-source="已报名$(campaign._by_key_memberCount) / 限$(campaign.available_register_quantity)人">人数</c:text>
 			<c:row name="register-logo" class="padding--top-near" >
 				<c:image class="image-icon" src-url="$(register_member.logo_image)"
@@ -52,34 +52,32 @@
 		</c:column>
 		<c:container class="container--empty"></c:container>
 		
-		<c:column class="padding--default" >
+		<c:column class="padding--far" >
 			<c:text class="text-title">活动详情</c:text>
 			<c:rich-text class="padding--top-near" data-source="$(campaign.campaign_content)" />
 		</c:column>
 		<c:container class="container--empty"></c:container>
 		
-	    <c:column name="review-list" class="card normal-top-space">
+	    <c:column name="review-list" class="padding--far">
 		    <c:text class="text-title">评论</c:text>
 		</c:column>
-	    <c:column class="background-main small-bottom-space" data-source="$(campaign.campaign_review)">
-    		<c:row class="align-both-ends">
-    			<c:row>
-    				<c:image class="image-size-icon" src-url="$(reviewer.logo_image)"/>
-    				<c:column>
-    					<c:text class="text-size-main text-color-marked-main" data-source="$(reviewer.nick_name)"></c:text>
-    					<c:date name="review-post-time" class="text-size-note" data-source="$(last_update_time)" format="fuzz_after_1_hour"/>
-    				</c:column>
-    			</c:row>
-    			<c:row>
-	    			<c:row class="align-right" stat-in-page="true" link-to-url="/wxaService/praiseCampaignReview/campaign/$(campaign.id)/$(id)/$(_by_key_thumbsUp)/">
-	    				<c:font-icon name="my-comment-icon" class="text-size-main">comment-o</c:font-icon>
-	    				<c:text class="text-size-note common-text-piece" data-source="$(_by_key_praiseCount)"/>
-	    			</c:row>
-    				<c:ugc-control title-block="屏蔽" title-report="举报" link-to-url="/wxaService/ugcContentControl/$(id)/campaign/">...</c:ugc-control>
-    			</c:row>
-    		</c:row>
-    		<c:text max-line="4" class="text-size-main" data-source="$(review_content)"/>
-    	</c:column>
+		<c:column class="padding--far border--bottom" data-source="$(campaign.campaign_review)">
+			<c:row class="review-card padding--bottom-near"> <!-- 标题行 -->
+				<c:image class="image--size-review-logo flex--0" src-url="$(reviewer.logo_image)"/>
+				<c:column class="flex--1">
+					<c:text class="text--size-middle" data-source="$(reviewer.nick_name)"></c:text>
+    				<c:date class="text--color-info text--size-small" data-source="$(last_update_time)" format="fuzz_after_1_hour"/>
+				</c:column>
+				<c:row class="flex--0 text--size-middle text--color-highlight padding--right-far" stat-in-page="true" 
+						link-to-url="/wxaService/praiseCampaignReview/campaign/$(campaign.id)/$(id)/$(_by_key_thumbsUp)/">
+    				<c:font-icon name="my-comment-icon">comment-o</c:font-icon>
+    				<c:text data-source="$(_by_key_praiseCount)"/>
+	    		</c:row>
+	    		<c:ugc-control title-block="屏蔽" title-report="举报" class="flex--0 text--strong text--color-highlight" link-to-url="/wxaService/ugcContentControl/$(id)/campaign/">···</c:ugc-control>
+			</c:row>
+			<c:text max-line="4" class="text--color-info" data-source="$(review_content)"/>
+		</c:column>
+	    
 	    	
 	    	<!-- 
 	    	<c:text class="text-size-main" link-to-url="/wxaService/campaignreviews/$(campaign.id)/">
@@ -123,5 +121,59 @@
 			</c:row>
 		</c:form>
     </c:page>
-    
+    <!-- 活动的所有报名者 -->
+	<c:page name="campaign-registers-list" title="活动报名">
+		<c:data-source campaign="$(campaign)"/>
+		
+		<c:row class="padding--far">
+			<c:image class="image--size-list-summary flex--0" src-url="$(campaign.campaign_image)" />
+			<c:column class="flex--1">
+				<c:text class="text-title" data-source="$(campaign.campaign_name)" />
+				<c:date class="text--color-info" data-source="$(campaign.campaign_start_time)" format="举办时间：yyyy.MM.dd HH:mm"/>
+			</c:column>
+		</c:row>
+		<c:container class="container--empty"/>
+		
+		<c:row class="padding--far list-as-grid-row each-row-5">
+			<c:column class="grid-cell cell-default-border " data-source="$(campaign.campaign_register_history)">
+				<c:image src-url="$(register_member.logo_image)" class="image--size-icon image-circle" />
+			</c:column>
+			<c:column class="grid-cell"></c:column>
+			<c:column class="grid-cell"></c:column>
+			<c:column class="grid-cell"></c:column>
+			<c:column class="grid-cell"></c:column>
+		</c:row>
+		
+	</c:page>
+    <!-- 活动：门店的所有活动 -->
+    <c:page name="campaign-list" title="全部活动">
+		<c:data-source store="$(store)" />
+		<c:row class="padding--far align-center">
+			<c:text data-source="$(store.store_name)"></c:text>
+		</c:row>
+		<c:container class="container--empty"/>
+		
+		<c:row data-source="$(store.campaign)" link-to-url="/wxaService/campaignDetail/$(id)/" class="padding--default border--bottom">
+			<c:column class="flex--5-2">
+				<c:image src-url="$(campaign_image)"></c:image>
+				<c:text class="text--color-highlight pin-to-left-top background--float-tag"
+					data-source="$(campaign_status)">状态</c:text>
+			</c:column>
+			<c:column class="flex--5-3 padding--left-default" name="campaign-info-block">
+				<c:text class="text--size-middle text--color-default" data-source="$(campaign_name)">标题</c:text>
+				<c:row class="text--size-default text--color-info" >
+					<c:date name="campaign-hold-time" data-source="$(campaign_start_time)" format="yyyy-MM-dd HH:mm">时间</c:date>
+					<c:text>~</c:text>
+					<c:date name="campaign-finish-time" data-source="$(campaign_finish_time)" format="HH:mm">时间</c:date>
+				</c:row>
+				<c:text class="text--size-default text--color-info" data-source="$(campaign_hold_address)" format="2,...,12">地点</c:text>
+				<c:row class="align-both-ends">
+					<c:text name="register-info" class="text--color-highlight" data-source="$(_by_key_reg_cnt)/$(available_register_quantity)人" ></c:text>
+					<c:container class="container--tag-mark">
+						<c:text>立即报名</c:text>
+					</c:container>
+				</c:row>
+			</c:column>
+		</c:row>
+	</c:page>
 </root>

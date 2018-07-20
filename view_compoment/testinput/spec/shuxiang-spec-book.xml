@@ -68,44 +68,29 @@
 		<c:container class="container--empty"></c:container>
 		
 		<!-- 书评列表 -->
-		<c:column name="book-review-list" class="padding--far">
-			<!-- 
-			<c:row>
-				<c:font-icon class="text-size-icon">comment-o</c:font-icon>
-				<c:text class="text-title padding- -left-near">书评</c:text>
-			</c:row>
-			 -->
-			<c:text class="text--size-big" data-source="评论 ($(bookData._by_key_reviewCount))"/>
-		</c:column>
-		<!-- 书评内容 -->
-		<c:column data-source="$(bookData.book_review)" class="card small-bottom-space">
-			<c:row class="align-both-ends">
-				<c:row class="no-flex-weight">
-					<c:image class="image-size-icon" src-url="$(reviewer.logo_image)" />
-					<c:column class="no-flex-weight">
-						<c:text class="text-size-main text-color-marked-main" data-source="$(reviewer.nick_name)">名字</c:text>
-						<c:date name="post-time" class="text-size-note" data-source="$(review_publish_datetime)"
-							format="1_hour_or_earlier">
-							时间
-						</c:date>
+		<c:column name="book-review-list">
+			<c:column name="review-list" class="padding--far">
+			    <c:text class="text-title" data-source="评论 ($(bookData._by_key_reviewCount))">评论</c:text>
+			</c:column>
+			<c:column class="padding--far border--bottom" data-source="$(bookData.book_review)">
+				<c:row class="review-card padding--bottom-near"> <!-- 标题行 -->
+					<c:image class="image--size-review-logo flex--0" src-url="$(reviewer.logo_image)"/>
+					<c:column class="flex--1">
+						<c:text class="text--size-middle" data-source="$(reviewer.nick_name)"></c:text>
+	    				<c:date class="text--color-info text--size-small" data-source="$(review_publish_datetime)" format="fuzz_after_1_hour"/>
 					</c:column>
+					<c:row class="flex--0 text--size-middle text--color-highlight padding--right-far" stat-in-page="true" 
+							link-to-url="/wxaService/praiseBookReview/book/$(bookData.id)/$(id)/$(_by_key_thumbUp)/">
+	    				<c:font-icon name="thumbup">heart-o</c:font-icon>
+	    				<c:text data-source="$(_by_key_praiseCount)"/>
+		    		</c:row>
+		    		<c:ugc-control title-block="屏蔽" title-report="举报" class="flex--0 text--strong text--color-highlight" 
+		    				link-to-url="/wxaService/ugcContentControl/$(id)/book/">···</c:ugc-control>
 				</c:row>
-				<c:row class="no-flex-weight">
-					<c:row class="no-flex-weight" stat-in-page="true"
-						link-to-url="/wxaService/praiseBookReview/book/$(bookData.id)/$(id)/$(_by_key_thumbUp)/">
-						<c:font-icon name="thumbUp" class="text-size-note">heart-o</c:font-icon>
-						<c:text name="praise-count" class="text-size-note" data-source="$(_by_key_praiseCount)">100
-						</c:text>
-					</c:row>
-					<c:ugc-control class="text-size-main text-color-main normal-left-space"
-						link-to-url="/wxaService/ugcContentControl/$(id)/book/" title-block="屏蔽" title-report="举报">
-						...
-					</c:ugc-control>
-				</c:row>
-			</c:row>
-			<c:text max-line="8" class="text-size-main small-space" data-source="$(review_content)" />
+				<c:text max-line="8" class="text--color-info" data-source="$(review_content)"/>
+			</c:column>
 		</c:column>
-
+		
 		<c:row>
 			<c:button name="review"
 				link-to-url="/wxaService/postBookReviewPage/$(bookData.id)/$(borrowRecord.book_copy.id)/">发表评论</c:button>
@@ -116,25 +101,24 @@
 	<!-- 图书：最近借阅人列表 -->
 	<c:page name="book-borrowers-list" title="最近借阅">
 		<c:data-source bookData="$(book)" />
-
-		<c:row class="card normal-bottom-space" link-to-url="/wxaService/bookDetailPage/$(bookData.id)/">
-			<c:image class="image-size-thumbnail" src-url="$(bookData.book_cover)" />
-			<c:column>
-				<c:text class="text-size-section-title text-color-marked-main" data-source="$(bookData.book_name)" />
-				<c:text class="text-size-main" data-source="$(bookData.book_recommend.name)" />
+		<c:row class="padding--far">
+			<c:image class="image--size-summary flex--0" src-url="$(bookData.book_cover)" />
+			<c:column class="flex--1">
+				<c:text class="text-title" data-source="$(bookData.book_name)" />
+				<c:text class="text--color-info" data-source="$(bookData.book_recommend.name)" />
 			</c:column>
 		</c:row>
+		<c:container class="container--empty"/>
+		
 
-		<c:row class="flat-bar list-as-grid-row each-row-5">
-			<c:column class="list-as-grid-row-item " data-source="$(bookData.borrowing_history)">
-				<c:image src-url="$(borrower.logo_image)" class="image-size-icon" />
+		<c:row class="padding--far list-as-grid-row each-row-5">
+			<c:column class="grid-cell cell-default-border " data-source="$(bookData.borrowing_history)">
+				<c:image src-url="$(borrower.logo_image)" class="image--size-icon image-circle" />
 			</c:column>
-			<c:column class="list-as-grid-row-item" data-source="$(bookData.borrowing_history)">
-				<c:image src-url="$(borrower.logo_image)" class="image-size-icon" />
-			</c:column>
-			<c:column class="list-as-grid-row-item" data-source="$(bookData.borrowing_history)">
-				<c:image src-url="$(borrower.logo_image)" class="image-size-icon" />
-			</c:column>
+			<c:column class="grid-cell"></c:column>
+			<c:column class="grid-cell"></c:column>
+			<c:column class="grid-cell"></c:column>
+			<c:column class="grid-cell"></c:column>
 		</c:row>
 	</c:page>
 

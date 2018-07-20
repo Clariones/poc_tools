@@ -17,7 +17,7 @@
 		     	<c:column class="padding--far" link-to-url="/wxaService/customerOrderDetail/$(id)/">
 		     		<c:text class="text--size-middle" data-source="订单编号：$(id)">订单编号</c:text>
 	     			<c:row name="line-item" data-source="$(line_item)">
-	     				<c:image class="image-in-user-borrwing-history" src-url="$(cover_image)"></c:image>
+	     				<c:image class="image--size-summary" src-url="$(cover_image)"></c:image>
 	     				<c:column>
 	     					<c:text class="text-title" data-source="$(name)"></c:text>
 	     					<c:text class="text--color-info" data-source="$(summary)"></c:text>
@@ -54,7 +54,7 @@
 		<c:column class="at-least-fufill-window">
 		
 		<c:row name="line-item-block" class="padding--far" data-source="$(order.line_item)">
-			<c:image class="image--size-thumbnail" src-url="$(cover_image)">商品图片</c:image>
+			<c:image class="image--size-summary" src-url="$(cover_image)">商品图片</c:image>
 			<c:column class="flex--0 padding--left-near">
 				<c:text class="text-title" data-source="$(name)"></c:text>
 				<c:text class="text--color-info" data-source="$(summary)"></c:text>
@@ -192,7 +192,7 @@
     	<c:data-source payment="$(main_order_payment)"/>
     	
     	<c:row name="line-item-block" class="padding--far" data-source="$(order.line_item)">
-			<c:image class="image--size-thumbnail" src-url="$(cover_image)">商品图片</c:image>
+			<c:image class="image--size-summary" src-url="$(cover_image)">商品图片</c:image>
 			<c:column class="flex--0 padding--left-near">
 				<c:text class="text-title" data-source="$(name)"></c:text>
 				<c:text class="text--color-info" data-source="$(summary)"></c:text>
@@ -236,7 +236,7 @@
 					<c:font-icon>cny</c:font-icon>
 				</c:column>
 				<c:column class="align-center">
-					<c:online-payment name="online-payment" link-to-url="/wxaService/doOnlinePayment/$(order.id)/">确定支付</c:online-payment>
+					<c:action name="online-payment" link-to-url="/wxaService/doOnlinePayment/">确定支付</c:action>
 				</c:column>
 			</c:row>
 		</c:row>

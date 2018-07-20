@@ -92,4 +92,49 @@
         </c:column>
     </c:page>
     
+    <c:page name="customer-campaign-history" title="我的活动">
+		<c:data-source user="$(customer)"/>
+		
+		<c:column>
+			<c:row name="record-block" class="card register_history_container" data-source="$(user.campaign_register_history)" link-to-url="/wxaService/campaignDetail/$(campaign.id)">
+				<c:column>
+					<c:image src-url="$(campaign.campaign_image)"></c:image>
+					<c:text class="text-color-marked-note text-size-main campaign-status" data-source="$(campaign.campaign_status)">状态</c:text>
+				</c:column>
+				<c:column class="roomy_block">
+					<c:text data-source="$(campaign.campaign_name)" class="text-size-section-title"></c:text>
+					<c:date data-source="$(campaign.campaign_start_time)" format="活动时间：MM-dd HH:mm"></c:date>
+					<c:text data-source="活动地点：$(campaign.campaign_hold_address)"></c:text>
+					<c:text class="text-color-note" data-source="$(_by_key_markLine)"></c:text>
+				</c:column>
+				<c:text class="register_history_mark" data-source="$(_by_key_mark)"/>
+			</c:row>
+		</c:column>
+	</c:page>
+	
+	<c:page name="customer-member-service" title="会员服务">
+		<c:data-source user="$(customer)"/>
+		<c:data-source platform="$(book_sharing_platform)"/>
+		
+		<c:column class="align-center">
+			<c:image class="image-size-icon" src-url="$(user.logo_image)"></c:image>
+			<c:text class="text-size-section-title text-color-marked-main" data-source="$(user.nick_name)"></c:text> 
+			<c:text class="text-size-main text-color-main" data-source="$(user.member_service.product_name)"></c:text>
+		</c:column>
+		
+		<c:row class="align-center">
+			<c:text class="text-size-section-title text-color-marked-main">会员服务</c:text>
+		</c:row>
+		
+		<c:row class="card small-bottom-space" data-source="$(platform.member_service_product)">
+			<c:image class="image-size-thumbnail" src-url="$(product_cover_image)"></c:image>
+			<c:column class="wide_block">
+				<c:text class="text-size-section-title text-color-marked-main" data-source="$(product_name)"></c:text>
+				<c:rich-text data-source="$(product_description)"></c:rich-text>
+			</c:column>
+			<c:column class="align-center">
+				<c:button link-to-url="/wxaService/selectMemberService/$(id)/" data-source="$(_by_key_actionName)"></c:button>
+			</c:column>
+		</c:row>
+	</c:page>
     </root>

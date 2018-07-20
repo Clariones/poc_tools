@@ -2,42 +2,43 @@
 <root xmlns:c="http://clariones.doublechaintech.com/uischema.xml" template="mobile">
 	
 	<!-- *************************** footer ********************************* -->
-	<!-- 动态 -->
+	<!-- 动态/大家 -->
 	<c:page name="book-review-list" title="书评列表">
 		<c:data-source plaza="$(book_plaza)" />
-		<c:column data-source="$(plaza.book_review)" class="normal-bottom-space">
-			<!-- 评论头部，包括头像，名字，时间，点赞数和点赞功能，举报功能 -->
-			<c:row class="align-both-ends card">
-				<c:row class="no-flex-weight align-left">
-					<c:image class="image-size-icon" src-url="$(reviewer.logo_image)" />
-					<c:column class="no-flex-weight">
-						<c:text class="text-size-section-title" data-source="$(reviewer.nick_name)" />
-						<c:date name="post-time" class="text-size-note text-color-note" data-source="$(review_publish_datetime)"
-							format="1_hour_or_earlier" />
+		<c:column data-source="$(plaza.book_review)">
+			<c:column class="padding--far border--bottom">
+				<c:row class="review-card padding--bottom-near"> <!-- 标题行 -->
+					<c:image class="image--size-review-logo flex--0" src-url="$(reviewer.logo_image)"/>
+					<c:column class="flex--1">
+						<c:text class="text--size-middle" data-source="$(reviewer.nick_name)"></c:text>
+	    				<c:date class="text--color-info text--size-small" data-source="$(review_publish_datetime)" format="fuzz_after_1_hour"/>
 					</c:column>
+					<c:row class="flex--0 text--size-middle text--color-highlight padding--right-far" stat-in-page="true" 
+							link-to-url="/wxaService/praiseBookReview/book/$(book_info.id)/$(id)/$(_by_key_thumbUp)/">
+	    				<c:font-icon name="thumbup">heart-o</c:font-icon>
+	    				<c:text data-source="$(_by_key_praiseCount)"/>
+		    		</c:row>
+		    		<c:ugc-control title-block="屏蔽" title-report="举报" class="flex--0 text--strong text--color-highlight" 
+		    				link-to-url="/wxaService/ugcContentControl/$(id)/book/">···</c:ugc-control>
 				</c:row>
-				<c:row class="align-right">
-					<c:font-icon name="thumbUp" class="text-size-note">heart-o</c:font-icon>
-					<c:text name="prise-count" class="text-size-note" data-source="$(_by_key_praiseCount)" />
-					<c:ugc-control class="text-size-main text-color-main normal-left-space"
-						link-to-url="/wxaService/ugcContentControl/$(id)/book/" title-block="屏蔽" title-report="举报">
-						...
-					</c:ugc-control>
-				</c:row>
-			</c:row>
-			<!-- 评论主体，包括内容和图书链接 -->
-			<c:column class="card normal-bottom-space">
-				<c:text class="text-size-main" data-source="$(review_content)" max-line="3" />
-				<c:row class="card small-top-space" link-to-url="/wxaService/bookDetailPage/$(book_info.id)/">
-					<c:image class="image-size-thumbnail" src-url="$(book_info.book_cover)" />
-					<c:column>
-						<c:text class="text-size-section-title text-color-marked-main" data-source="$(book_info.book_name)" />
-						<c:text class="text-size-main" data-source="$(book_info.book_recommend.name)" />
+				<c:text max-line="8" class="text--color-info" data-source="$(review_content)"/>
+				<c:row class="border" link-to-url="/wxaService/bookDetailPage/$(book_info.id)/">
+					<c:image class="image--size-summary flex--0" src-url="$(book_info.book_cover)" />
+					<c:column class="flex--1 padding--left-near">
+						<c:text class="text-title" data-source="$(book_info.book_name)" />
+						<c:text class="text--color-info" data-source="$(book_info.book_recommend.name)" />
 					</c:column>
 				</c:row>
 			</c:column>
+			<c:container class="container--empty"/>
 		</c:column>
+		
+		<c:row name="nothing">
+			<c:text class="text-title">最近比较安静...</c:text>
+		</c:row>
+		
 	</c:page>
+	
 
 	<!-- 历程 -->
 	<c:page name="customer-footprint" title="历程">
