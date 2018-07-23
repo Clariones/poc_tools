@@ -2,49 +2,6 @@
 <root xmlns:c="http://clariones.doublechaintech.com/uischema.xml" template="mobile">
 	<!-- 可以设置有限的几个view model级别的bian'l <c:data-source message="var: string" /> <c:data-source doIt="var: boolean" /> <c:data-source 
 		when="var: date" /> <c:data-source more="var: object" /> -->
-	<!-- 活动：报名结果 -->
-	<c:page name="campaign-apply-result" title="活动报名">
-        <c:data-source campaign="$(campaign)"/>
-        <c:column class="flex--1">
-        	<c:column class="align-center empty-space-header-block">
-		        <c:row class="padding--far ">
-		        	<c:font-icon class="font-icon--big-flag">check-circle-o</c:font-icon>
-					<c:column>
-						<c:text name="apply-result" class="text-title" data-source="$(campaign._by_key_resultTitle)"/>
-					</c:column>
-		        </c:row>
-	        </c:column>
-	        <c:container class="container--empty"/>
-	        
-	        <c:column class="padding--far">
-	        	<c:row class="align-center">
-	        		<c:image class="image--size-main2" src-url="$(campaign.campaign_image)"/>
-	        	</c:row>
-	        	<c:text class="padding--top--default text-title border  padding--left-near padding--right-near" data-source="$(campaign.campaign_name)"></c:text>
-	        	<c:row class="border padding--left-near padding--right-near">
-	                 <c:font-icon>clock-o</c:font-icon>
-	                 <c:text class="padding--left-near">时间</c:text>
-	                 <c:date class="padding--left-near" name="hold_time" data-source="$(campaign.campaign_start_time)" format="yyyy.MM.dd HH:mm">时间</c:date>
-	            </c:row>
-	            <c:row class="border padding--left-near padding--right-near">
-	                 <c:font-icon>map-marker</c:font-icon>
-	                 <c:text class="padding--left-near">地点</c:text>
-	                 <c:text class="padding--left-near" data-source="$(campaign.campaign_hold_address)" format="10,...,5">地点</c:text>
-	             </c:row>
-	        </c:column>
-        </c:column>
-        <c:row class="row-of-button-line">
-			<c:row name="register-campaign" class="btn btn--in-same-line">
-				<c:column class="align-center">
-					<c:font-icon>paw</c:font-icon>
-				</c:column>
-				<c:column class="align-center">
-					<c:button name="to-detail-btn" class="btn btn-primary"
-	                        link-to-url="./wxaService/campaignDetail/$(campaign.id)/">查看详情
-	                </c:button>
-				</c:column>
-			</c:row>
-		</c:row>
-    </c:page>
+	
 	
 </root>

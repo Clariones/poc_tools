@@ -6,7 +6,7 @@
 	<!-- 订单： 订单列表 -->
 	<c:page name="customer-order-list" title="我的订单">
      	<c:data-source user="$(customer)"/>
-     	<c:tabs name="order-type" link-to-url="/wxaService/customerOrderList/" stat-in-page="false" active-tab="$(user._by_key_activeTab)"
+     	<c:tabs name="order-type" link-to-url="/wxaService/customerOrderList/" stat-in-page="true" active-tab="$(user._by_key_activeTab)"
      			class-selected="text-color-marked-main" class-unselected="text-color-main">
      		<c:option value="needPay" display-text="待付款"/>
      		<c:option value="closed" display-text="已完成"/>

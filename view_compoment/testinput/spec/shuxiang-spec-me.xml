@@ -417,6 +417,81 @@
      		</c:row>
      	</c:column>
      </c:page>
-	
-	
+	<!-- 我的：查看个人信息 -->
+	<c:page name="view-customer-profile" title="个人信息">
+    	<c:data-source user="$(customer)"/>
+    	<!-- <c:text class="padding-**-left-far text-**-color-info" data-source="用户 $(user.id)"/> -->
+    	<c:column class="padding--far">
+	    	<c:row class="padding--bottom-default">
+	    		<c:image class="image--size-thumbnail flex--0" src-url="$(user.logo_image)"/>
+	    		<c:text class="text-title padding--left-default flex--1" data-source="$(user.nick_name)" />
+	    	</c:row>
+	    	<c:button type="getUserInfo" stat-in-page="true" call-back-url="/wxaService/updateUserInfo/" class="btn btn--primary btn--full">使用微信头像</c:button>
+    	</c:column>
+    	<c:container class="container--empty"/>
+    	
+   		<c:row class="padding--far text--color-info align-both-ends border--bottom">
+   				<c:text>性别</c:text>
+   				<c:text data-source="$(user.sexuality)">性别</c:text>
+   		</c:row>
+   		<c:row class="padding--far text--color-info align-both-ends border--bottom">
+   				<c:text>生日</c:text>
+   				<c:date data-source="$(user.birthday)" format="yyyy年MM月dd日">生日</c:date>
+   		</c:row>
+   		<c:row class="padding--far text--color-info align-both-ends border--bottom">
+   				<c:text>真实姓名</c:text>
+   				<c:text data-source="$(user.real_name)">真实姓名</c:text>
+   		</c:row>
+   		<c:row class="padding--far text--color-info align-both-ends border--bottom">
+   				<c:text>手机号码</c:text>
+   				<c:text data-source="$(user.mobile_number)">手机号码</c:text>
+   		</c:row>
+   		<c:row class="padding--far text--color-info align-both-ends border--bottom">
+   				<c:text>身份证号码</c:text>
+   				<c:text data-source="$(user.identity_card_number)">身份证号码</c:text>
+   		</c:row>
+   		<c:row class="padding--far text--color-info align-both-ends border--bottom">
+   				<c:text>家庭地址</c:text>
+   				<c:text data-source="$(user.family_address)">家庭地址</c:text>
+   		</c:row>
+   		<c:row class="padding--far text--color-info align-both-ends border--bottom">
+   			<c:text link-to-url="/wxaService/editCustomerProfile/">修改个人信息</c:text>
+   		</c:row>
+   		<c:container class="container--empty"/>
+   		
+   		<c:button class="btn btn--green btn--full" link-to-url="/wxaService/editCustomerProfile/">更新个人信息</c:button>
+    </c:page>
+    <!-- 我的：编辑个人信息 -->
+	<c:page name="edit-customer-profile" title="个人信息">
+    	<c:data-source user="$(customer)"/>
+    	
+    	<c:column class="padding--far">
+	    	<c:row class="padding--bottom-default">
+	    		<c:image class="image--size-thumbnail flex--0" src-url="$(user.logo_image)"/>
+	    		<c:text class="text-title padding--left-default flex--1" data-source="$(user.nick_name)" />
+	    	</c:row>
+    	</c:column>
+    	<c:container class="container--empty"/>
+    	
+   			
+   		<c:form>
+   			<c:field label="性别" type="select" name="sexuality" placeholder="请选择"  data-source="$(user.sexuality)">
+   				<c:option value="男" display-text="男"/>
+   				<c:option value="女" display-text="女"/>
+   			</c:field>
+   			<c:field label="生日" type="date" name="birthday" 
+   				placeholder="请选择出生日期" 
+   				data-source="$(user.birthday)"/>
+   			<c:field label="真实姓名" type="text" name="real_name" 
+   				placeholder="请输入您的真实姓名" 
+   				data-source="$(user.real_name)" max-value="80"/>
+   			<c:field label="身份证号" type="text" name="identity_card_number" 
+   				placeholder="请输入您的身份证号"
+   				data-source="$(user.identity_card_number)" max-value="18"/>
+   			<c:field label="家庭地址" type="longtext" name="family_address" 
+   				placeholder="请输入您的家庭地址"
+   				data-source="$(user.family_address)" max-value="200"/>
+   			<c:action class="btn btn--green btn--full" link-to-url="/wxaService/updateCustomerProfile/">保存</c:action>
+   		</c:form>
+    </c:page>
 </root>
