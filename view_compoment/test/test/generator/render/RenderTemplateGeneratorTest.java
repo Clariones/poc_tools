@@ -15,7 +15,7 @@ import uispec.parser.specparser.XMLSpecParser;
 
 public class RenderTemplateGeneratorTest {
     private XMLSpecParser parser;
-    private static String baseFolder = "/works/jobs/sx_shequ/eclips_ws/POC_viewComponent/testinput/spec";
+    private static String baseFolder = "./testinput/spec";
 
     private List<PageUiSpec> parseTestFile(String fileName) throws Exception {
         
@@ -62,10 +62,11 @@ public class RenderTemplateGeneratorTest {
     private void genCodeBySpecFile(String fileName) throws Exception {
         // String inputFileName =
         // "/works/jobs/sx_shequ/workspace/poc_ui_codegen/test_ui_specs.json";
-        String templateFolder = "/works/jobs/sx_shequ/eclips_ws/POC_viewComponent/testinput/";
-        File outputBaseFolder = new File("/works/jobs/sx_shequ/workspace/shuxiang-biz-suite/bizcore/WEB-INF/shuxiang_custom_src/com/terapico/shuxiang/wxalayout");
+        String templateFolder = "./testinput/";
         System.setProperty("skynet.model", "shuxiang");
-        System.setProperty("skynet.output.basefolder", "/works/jobs/sx_shequ/workspace");
+        String workspacePath = "/works/jobs/shuxiang/workspace";
+		System.setProperty("skynet.output.basefolder", workspacePath);
+        File outputBaseFolder = new File(workspacePath + "/shuxiang-biz-suite/bizcore/WEB-INF/shuxiang_custom_src/com/terapico/shuxiang/wxalayout");
         
         List<PageUiSpec> pages = parseTestFile(fileName);
         if (pages == null || pages.isEmpty()) {
