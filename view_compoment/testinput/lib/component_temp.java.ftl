@@ -291,6 +291,7 @@
         me.setMaxLine(${uiSpec.maxLine});</#if><#if uiSpec.required >
         me.setRequired(${uiSpec.required?c});</#if><#if uiSpec.disabled >
         me.setDisabled(${uiSpec.disabled?c});</#if>
+        me.filterFieldMessage(viewModel.getFormFieldErrorMessageList());
         <@gen_field_candidate_values uiSpec/>
         <#-- 
         	form-field 应该没有子对象，碰到了再说

@@ -5,13 +5,12 @@
 		<c:data-source user="$(customer)" />
 		<c:data-source shop="$(store)" />
 
-		<c:row name="header-bar" link-to-url="/wxaService/storeList/" class="padding--default">
-				<c:text class="text-title" data-source="$(shop.store_name)"></c:text>
-				<c:text class="text-title text--color-highlight">&lt;切换&gt;</c:text>
+		<c:row name="header-bar" link-to-url="/wxaService/storeList/" class="homepage-header-row">
+				<c:text class="title-text-size" data-source="$(shop.store_name)"></c:text>
+				<c:text class="title-text-size text--color-highlight">&lt;切换&gt;</c:text>
 			<!-- 搜索功能暂时没用 <c:container class="container-horizontal align-right"> <c:search api-url="/wxaService/searchInHomePage/">搜索</c:search> 
 				</c:container> -->
 		</c:row>
-		<c:container class="container--empty"></c:container>
 		
 		<c:carousel name="ad-block" data-source="$(shop.store_slide)" data-source-link="$(wxa_link_url)"
 			data-source-image="$(banner_image)" data-source-tips="$(tips)">
@@ -21,55 +20,53 @@
 				src-url="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQY2RLztnCf306MdR4wm9RUTJy2r0HHc0c3HY2oQyjXLUR9nBZ9" />
 			<c:image src-url="https://i0.hdslb.com/bfs/article/4486e9c92b7add273a5b55f86a816d0603c1313f.jpg" />
 		</c:carousel>
-		<c:container class="container--empty"></c:container>
 		
-		<c:row class="padding--default text--size-middle align-both-ends" name="action-bar">
-			<c:column class="icon-item" link-to-url="/wxaService/wantBorrowBook/scanCode/">
-				<c:image src-url="/images/borrowBook.png" class="image--size-icon" />
+		<c:row class="homepage-func-icon-row" name="action-bar">
+			<c:column link-to-url="/wxaService/wantBorrowBook/scanCode/">
+				<c:image src-url="/images/borrowBook-a.png" />
 				<c:text>借书</c:text>
 			</c:column>
-			<c:column class="icon-item" link-to-url="/wxaService/wantBuyBook/">
-				<c:image src-url="/images/buyBook.png" class="image--size-icon" />
+			<c:column link-to-url="/wxaService/wantBuyBook/">
+				<c:image src-url="/images/buyBook-a.png" />
 				<c:text>买书</c:text>
 			</c:column>
-			<c:column class="icon-item" link-to-url="/wxaService/wantShareBook/$(shop.id)/">
-				<c:image src-url="/images/shareBook.png" class="image--size-icon" />
+			<c:column link-to-url="/wxaService/wantShareBook/$(shop.id)/tostore/">
+				<c:image src-url="/images/shareBook-a.png" />
 				<c:text>共享</c:text>
 			</c:column>
-			<c:column class="icon-item" link-to-url="/wxaService/myMessageList/">
-				<c:image src-url="/images/myMessages.png" class="image--size-icon" />
+			<c:column link-to-url="/wxaService/myMessageList/">
+				<c:image src-url="/images/myMessages-a.png" />
 				<c:text>提醒</c:text>
 			</c:column>
 		</c:row>
 		<c:container class="container--empty"></c:container>
 		
-		<c:row class="padding--default align-both-ends text-title" name="campagin-header">
-			<c:text class="flex--0">活动</c:text>
+		<c:row class="homepage-campaign-list-title-row" name="campagin-header">
+			<c:text class="flex--0 title-text-size">活动</c:text>
 			<c:row link-to-url="./wxaService/storeCampaignList/$(shop.id)/" class="flex--0 text--color-highlight">
 				<c:text>更多</c:text>
 				<c:font-icon>caret-right</c:font-icon>
 			</c:row>
 		</c:row>
-		<c:column>
-			<c:row data-source="$(shop.campaign)" link-to-url="/wxaService/campaignDetail/$(id)/" class="padding--default border--bottom">
-				<c:column class="flex--5-2">
-					<c:image src-url="$(campaign_image)"></c:image>
-					<c:text class="text--color-highlight pin-to-left-top background--float-tag"
-						data-source="$(campaign_status)">状态</c:text>
+		<c:column class="homepage-campaign-list">
+			<c:row data-source="$(shop.campaign)" link-to-url="/wxaService/campaignDetail/$(id)/" class="homepage-campaign-block">
+				<c:column class="list-item-left-block">
+					<c:image class="image--fill" src-url="$(campaign_image)"></c:image>
 				</c:column>
-				<c:column class="flex--5-3 padding--left-default" name="campaign-info-block">
-					<c:text class="text--size-middle text--color-default" data-source="$(campaign_name)">标题</c:text>
-					<c:row class="text--size-default text--color-info" >
-						<c:date name="campaign-hold-time" data-source="$(campaign_start_time)" format="yyyy-MM-dd HH:mm">时间</c:date>
-						<c:text>~</c:text>
-						<c:date name="campaign-finish-time" data-source="$(campaign_finish_time)" format="HH:mm">时间</c:date>
-					</c:row>
-					<c:text class="text--size-default text--color-info" data-source="$(campaign_hold_address)" format="2,...,12">地点</c:text>
+				<c:column class="list-item-right-block align-both-ends flex--1" name="campaign-info-block">
+					<c:column>
+						<c:text class="title-text-size text--color-default" data-source="$(campaign_name)" format="8,...">标题</c:text>
+						<c:row class="content-text-size text--color-info" >
+							<c:date name="campaign-hold-time" data-source="$(campaign_start_time)" format="yyyy-MM-dd HH:mm">时间</c:date>
+							<c:text>~</c:text>
+							<c:date name="campaign-finish-time" data-source="$(campaign_finish_time)" format="HH:mm">时间</c:date>
+						</c:row>
+						<c:text class="content-text-size text--color-info" data-source="$(campaign_hold_address)" format="2,...,8">地点</c:text>
+					</c:column>
+					
 					<c:row class="align-both-ends">
-						<c:text name="register-info" class="text--color-highlight" data-source="$(_by_key_reg_cnt)/$(available_register_quantity)人" ></c:text>
-						<c:container class="container--tag-mark">
-							<c:text>立即报名</c:text>
-						</c:container>
+						<c:text name="register-info" class="reg-cnt" data-source="$(_by_key_reg_cnt)/$(available_register_quantity)人" ></c:text>
+						<c:text name="register-status" class="tag-mark-1">立即报名</c:text>
 					</c:row>
 				</c:column>
 			</c:row>
@@ -80,31 +77,32 @@
 	<c:page name="customer-store-list" title="切换门店">
         <c:data-source user="$(customer)"/>
         <c:data-source plateform="$(book_sharing_platform)"/>
-        <!-- 
-        <c:row class="align-center flat-bar background-main">
-        	<c:text class="text-size-section-title text-color-marked-main">附近的门店</c:text>
-        </c:row>
-         -->
         <c:column>
-        	<c:row class="padding--default border--bottom" name="store-info-block" link-to-url="/wxaService/selectStore/$(id)/" data-source="$(plateform.store)">
-        		<c:column class="flex--5-2">
-        			<c:image src-url="$(store_image)"></c:image>
+        	<c:row class="default-list-item-block" name="store-info-block" link-to-url="/wxaService/selectStore/$(id)/" data-source="$(plateform.store)">
+        		<c:column class="list-item-left-block">
+        			<c:image class="image--fill" src-url="$(store_image)"></c:image>
         		</c:column>
-        		<c:column name="store-desc-block" class="container-full flex--5-3 margin--left-default">
-        			<c:text class="text-title" data-source="$(store_name)">名称</c:text>
-        			<c:row class="padding--top-near">
-        				<c:font-icon>clock-o</c:font-icon>
-        				<c:text class="text--color-info" data-source="$(store_open_time)">营业时间</c:text>
+        		<c:column name="store-desc-block" class="list-item-right-block">
+        			<c:text class="title-text-size padding--bottom-near" data-source="$(store_name)">名称</c:text>
+        			<c:row class="content-text-size text--color-info adjust-to-left-4px">
+        				<!-- 
+        				 <c:image class="flag-image-size" src-url="/images/time.png" />
+        				 -->
+        				 <c:font-icon>clock-o</c:font-icon>
+        				<c:text class="text-no-wrapper" data-source="$(store_open_time)" format="30,...">营业时间</c:text>
         			</c:row>
-        			<c:row class="align-both-ends">
-	        			<c:row class="flex--0">
+        			<c:row class="content-text-size text--color-info align-both-ends adjust-to-left-4px">
+	        			<c:row class="flex--0 margin--right-small">
+	        				<!-- <c:image class="flag-image-size" src-url="/images/location.png" /> -->
 	        				<c:font-icon>map-marker</c:font-icon>
-	        				<c:text class="text--color-info" data-source="$(store_address) $(store_room_number)">地址</c:text>
+	        				<c:text class="text--color-info text-no-wrapper" data-source="$(store_address) $(store_room_number)" format="16,...">地址</c:text>
         				</c:row>
-        				<c:row class="flex--0">
-			        		<c:text name="store-distance" class="text--color-highlight" data-source="$(_by_key_distance)">距离</c:text>
-	        			</c:row>
+        				<!-- <c:column class="flex-**-0 align-right">
+					        <c:text name="store-distance" class="distance-flag" data-source="$(_by_key_distance)">距离</c:text>
+        				</c:column> -->
+        				<!-- <c:text name="store-distance"  data-source="$(_by_key_distance)">距离</c:text> -->
         			</c:row>
+        			<c:text name="store-distance" class="distance-flag" data-source="$(_by_key_distance)">距离</c:text>
         		</c:column>
         	</c:row>
         </c:column>
@@ -178,32 +176,45 @@
         </c:container>
     </c:page>
     <!-- 首页：共享 -->
-    <c:page name="book-sharing-form" title="共享图书">
+    <c:page name="book-sharing-form" title="共享图书" class="full-height">
 		<c:data-source shop="$(store)"/>
+		<c:data-source pickType="var: string"/>
 		
-		<c:column class="align-center empty-space-header-block">
-			<c:text class="text-size-main">书香社区欢迎广大社区成员共享/捐赠图书，您可以将您要共享/捐赠的图书送到您身边的【书香社区门店】，如果需要上门取件，请填写下面表单，我们将尽快与您联系。</c:text>
-		</c:column>
-		<c:container class="container--empty"/>
-		
-    	<c:column>
-    		<c:form name="share-book">
-    			<c:field name="storeId" type="hidden" label="店ID" data-source="$(shop.id)"/>
-    			<c:field name="quantityLevel" label="共享数量" type="select" placeholder="请选择数量级别" content="little">
-    				<c:option value="little" display-text="少于10本" checked="true"/>
-    				<c:option value="many" display-text="超过10本"/>
-    			</c:field>
-    			<c:field name="contactName" label="联系人" type="text" required="true" placeholder="请输入取件联系人" min-value="1" max-value="20" />
-    			<c:field name="contactMobile" label="联系电话" type="text" required="true" placeholder="请输入取件联系人的电话" min-value="11" max-value="11"/>
-    			<c:field name="contactAddress" label="联系地址" type="text" placeholder="请输入您的取件地址" min-value="1" max-value="100" max-line="2"/>
-    			<c:row class="text-size-note align-center user-agreement">
-    					<c:field type="check_box" name="agreed" label="">
-    						<c:option value="true" display-text="我同意"/>
-    					</c:field>
-    					<c:text link-to-url="/wxaService/bookSharingAgreement/">《书香社区共享图书条款》</c:text>
-    			</c:row>
-    			<c:action name="submitBookShareForm" class="btn btn--green btn--full" link-to-url="/wxaService/shareBook/">提交</c:action>
-    		</c:form>
+	    	<c:form name="share-book" class="full-height">
+    	<c:column class="full-height">
+	    		<c:column class="book-sharing-form-container flex--1">
+		    		<c:row class="share-form-select-pick-type-title-row title-text-size" >
+		    			<c:text class="text--color--highlight">*</c:text>
+		    			<c:text>共享方式</c:text>
+		    		</c:row>
+		    		<c:row class="share-form-select-pick-type-button-row">
+		    			<c:button name="to-store" class="btn-pick-type">站点投放</c:button>
+		    			<c:button name="from-home" class="btn-pick-type">上门取书</c:button>
+		    		</c:row>
+    		
+	    			<c:field required="true" name="pickType" type="hidden" data-source="$(pickType)"/>
+	    			<c:field required="true" name="storeId" type="select" label="共享站点" data-source="$(shop.id)"/>
+	    			<c:field required="true" name="quantityLevel" label="共享数量" type="select" placeholder="请选择数量级别" content="little">
+	    				<c:option value="little" display-text="少于10本" checked="true"/>
+	    				<c:option value="many" display-text="超过10本"/>
+	    			</c:field>
+	    			<c:field required="true" name="contactName" label="联系人" type="text" placeholder="请输入取件联系人" min-value="1" max-value="20" />
+	    			<c:field required="true" name="contactMobile" label="联系电话" type="text"  placeholder="请输入取件联系人的电话" min-value="11" max-value="11"/>
+	    			<c:field name="contactAddress" label="联系地址" type="text" placeholder="请输入您的取件地址" min-value="1" max-value="100" max-line="2"/>
+	    			<c:row class="text-size-note align-center user-agreement">
+	    					<c:field type="check_box" name="agreed" label="">
+	    						<c:option value="true" display-text="我同意"/>
+	    					</c:field>
+	    					<c:column class="align-center">
+	    						<c:text link-to-url="/wxaService/bookSharingAgreement/">《书香社区共享图书条款》</c:text>
+	    					</c:column>
+	    			</c:row>
+    			</c:column>
+    			<c:action name="submitBookShareForm" class="form-submit-button" link-to-url="/wxaService/shareBook/">
+    				<c:image src-url="/images/submit.png"/>
+    				<c:text>提交</c:text>
+    			</c:action>
     	</c:column>
+    		</c:form>
     </c:page>
 </root>
