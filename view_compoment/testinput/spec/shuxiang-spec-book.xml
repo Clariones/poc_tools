@@ -3,7 +3,7 @@
 	
 	<!-- *************************** 图书 ********************************* -->
 	<!-- 图书详情 -->
-	<c:page name="book-detail" title="书籍详情" front-color="#000000" background-color="#4BB86E">
+	<c:page name="book-detail" title="书籍详情" front-color="#000000" background-color="#c4d0d9">
 		<c:data-source bookData="$(book)" />
 		<c:data-source bookCopyData="$(book_copy)" />
 		<c:data-source platform="$(book_sharing_platform)" />
@@ -12,41 +12,41 @@
 
 		<c:toast data-source="$(message)" />
 		<!-- 图书封面图像 -->
-		<c:row class="align-center background-green">
+		<c:row class="align-center book-detail-image">
 			<c:image class="image--size-main" src-url="$(bookData.book_cover)" />
 		</c:row>
 		<c:container class="container--empty"></c:container>
 		<!-- 图书基本属性 -->
-		<c:column name="book-info-block" class="padding--far">
-			<c:text class="text-title text--align-center" data-source="$(bookData.book_name)">名称</c:text>
-			<c:text class="text-color-info" data-source="作者:$(bookData.book_author)">作者</c:text>
-			<c:text class="text-color-info" data-source="出版社:$(bookData.book_publisher)">出版社</c:text>
-			<c:date class="text-color-info" data-source="$(bookData.book_pubdate)" format="出版时间:yyyy-MM">出版时间</c:date>
-			<c:money class="text-color-info" data-source="$(bookData.list_price)" format="定价：￥#,##0.00">定价</c:money>
-			<c:text class="text-color-info" data-source="ISBN: $(bookData.book_isbn13)">ISBN</c:text>
-			<c:text name="isbn10" class="text-color-info" data-source="ISBN: $(bookData.book_isbn10)">ISBN</c:text>
+		<c:column name="book-info-block" class="book-info-block">
+			<c:text class="title-text-size text--color-default" data-source="$(bookData.book_name)">名称</c:text>
+			<c:text data-source="作者: $(bookData.book_author)">作者</c:text>
+			<c:text data-source="出版社: $(bookData.book_publisher)">出版社</c:text>
+			<c:date data-source="$(bookData.book_pubdate)" format="出版时间: yyyy-MM">出版时间</c:date>
+			<c:money data-source="$(bookData.list_price)" format="定价：￥#,##0.00">定价</c:money>
+			<c:text  data-source="ISBN: $(bookData.book_isbn13)">ISBN</c:text>
+			<c:text name="isbn10" data-source="ISBN: $(bookData.book_isbn10)">ISBN</c:text>
 		</c:column>
 		<c:container class="container--empty"></c:container>
 		<!-- 书内容 -->
-		<c:column class="border--bottom padding--far">
+		<c:column class="book-summary-block">
 			<c:row>
-				<c:font-icon class="text-size-icon">book</c:font-icon>
-				<c:text class="text-title padding--left-near">本书简介</c:text>
+				<c:image class="book-detail-icon" src-url="/images/bookSummary.png"/>
+				<c:text class="title-text-size text--color-default">本书简介</c:text>
 			</c:row>
-			<c:text class="padding--top-near" data-source="$(bookData.book_summary)" max-line="8"></c:text>
+			<c:text  data-source="$(bookData.book_summary)" max-line="8"></c:text>
 		</c:column>
 		<!-- 推荐 -->
-		<c:column class="border--bottom padding--far">
+		<c:column class="book-recommendation-block">
 			<c:row>
-				<c:font-icon class="text-size-icon">bookmark</c:font-icon>
-				<c:text class="text-title padding--left-near" data-source="$(bookData.book_recommend.name)">推荐</c:text>
+				<c:image class="book-detail-icon" src-url="/images/bookRecomm.png"/>
+				<c:text class="title-text-size text--color-default" data-source="$(bookData.book_recommend.name)">推荐</c:text>
 			</c:row>
 		</c:column>
 		<!-- 馆藏列表 -->
-		<c:column name="collection-info-title" class="border--bottom padding--far">
+		<c:column name="collection-info-title" class="book-inventory-block">
 			<c:row>
-				<c:font-icon class="text-size-icon">map-marker</c:font-icon>
-				<c:text class="text-title padding--left-near">哪里可以借到？</c:text>
+				<c:image class="book-detail-icon" src-url="/images/borrowBook.png"/>
+				<c:text class="title-text-size text--color-default">哪里可以借到？</c:text>
 			</c:row>
 			<c:row class="padding--top-near align-both-ends" data-source="$(platform.store)" link-to-url="/wxaService/selectStore/$(id)/">
 				<c:text data-source="$(store_name)"></c:text>
@@ -54,28 +54,28 @@
 			</c:row>
 		</c:column>
 		<!-- 最近借阅 -->
-		<c:column name="recent-borrowers" class="padding--far">
+		<c:column name="recent-borrowers" class="book-borrowers-block">
 			<c:row>
-				<c:font-icon class="text-size-icon">group</c:font-icon>
-				<c:text class="text-title padding--left-near">最近借阅</c:text>
+				<c:image class="book-detail-icon" src-url="/images/borrowers.png"/>
+				<c:text class="title-text-size text--color-default">最近借阅</c:text>
 			</c:row>
 			<c:row class="padding--top-near" link-to-url="/wxaService/bookBorrowerList/$(bookData.id)/">
 				<c:image class="image-icon" src-url="$(borrower.logo_image)"
 					data-source="$(bookData.borrowing_history)" />
-				<c:font-icon class="pin-to-right">ellipsis-h</c:font-icon>
+				<c:image name="more-borrowers" class="more-borrowers" src-url="/images/more.png"/>
 			</c:row>
 		</c:column>
 		<c:container class="container--empty"></c:container>
 		
 		<!-- 书评列表 -->
-		<c:column name="book-review-list">
-			<c:column name="review-list" class="padding--far">
-			    <c:text class="text-title" data-source="评论 ($(bookData._by_key_reviewCount))">评论</c:text>
+		<c:column name="book-review-list" class="book-review-list-block">
+			<c:column name="review-list" class="default-content-block-lr-padding">
+			    <c:text class="title-text-size" data-source="评论 ($(bookData._by_key_reviewCount))">评论</c:text>
 			</c:column>
-			<c:column class="padding--far border--bottom" data-source="$(bookData.book_review)">
+			<c:column class="default-list-item-block" data-source="$(bookData.book_review)">
 				<c:row class="review-card padding--bottom-near"> <!-- 标题行 -->
-					<c:image class="image--size-review-logo flex--0" src-url="$(reviewer.logo_image)"/>
-					<c:column class="flex--1">
+					<c:image class="image--size-review-logo flex--0 round-image" src-url="$(reviewer.logo_image)"/>
+					<c:column class="flex--1 padding--left-near">
 						<c:text class="text--size-middle" data-source="$(reviewer.nick_name)"></c:text>
 	    				<c:date class="text--color-info text--size-small" data-source="$(review_publish_datetime)" format="fuzz_after_1_hour"/>
 					</c:column>
@@ -91,11 +91,28 @@
 			</c:column>
 		</c:column>
 		
-		<c:row>
-			<c:button name="review"
-				link-to-url="/wxaService/postBookReviewPage/$(bookData.id)/$(borrowRecord.book_copy.id)/">发表评论</c:button>
-			<c:button name="borrow" link-to-url="/wxaService/customerBorrowBook/$(bookCopyData.id)/">借书</c:button>
-		</c:row>
+		<c:form class="review_form">
+			<c:field type="hidden" name="book_id" label="" data-source="$(bookData.id)"/>
+			<c:field type="hidden" name="book_copy_id" label="" data-source="$(bookCopyData.id)"/>
+			<c:field type="longtext" name="review_content" label=""  placeholder="发表评论" max-value="1024"/>
+			<c:row class="buttons-row">
+				<c:action name="review" class="bottom-link-button" link-to-url="/wxaService/postBookReview/">
+					<c:image src-url="/images/review.png" />
+					<c:text>评论</c:text>
+				</c:action>
+				<c:container name="buy-BX" class="short-ver-line"/>
+				<c:button name="buy" class="bottom-link-button" link-to-url="/wxaService/customerBuyBook/$(bookCopyData.id)/">
+					<c:image src-url="/images/buy.png" />
+					<c:text>购买</c:text>
+				</c:button>
+				<c:container name="borrow-BX" class="short-ver-line"/>
+				<c:button name="borrow" class="bottom-link-button" link-to-url="/wxaService/customerBorrowBook/$(bookCopyData.id)/">
+					<c:image src-url="/images/bookBorrow.png" />
+					<c:text>借阅</c:text>
+				</c:button>
+			</c:row>
+		</c:form>
+
 	</c:page>
 	
 	<!-- 图书：最近借阅人列表 -->
@@ -123,52 +140,47 @@
 	</c:page>
 
 	<!-- 借书成功 -->
-	<c:page name="borrow-book-success" title="借书">
+	<c:page name="borrow-book-success" title="借书" class="full-height">
 		<c:data-source borrowRecord="$(borrowing_history)"/>
 		<c:data-source alreadyBorrowed="var: int"/>
 		<c:data-source stillCanBorrow="var: int"/>
 		
-		<c:row class="empty-space-header-block align-center">
-			<c:font-icon class="font-icon--big-flag">check-circle-o</c:font-icon>
-			<c:column>
-				<c:text class="text-title">借书成功</c:text>
-				<c:text class="text--color-info" data-source="已借$(alreadyBorrowed)本，还可以借$(stillCanBorrow)本"/>
-			</c:column>
-		</c:row>
+		<c:column class="borrow-book-done-header">
+			<c:row class="">
+				<c:image src-url="/images/success.png"/>
+				<c:column>
+					<c:text class="title-text-size">借书成功</c:text>
+					<c:text class="text--color-info" data-source="已借$(alreadyBorrowed)本，还可以借$(stillCanBorrow)本"/>
+				</c:column>
+			</c:row>
+		</c:column>
 		<c:container class="container--empty"/>
 		
-		<c:row class="padding--far">
-			<c:image class="image--size-thumbnail" src-url="$(borrowRecord.book.book_cover)"/>
-			<c:column>
-				<c:text class="text-title" data-source="$(borrowRecord.book.book_name)"></c:text>
-				<c:text class="text--color-info" data-source="$(borrowRecord.book.book_recommend.name)" />
-				<c:text class="padding--far"></c:text>
-				<c:date class="text--color-info" data-source="$(borrowRecord.lending_datetime)" format="借阅日期： yyyy.MM.dd"/>
-				<c:date class="text--color-info" data-source="$(borrowRecord.free_lending_expired_datetime)" format="截止日期： yyyy.MM.dd"/>
+		<c:row class="borrow-book-done-content">
+			<c:image src-url="$(borrowRecord.book.book_cover)"/>
+			<c:column class="align-both-ends">
+				<c:column>
+					<c:text class="title-text-size" data-source="$(borrowRecord.book.book_name)"></c:text>
+					<!-- <c:text class="text-***-color-info" data-source="$(borrowRecord.book.book_recommend.name)" /> -->
+					<c:text class="text-***-color-info" data-source="$(borrowRecord.book.book_author)" format="10,..."/>
+				</c:column>
+				<c:column>
+					<c:date class="text--color-info" data-source="$(borrowRecord.lending_datetime)" format="借阅日期： yyyy.MM.dd"/>
+					<c:date class="text--color-info" data-source="$(borrowRecord.free_lending_expired_datetime)" format="截止日期： yyyy.MM.dd"/>
+				</c:column>
 			</c:column>
 		</c:row>
 		
-		<c:row class="row-of-button-line fixed-at-bottom">
-			<c:row class="btn btn--in-same-line">
-				<c:column class="align-center">
-					<c:font-icon>book</c:font-icon>
-				</c:column>
-				<c:column class="align-center">
-				<c:button  link-to-url="/wxaService/borrowingHistoryDetail/$(borrowRecord.id)/">
-					查看详情
-				</c:button>
-				</c:column>
-			</c:row>
-			<c:row name="register-campaign" class="btn btn--in-same-line">
-				<c:column class="align-center">
-				<c:font-icon>spinner fa-spin</c:font-icon>
-				</c:column>
-				<c:column class="align-center">
-				<c:button link-to-url="/wxaService/wantBorrowBook/scanCode/">
-					继续借阅
-				</c:button>
-				</c:column>
-			</c:row>
+		<c:row class="buttons-row">
+			<c:button class="bottom-link-button" link-to-url="/wxaService/borrowingHistoryDetail/$(borrowRecord.id)/">
+				<c:image src-url="/images/borrowDetail.png" />
+				<c:text>借阅详情</c:text>
+			</c:button>
+			<c:container class="short-ver-line"/>
+			<c:button class="bottom-link-button" link-to-url="/wxaService/wantBorrowBook/scanCode/">
+				<c:image src-url="/images/borrowMore.png" />
+				<c:text>继续借阅</c:text>
+			</c:button>
 		</c:row>
 	</c:page>
 	

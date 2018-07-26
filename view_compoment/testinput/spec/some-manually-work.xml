@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root xmlns:c="http://clariones.doublechaintech.com/uischema.xml"
+      template="mobile">
+     
+    <!-- 活动详情 -->
+	<c:page name="campaign-detail" title="活动详情">
+    	<c:data-source campaign="$(campaign)"/>
+    	<c:data-source customer="$(customer)"/>
+    	
+    	<c:column class="default-content-block-lr-padding middle-content-block-tb-padding">
+	    	<c:text	class="text-title" data-source="$(campaign.campaign_name)">名称</c:text>
+	    	<c:row class="align-both-ends padding--top-near">
+	    		<c:text class="text-status" data-source="$(campaign.campaign_status)">状态</c:text>
+	    		<c:row class="flex--0" stat-in-page="true">
+			    	<c:row stat-in-page="true" class="flex--0 text--color-highlight text--size-middle" link-to-url="/wxaService/praiseCampaign/$(campaign.id)/$(campaign._by_key_alreadyPraised)/">
+				    	<c:font-icon name="campaign-like">heart-o</c:font-icon>
+				    	<c:text data-source="$(campaign._by_key_praiseCount)"></c:text>
+			    	</c:row>
+			    	<!-- 
+			    	<c:font-icon class="text-size-main">comment-o</c:font-icon>
+			    	<c:text class="text-size-note common-text-piece" data-source="$(campaign._by_key_reviewCount)"></c:text>
+			    	 -->
+			    	
+			    </c:row>
+	    	</c:row>
+	    	<c:row class="text--color-info padding--top-near">
+	    		<c:text>活动时间：</c:text>
+	    		<c:date data-source="$(campaign.campaign_start_time)" format="yyyy-MM-dd HH:mm"></c:date>
+	    	</c:row>
+	    	<c:row class="text--color-info">
+	    		<c:text>结束时间：</c:text>
+	    		<c:date data-source="$(campaign.campaign_finish_time)" format="yyyy-MM-dd HH:mm"></c:date>
+	    	</c:row>
+	    	<c:row name="campaign-images" class="padding--top-default">
+	    		<c:image class="image--size-list-thumbnail image--fill" data-source="$(campaign.campaign_image)"></c:image>
+	    	</c:row>
+    	</c:column>
+    	<c:container class="container--empty"></c:container>
+    	
+		<c:row class="default-content-block-lr-padding middle-content-block-tb-padding" >
+			<c:font-icon>paper-plane-o</c:font-icon>
+			<c:text class="text--size-default" data-source="$(campaign.campaign_hold_address)">地点</c:text>
+		</c:row>
+		<c:container class="container--empty"></c:container>
+		
+		<c:column class="default-content-block-lr-padding middle-content-block-tb-padding" link-to-url="/wxaService/campaignRegistersList/$(campaign.id)/">
+			<c:text name="member-count" class="text--color-info" data-source="已报名$(campaign._by_key_memberCount) / 限$(campaign.available_register_quantity)人">人数</c:text>
+			<c:row name="register-logo" class="padding--top-near" >
+				<c:image class="image-icon round-image" src-url="$(register_member.logo_image)"
+					data-source="$(campaign.campaign_register_history)" />
+				<c:font-icon name="more-register" class="pin-to-right">ellipsis-h</c:font-icon>
+			</c:row>
+		</c:column>
+		<c:container class="container--empty"></c:container>
+		
+		<c:column class="default-content-block-lr-padding middle-content-block-tb-padding" >
+			<c:text class="text-title">活动详情</c:text>
+			<c:rich-text class="padding--top-near" data-source="$(campaign.campaign_content)" />
+		</c:column>
+		<c:container class="container--empty"></c:container>
+		
+	    <c:column name="review-list" class="campaign-detail-review-header">
+		    <c:text class="text-title">评论</c:text>
+		</c:column>
+		<c:column class="default-content-block-lr-padding middle-content-block-tb-padding border--bottom" data-source="$(campaign.campaign_review)">
+			<c:row class="review-card padding--bottom-near"> <!-- 标题行 -->
+				<c:image class="image--size-review-logo flex--0 round-image" src-url="$(reviewer.logo_image)"/>
+				<c:column class="flex--1 padding--left-near">
+					<c:text class="text--size-middle" data-source="$(reviewer.nick_name)"></c:text>
+    				<c:date class="text--color-info text--size-small" data-source="$(last_update_time)" format="fuzz_after_1_hour"/>
+				</c:column>
+				<c:row class="flex--0 text--size-middle text--color-highlight padding--right-far" stat-in-page="true" 
+						link-to-url="/wxaService/praiseCampaignReview/campaign/$(campaign.id)/$(id)/$(_by_key_thumbsUp)/">
+    				<c:font-icon name="my-comment-icon">comment-o</c:font-icon>
+    				<c:text data-source="$(_by_key_praiseCount)"/>
+	    		</c:row>
+	    		<c:ugc-control title-block="屏蔽" title-report="举报" class="flex--0 text--strong text--color-highlight" link-to-url="/wxaService/ugcContentControl/$(id)/campaign/">···</c:ugc-control>
+			</c:row>
+			<c:text max-line="4" class="text--color-info" data-source="$(review_content)"/>
+		</c:column>
+	    
+		<c:form class="review_form">
+			<c:field type="hidden" name="campaign_id" label="" data-source="$(campaign.id)"/>
+			<c:field type="longtext" name="review_content" label=""  placeholder="发表评论" max-value="1024"/>
+			<c:row class="buttons-row">
+				<c:action class="bottom-link-button" link-to-url="/wxaService/postCampaignReview/">
+					<c:image src-url="/images/review.png" />
+					<c:text>评论</c:text>
+				</c:action>
+				<c:container class="short-ver-line"/>
+				<c:button type="share" class="bottom-link-button" sharing-title="$(campaign.campaign_name)" 
+								image-url="$(campaign.campaign_image)" link-to-url="/wxaService/campaignDetail/$(campaign.id)/">
+					<c:image src-url="/images/share.png" />
+					<c:text>分享</c:text>
+				</c:button>
+				<c:container name="register-campaign-BX" class="short-ver-line"/>
+				<c:button name="register-campaign" class="bottom-link-button" data-source="$(campaign._by_key_scene)"
+						link-to-url="/wxaService/campaignApplyResult/$(campaign.id)/$(campaign._by_key_scene_code)/">
+					<c:image src-url="/images/register.png" />
+					<c:text>报名</c:text>
+				</c:button>
+				<c:container name="unregister-campaign-BX" class="short-ver-line"/>
+				<c:button name="unregister-campaign" class="bottom-link-button" data-source="$(campaign._by_key_scene)"
+						link-to-url="/wxaService/campaignApplyResult/$(campaign.id)/$(campaign._by_key_scene_code)/">
+					<c:image src-url="/images/cancel.png" />
+					<c:text>取消</c:text>
+				</c:button>
+			</c:row>
+		</c:form>
+    </c:page>
+    
+    
+</root>

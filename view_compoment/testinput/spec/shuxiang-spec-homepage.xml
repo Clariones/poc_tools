@@ -44,7 +44,7 @@
 		<c:row class="homepage-campaign-list-title-row" name="campagin-header">
 			<c:text class="flex--0 title-text-size">活动</c:text>
 			<c:row link-to-url="./wxaService/storeCampaignList/$(shop.id)/" class="flex--0 text--color-highlight">
-				<c:text>更多</c:text>
+				<c:text class="padding--right-small">更多</c:text>
 				<c:font-icon>caret-right</c:font-icon>
 			</c:row>
 		</c:row>
@@ -141,7 +141,7 @@
 		</c:column>
 		
 		<c:column name="number-limit" class="align-center borrow-book-page">
-			<c:text>您已借满$(totalCanBorrow)本书</c:text>
+			<c:text data-source="您已借满$(totalCanBorrow)本书"></c:text>
 			<c:image class="can-not-borrow-image padding--top-far padding--bottom-far" src-url="/images/can_not_borrow_book.png"></c:image>
 			<c:button class="btn btn--green btn--half" link-to-url="/wxaService/customerBorrowHistory/">查看借阅详情</c:button>
 		</c:column>
@@ -254,4 +254,23 @@
 			<c:text>回到首页</c:text>
 		</c:button>
 	</c:page>
+	<!-- 首页：我的消息、我的提醒 -->
+    <c:page name="customer_message_list" title="我的消息">
+    	<c:data-source user="$(customer)"/>
+    	
+    	<c:column data-source="$(user.private_message)" class="customer-message-item-block">
+   			<c:row >
+   				<c:font-icon class="text--color-highlight">bell-o</c:font-icon>
+   				<c:text class="title-text-size" data-source="$(name)"></c:text>
+   			</c:row>
+   			<c:column>
+   				<c:date class="title-text-size text--color-info" data-source="$(delivery_time)" format="yyyy-MM-dd HH:mm"></c:date>
+   				<c:text class="text--color-info" data-source="$(content)"></c:text>
+   			</c:column>
+    	</c:column>
+    	
+    	<c:column name="nothing" class="padding--far">
+    		<c:text class="text-title">您还没有收到任何消息。</c:text>
+    	</c:column>
+    </c:page>
 </root>

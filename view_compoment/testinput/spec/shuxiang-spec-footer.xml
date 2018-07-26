@@ -6,10 +6,10 @@
 	<c:page name="book-review-list" title="书评列表">
 		<c:data-source plaza="$(book_plaza)" />
 		<c:column data-source="$(plaza.book_review)">
-			<c:column class="padding--far border--bottom">
+			<c:column class="default-list-item-card">
 				<c:row class="review-card padding--bottom-near"> <!-- 标题行 -->
-					<c:image class="image--size-review-logo flex--0" src-url="$(reviewer.logo_image)"/>
-					<c:column class="flex--1">
+					<c:image class="image--size-review-logo flex--0 round-image" src-url="$(reviewer.logo_image)"/>
+					<c:column class="flex--1 padding--left-near">
 						<c:text class="text--size-middle" data-source="$(reviewer.nick_name)"></c:text>
 	    				<c:date class="text--color-info text--size-small" data-source="$(review_publish_datetime)" format="fuzz_after_1_hour"/>
 					</c:column>
@@ -22,7 +22,7 @@
 		    				link-to-url="/wxaService/ugcContentControl/$(id)/book/">···</c:ugc-control>
 				</c:row>
 				<c:text max-line="8" class="text--color-info" data-source="$(review_content)"/>
-				<c:row class="border" link-to-url="/wxaService/bookDetailPage/$(book_info.id)/">
+				<c:row class="border padding--small" link-to-url="/wxaService/bookDetailPage/$(book_info.id)/">
 					<c:image class="image--size-summary flex--0" src-url="$(book_info.book_cover)" />
 					<c:column class="flex--1 padding--left-near">
 						<c:text class="text-title" data-source="$(book_info.book_name)" />

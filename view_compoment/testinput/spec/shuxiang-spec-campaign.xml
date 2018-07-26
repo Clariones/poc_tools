@@ -1,142 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <root xmlns:c="http://clariones.doublechaintech.com/uischema.xml" template="mobile">
 	
-	<!-- 活动详情 -->
-	<c:page name="campaign-detail" title="活动详情">
-    	<c:data-source campaign="$(campaign)"/>
-    	<c:data-source customer="$(customer)"/>
-    	
-    	<c:column class="padding--far">
-	    	<c:text	class="text-title" data-source="$(campaign.campaign_name)">名称</c:text>
-	    	<c:row class="align-both-ends padding--top-near">
-	    		<c:text class="text-status" data-source="$(campaign.campaign_status)">状态</c:text>
-	    		<c:row class="flex--0" stat-in-page="true">
-			    	<c:row stat-in-page="true" class="flex--0 text--color-highlight text--size-middle" link-to-url="/wxaService/praiseCampaign/$(campaign.id)/$(campaign._by_key_alreadyPraised)/">
-				    	<c:font-icon name="campaign-like">heart-o</c:font-icon>
-				    	<c:text data-source="$(campaign._by_key_praiseCount)"></c:text>
-			    	</c:row>
-			    	<!-- 
-			    	<c:font-icon class="text-size-main">comment-o</c:font-icon>
-			    	<c:text class="text-size-note common-text-piece" data-source="$(campaign._by_key_reviewCount)"></c:text>
-			    	 -->
-			    	
-			    </c:row>
-	    	</c:row>
-	    	<c:row class="text--color-info padding--top-near">
-	    		<c:text>活动时间：</c:text>
-	    		<c:date data-source="$(campaign.campaign_start_time)" format="yyyy-MM-dd HH:mm"></c:date>
-	    	</c:row>
-	    	<c:row class="text--color-info padding--top-near">
-	    		<c:text>结束时间：</c:text>
-	    		<c:date data-source="$(campaign.campaign_finish_time)" format="yyyy-MM-dd HH:mm"></c:date>
-	    	</c:row>
-	    	<c:row name="campaign-images" class="padding--top-default">
-	    		<c:image class="image--size-list-thumbnail image--fill" data-source="$(campaign.campaign_image)"></c:image>
-	    	</c:row>
-    	</c:column>
-    	<c:container class="container--empty"></c:container>
-    	
-		<c:row class="padding--far" >
-			<c:font-icon class="text--size-default">map-marker</c:font-icon>
-			<c:text class="text--size-default" data-source="$(campaign.campaign_hold_address)">地点</c:text>
-		</c:row>
-		<c:container class="container--empty"></c:container>
-		
-		<c:column class="padding--far" link-to-url="/wxaService/campaignRegistersList/$(campaign.id)/">
-			<c:text name="member-count" class="text--color-info" data-source="已报名$(campaign._by_key_memberCount) / 限$(campaign.available_register_quantity)人">人数</c:text>
-			<c:row name="register-logo" class="padding--top-near" >
-				<c:image class="image-icon" src-url="$(register_member.logo_image)"
-					data-source="$(campaign.campaign_register_history)" />
-				<c:font-icon name="more-register" class="pin-to-right">ellipsis-h</c:font-icon>
-			</c:row>
-		</c:column>
-		<c:container class="container--empty"></c:container>
-		
-		<c:column class="padding--far" >
-			<c:text class="text-title">活动详情</c:text>
-			<c:rich-text class="padding--top-near" data-source="$(campaign.campaign_content)" />
-		</c:column>
-		<c:container class="container--empty"></c:container>
-		
-	    <c:column name="review-list" class="padding--far">
-		    <c:text class="text-title">评论</c:text>
-		</c:column>
-		<c:column class="padding--far border--bottom" data-source="$(campaign.campaign_review)">
-			<c:row class="review-card padding--bottom-near"> <!-- 标题行 -->
-				<c:image class="image--size-review-logo flex--0" src-url="$(reviewer.logo_image)"/>
-				<c:column class="flex--1">
-					<c:text class="text--size-middle" data-source="$(reviewer.nick_name)"></c:text>
-    				<c:date class="text--color-info text--size-small" data-source="$(last_update_time)" format="fuzz_after_1_hour"/>
-				</c:column>
-				<c:row class="flex--0 text--size-middle text--color-highlight padding--right-far" stat-in-page="true" 
-						link-to-url="/wxaService/praiseCampaignReview/campaign/$(campaign.id)/$(id)/$(_by_key_thumbsUp)/">
-    				<c:font-icon name="my-comment-icon">comment-o</c:font-icon>
-    				<c:text data-source="$(_by_key_praiseCount)"/>
-	    		</c:row>
-	    		<c:ugc-control title-block="屏蔽" title-report="举报" class="flex--0 text--strong text--color-highlight" link-to-url="/wxaService/ugcContentControl/$(id)/campaign/">···</c:ugc-control>
-			</c:row>
-			<c:text max-line="4" class="text--color-info" data-source="$(review_content)"/>
-		</c:column>
-	    
-	    	
-	    	<!-- 
-	    	<c:text class="text-size-main" link-to-url="/wxaService/campaignreviews/$(campaign.id)/">
-	    		查看更多...
-	    	</c:text>
-	    	 -->
-		<c:form class="review_form">
-			<c:field type="hidden" name="campaign_id" label="" data-source="$(campaign.id)"/>
-			<c:field type="longtext" name="review_content" label=""  placeholder="发表评论" max-value="1024"/>
-			<c:row class="row-of-button-line">
-				<c:row class="btn btn--in-same-line">
-					<c:column class="align-center">
-						<c:font-icon>share-alt</c:font-icon>
-					</c:column>
-					<c:column class="align-center">
-						<c:button type="share"  sharing-title="$(campaign.campaign_name)" 
-								image-url="$(campaign.campaign_image)" link-to-url="/wxaService/campaignDetail/$(campaign.id)/">
-							分享
-						</c:button>
-					</c:column>
-				</c:row>
-				<c:row name="register-campaign" class="btn btn--in-same-line">
-					<c:column class="align-center">
-						<c:font-icon>paw</c:font-icon>
-					</c:column>
-					<c:column class="align-center">
-						<c:button name="register-campaign" data-source="$(campaign._by_key_scene)"
-								link-to-url="/wxaService/campaignApplyResult/$(campaign.id)/$(campaign._by_key_scene_code)/">
-							报名活动
-						</c:button>
-					</c:column>
-				</c:row>
-				<c:row name="submit-campaign-review-form" class="btn btn--in-same-line" >
-					<c:column class="align-center">
-						<c:font-icon>commenting</c:font-icon>
-					</c:column>
-					<c:column class="align-center">
-						<c:action level="primary" link-to-url="/wxaService/postCampaignReview/">提交评论</c:action>
-					</c:column>
-				</c:row>
-			</c:row>
-		</c:form>
-    </c:page>
+	
     <!-- 活动的所有报名者 -->
 	<c:page name="campaign-registers-list" title="活动报名">
 		<c:data-source campaign="$(campaign)"/>
 		
-		<c:row class="padding--far">
-			<c:image class="image--size-list-summary flex--0" src-url="$(campaign.campaign_image)" />
-			<c:column class="flex--1">
-				<c:text class="text-title" data-source="$(campaign.campaign_name)" />
-				<c:date class="text--color-info" data-source="$(campaign.campaign_start_time)" format="举办时间：yyyy.MM.dd HH:mm"/>
-			</c:column>
-		</c:row>
-		<c:container class="container--empty"/>
-		
-		<c:row class="padding--far list-as-grid-row each-row-5">
-			<c:column class="grid-cell cell-default-border " data-source="$(campaign.campaign_register_history)">
+		<c:row class="default-content-block-lr-padding middle-content-block-tb-padding list-as-grid-row each-row-5">
+			<c:column class="grid-cell cell-bottom-border " data-source="$(campaign.campaign_register_history)">
 				<c:image src-url="$(register_member.logo_image)" class="image--size-icon image-circle" />
+				<c:text class="text--color-info" data-source="$(register_member.nick_name)" format="4,"/>
 			</c:column>
 			<c:column class="grid-cell"></c:column>
 			<c:column class="grid-cell"></c:column>
@@ -177,48 +50,47 @@
 		</c:row>
 	</c:page>
 	<!-- 活动：报名结果 -->
-	<c:page name="campaign-apply-result" title="活动报名">
+	<c:page name="campaign-apply-result" title="活动报名" class="full-height">
         <c:data-source campaign="$(campaign)"/>
-        <c:column class="flex--1">
-        	<c:column class="align-center empty-space-header-block">
-		        <c:row class="padding--far ">
-		        	<c:font-icon class="font-icon--big-flag">check-circle-o</c:font-icon>
-					<c:column>
-						<c:text name="apply-result" class="text-title" data-source="$(campaign._by_key_resultTitle)"/>
-					</c:column>
-		        </c:row>
-	        </c:column>
-	        <c:container class="container--empty"/>
-	        
-	        <c:column class="padding--far">
-	        	<c:row class="align-center">
-	        		<c:image class="image--size-main2" src-url="$(campaign.campaign_image)"/>
-	        	</c:row>
-	        	<c:text class="padding--top--default text-title border  padding--left-near padding--right-near" data-source="$(campaign.campaign_name)"></c:text>
-	        	<c:row class="border padding--left-near padding--right-near">
-	                 <c:font-icon>clock-o</c:font-icon>
-	                 <c:text class="padding--left-near">时间</c:text>
-	                 <c:date class="padding--left-near" name="hold_time" data-source="$(campaign.campaign_start_time)" format="yyyy.MM.dd HH:mm">时间</c:date>
-	            </c:row>
-	            <c:row class="border padding--left-near padding--right-near">
-	                 <c:font-icon>map-marker</c:font-icon>
-	                 <c:text class="padding--left-near">地点</c:text>
-	                 <c:text class="padding--left-near" data-source="$(campaign.campaign_hold_address)" format="10,...,5">地点</c:text>
-	             </c:row>
-	        </c:column>
+       	<c:column class="campaign-register-done-header">
+	        <c:row>
+	        	<c:image src-url="/images/success.png"/>
+				<c:text name="apply-result" class="title-text-size" data-source="$(campaign._by_key_resultTitle)"/>
+	        </c:row>
         </c:column>
-        <c:row class="row-of-button-line">
-			<c:row name="register-campaign" class="btn btn--in-same-line">
-				<c:column class="align-center">
-					<c:font-icon>paw</c:font-icon>
-				</c:column>
-				<c:column class="align-center">
-					<c:button name="to-detail-btn" class="btn btn-primary"
-	                        link-to-url="./wxaService/campaignDetail/$(campaign.id)/">查看详情
-	                </c:button>
-				</c:column>
-			</c:row>
+        <c:container class="container--empty"/>
+	        
+	    <c:column class="campaign-register-done-content">
+	    	<c:image src-url="$(campaign.campaign_image)"/>
+	    	<c:row class="text-block">
+	    		<c:text class="title-text-size" data-source="$(campaign.campaign_name)"></c:text>
+	    	</c:row>
+	    	<c:row class="text-block">
+	    		<c:font-icon>clock-o</c:font-icon>
+                <c:text class="padding--left-near">时间</c:text>
+                <c:date name="hold_time" data-source="$(campaign.campaign_start_time)" format="yyyy.MM.dd HH:mm ">时间</c:date>
+                <c:date data-source="$(campaign.campaign_finish_time)" format="~ HH:mm">时间</c:date>
+	    	</c:row>
+	    	<c:row class="text-block">
+                <c:font-icon>map-marker</c:font-icon>
+                <c:text class="padding--left-near">地点</c:text>
+                <c:text class="padding--left-near" data-source="$(campaign.campaign_hold_address)" format="10,...,5">地点</c:text>
+            </c:row>
+	    </c:column>
+	    
+	    <c:row class="buttons-row">
+			<c:button type="share" class="bottom-link-button" sharing-title="$(campaign.campaign_name)" 
+							image-url="$(campaign.campaign_image)" link-to-url="/wxaService/campaignDetail/$(campaign.id)/">
+				<c:image src-url="/images/share.png" />
+				<c:text>分享</c:text>
+			</c:button>
+			<c:container class="short-ver-line"/>
+			<c:button class="bottom-link-button" link-to-url="./wxaService/campaignDetail/$(campaign.id)/">
+				<c:image src-url="/images/detail.png" />
+				<c:text>详情</c:text>
+			</c:button>
 		</c:row>
+        
     </c:page>
 	
 </root>
