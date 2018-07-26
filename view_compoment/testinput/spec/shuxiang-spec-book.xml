@@ -171,39 +171,7 @@
 			</c:row>
 		</c:row>
 	</c:page>
-	<!-- 图书：共享成功 -->
-	<c:page name="book-sharing-success" title="共享图书">
-    	<c:data-source shop="$(store)"/>
-    	<c:column class="flex--1">
-        	<c:column class="align-center empty-space-header-block">
-		        <c:row class="padding--far ">
-		        	<c:font-icon class="font-icon--big-flag">check-circle-o</c:font-icon>
-					<c:column class="no-flex-weight">
-		    			<c:text class="text-size-article-title text-color-main">提交成功</c:text>
-		    			<c:text class="text-color-note">您的共享申请提成功了。</c:text>
-		    		</c:column>
-		        </c:row>
-	        </c:column>
-	        <c:container class="container--empty"/>
-	        
-	        <c:column class="padding--far">
-	        	<c:text>感谢您的共享！</c:text>
-				<c:text>我们已经收到您的共享申请，我们会尽快与您联系</c:text>
-	        </c:column>
-        </c:column>
-        <c:row class="row-of-button-line">
-			<c:row name="register-campaign" class="btn btn--in-same-line">
-				<c:column class="align-center">
-					<c:font-icon>home</c:font-icon>
-				</c:column>
-				<c:column class="align-center">
-					<c:button name="to-detail-btn" class="btn btn-primary"
-	                        link-to-url="/wxaService/viewHomePage/">回到首页
-	                </c:button>
-				</c:column>
-			</c:row>
-		</c:row>
-    </c:page>
+	
 
     
 	

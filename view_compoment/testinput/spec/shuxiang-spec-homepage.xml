@@ -180,8 +180,8 @@
 		<c:data-source shop="$(store)"/>
 		<c:data-source pickType="var: string"/>
 		
-	    	<c:form name="share-book" class="full-height">
-    	<c:column class="full-height">
+	    <c:form name="share-book" class="full-height">
+    		<c:column class="full-height">
 	    		<c:column class="book-sharing-form-container flex--1">
 		    		<c:row class="share-form-select-pick-type-title-row title-text-size" >
 		    			<c:text class="text--color--highlight">*</c:text>
@@ -214,7 +214,44 @@
     				<c:image src-url="/images/submit.png"/>
     				<c:text>提交</c:text>
     			</c:action>
-    	</c:column>
-    		</c:form>
+    		</c:column>
+    	</c:form>
     </c:page>
+    <!-- 首页： 共享图书协议 -->
+     <c:page name="book-sharing-agreement" title="共享图书协议" class="full-height">
+    	<c:data-source config="$(platform_configuration)"/>
+    	<c:column class="full-height">
+    		<c:column class="useragreement-header-block">
+    			<c:text>《书香社区共享图书条款》</c:text>
+    		</c:column>
+    		<c:column class="flex--1 useragreement-content-block">
+    			 <c:rich-text name="agreement" data-source="$(config.book_sharing_agreement)">协议内容</c:rich-text>
+    		</c:column>
+    	</c:column>
+    </c:page>
+    <!-- 首页：共享图书成功 -->
+	<c:page name="book-sharing-success" title="共享图书" class="full-height">
+		<c:data-source shop="$(store)" />
+	
+		<c:column class="share-book-done-header">
+			<c:row>
+				<c:image src-url="/images/success.png" />
+				<c:column class="no-flex-weight">
+					<c:text class="title-text-size">共享成功</c:text>
+					<c:text class="text--color-info">您的共享申请提交成功了。</c:text>
+				</c:column>
+			</c:row>
+		</c:column>
+		<c:container class="container--empty" />
+	
+		<c:column class="share-book-done-message">
+			<c:text>感谢您的共享！</c:text>
+			<c:text>我们已经收到您的共享申请，我们会尽快与您联系</c:text>
+		</c:column>
+	
+		<c:button name="to-detail-btn" class="bottom-link-button" link-to-url="/wxaService/viewHomePage/">
+			<c:image src-url="/images/toHome-a.png" />
+			<c:text>回到首页</c:text>
+		</c:button>
+	</c:page>
 </root>

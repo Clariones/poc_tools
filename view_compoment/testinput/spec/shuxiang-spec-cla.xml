@@ -9,10 +9,7 @@
     
     
 
-    <c:page name="book-sharing-agreement" title="共享图书协议">
-    	<c:data-source config="$(platform_configuration)"/>
-        <c:rich-text name="agreement" data-source="$(config.book_sharing_agreement)">协议内容</c:rich-text>
-    </c:page>
+
     
 	
     
