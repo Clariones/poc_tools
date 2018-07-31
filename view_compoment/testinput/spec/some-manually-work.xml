@@ -76,36 +76,39 @@
 	    		</c:row>
 	    		<c:ugc-control title-block="屏蔽" title-report="举报" class="flex--0 text--strong text--color-highlight" link-to-url="/wxaService/ugcContentControl/$(id)/campaign/">···</c:ugc-control>
 			</c:row>
-			<c:text max-line="4" class="text--color-info" data-source="$(review_content)"/>
+			<c:text class="text--color-info" data-source="$(review_content)"/>
 		</c:column>
 	    
-		<c:form class="review_form">
-			<c:field type="hidden" name="campaign_id" label="" data-source="$(campaign.id)"/>
-			<c:field type="longtext" name="review_content" label=""  placeholder="发表评论" max-value="1024"/>
-			<c:row class="buttons-row">
-				<c:action class="bottom-link-button" link-to-url="/wxaService/postCampaignReview/">
-					<c:image src-url="/images/review.png" />
-					<c:text>评论</c:text>
-				</c:action>
-				<c:container class="short-ver-line"/>
-				<c:button type="share" class="bottom-link-button" sharing-title="$(campaign.campaign_name)" 
-								image-url="$(campaign.campaign_image)" link-to-url="/wxaService/campaignDetail/$(campaign.id)/">
-					<c:image src-url="/images/share.png" />
-					<c:text>分享</c:text>
-				</c:button>
-				<c:container name="register-campaign-BX" class="short-ver-line"/>
-				<c:button name="register-campaign" class="bottom-link-button" data-source="$(campaign._by_key_scene)"
-						link-to-url="/wxaService/campaignApplyResult/$(campaign.id)/$(campaign._by_key_scene_code)/">
-					<c:image src-url="/images/register.png" />
-					<c:text>报名</c:text>
-				</c:button>
-				<c:container name="unregister-campaign-BX" class="short-ver-line"/>
-				<c:button name="unregister-campaign" class="bottom-link-button" data-source="$(campaign._by_key_scene)"
-						link-to-url="/wxaService/campaignApplyResult/$(campaign.id)/$(campaign._by_key_scene_code)/">
-					<c:image src-url="/images/cancel.png" />
-					<c:text>取消</c:text>
-				</c:button>
-			</c:row>
+		<c:form class="review_form flex--1">
+			<c:column class="flex--1">
+				<c:field type="hidden" name="campaign_id" label="" data-source="$(campaign.id)"/>
+				<c:field type="longtext" name="review_content" label=""  placeholder="微评论" max-value="100" class="flex--1"/>
+				<c:container class="container--bottom-space"/>
+				<c:row class="buttons-row row-fixed-bottom">
+					<c:action class="bottom-link-button" link-to-url="/wxaService/postCampaignReview/">
+						<c:image src-url="/images/review.png" />
+						<c:text>微评</c:text>
+					</c:action>
+					<c:container class="short-ver-line"/>
+					<c:button type="share" class="bottom-link-button" sharing-title="$(campaign.campaign_name)" 
+									image-url="$(campaign.campaign_image)" link-to-url="/wxaService/campaignDetail/$(campaign.id)/">
+						<c:image src-url="/images/share.png" />
+						<c:text>分享</c:text>
+					</c:button>
+					<c:container name="register-campaign-BX" class="short-ver-line"/>
+					<c:button name="register-campaign" class="bottom-link-button" data-source="$(campaign._by_key_scene)"
+							link-to-url="/wxaService/campaignApplyResult/$(campaign.id)/$(campaign._by_key_scene_code)/">
+						<c:image src-url="/images/register.png" />
+						<c:text>报名</c:text>
+					</c:button>
+					<c:container name="unregister-campaign-BX" class="short-ver-line"/>
+					<c:button name="unregister-campaign" class="bottom-link-button" data-source="$(campaign._by_key_scene)"
+							link-to-url="/wxaService/campaignApplyResult/$(campaign.id)/$(campaign._by_key_scene_code)/">
+						<c:image src-url="/images/cancel.png" />
+						<c:text>取消</c:text>
+					</c:button>
+				</c:row>
+			</c:column>
 		</c:form>
     </c:page>
     

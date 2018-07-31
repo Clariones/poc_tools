@@ -30,7 +30,7 @@
 				<c:image src-url="/images/buyBook-a.png" />
 				<c:text>买书</c:text>
 			</c:column>
-			<c:column link-to-url="/wxaService/wantShareBook/$(shop.id)/tostore/">
+			<c:column link-to-url="/wxaService/wantShareBook/$(shop.id)/fromhome/">
 				<c:image src-url="/images/shareBook-a.png" />
 				<c:text>共享</c:text>
 			</c:column>
@@ -74,7 +74,7 @@
 	</c:page>
 
 	<!-- 首页：切换门店 -->
-	<c:page name="customer-store-list" title="切换门店">
+	<c:page name="customer-store-list" title="服务网点">
         <c:data-source user="$(customer)"/>
         <c:data-source plateform="$(book_sharing_platform)"/>
         <c:column>
@@ -180,11 +180,11 @@
 		<c:data-source shop="$(store)"/>
 		<c:data-source pickType="var: string"/>
 		
-	    <c:form name="share-book" class="full-height">
-    		<c:column class="full-height">
+	    <c:form name="share-book" class="flex--1">
+    		<c:column class="flex--1">
 	    		<c:column class="book-sharing-form-container flex--1">
 		    		<c:row class="share-form-select-pick-type-title-row title-text-size" >
-		    			<c:text class="text--color--highlight">*</c:text>
+		    			<c:text class="ele-form-field-required-mark">*</c:text>
 		    			<c:text>共享方式</c:text>
 		    		</c:row>
 		    		<c:row class="share-form-select-pick-type-button-row">
@@ -193,8 +193,8 @@
 		    		</c:row>
     		
 	    			<c:field required="true" name="pickType" type="hidden" data-source="$(pickType)"/>
-	    			<c:field required="true" name="storeId" type="select" label="共享站点" data-source="$(shop.id)"/>
-	    			<c:field required="true" name="quantityLevel" label="共享数量" type="select" placeholder="请选择数量级别" content="little">
+	    			<c:field id="select-store" required="true" name="storeId" type="select" label="共享站点" data-source="$(shop.id)"/>
+	    			<c:field id="select-number" required="true" name="quantityLevel" label="共享数量" type="select" placeholder="请选择数量级别" content="little">
 	    				<c:option value="little" display-text="少于10本" checked="true"/>
 	    				<c:option value="many" display-text="超过10本"/>
 	    			</c:field>
@@ -210,10 +210,13 @@
 	    					</c:column>
 	    			</c:row>
     			</c:column>
-    			<c:action name="submitBookShareForm" class="form-submit-button" link-to-url="/wxaService/shareBook/">
-    				<c:image src-url="/images/submit.png"/>
-    				<c:text>提交</c:text>
-    			</c:action>
+    			<c:container class="container--bottom-space"/>
+    			<c:row class="buttons-row row-fixed-bottom">
+	    			<c:action name="submitBookShareForm" class="form-submit-button" link-to-url="/wxaService/shareBook/">
+	    				<c:image src-url="/images/submit.png"/>
+	    				<c:text>提交</c:text>
+	    			</c:action>
+    			</c:row>
     		</c:column>
     	</c:form>
     </c:page>

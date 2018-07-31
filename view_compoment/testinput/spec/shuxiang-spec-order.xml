@@ -16,20 +16,22 @@
      		<c:column data-source="$(user.main_order)">
 		     	<c:column class="padding--far" link-to-url="/wxaService/customerOrderDetail/$(id)/">
 		     		<c:text class="text--size-middle" data-source="订单编号：$(id)">订单编号</c:text>
-	     			<c:row name="line-item" data-source="$(line_item)">
+	     			<c:row name="line-item" class="padding--bottom-near" data-source="$(line_item)">
 	     				<c:image class="image--size-summary" src-url="$(cover_image)"></c:image>
-	     				<c:column>
-	     					<c:text class="text-title" data-source="$(name)"></c:text>
-	     					<c:text class="text--color-info" data-source="$(summary)"></c:text>
-	     					<c:text class="text--color-into"> </c:text>
-	     					<c:row class="pin-to-left-bottom">
-	     						<c:money name="item-pay-value" class="text--color-highlight text-title" data-source="$(item_discount)"></c:money>
-	     						<c:money name="item-price" visible="false" class="text-size-note text-color-note" data-source="$(raw_price)"></c:money>
+	     				<c:column class="padding--left-near">
+	     					<c:column class="flex--1">
+		     					<c:text class="text-title" data-source="$(name)"></c:text>
+		     					<c:text class="text--color-info" data-source="$(summary)"></c:text>
+	     					</c:column>
+	     					
+	     					<c:row>
+	     						<c:money name="item-pay-value" class="text--color-info" data-source="$(item_discount)"></c:money>
+	     						<c:money name="item-price" visible="false" class="text--color-info" data-source="$(raw_price)"></c:money>
 	     					</c:row>
 	     				</c:column>
 	     			</c:row>
-	     			<c:row name="pay-action" class="align-both-ends">
-	     				<c:money data-source="$(actual_amount)" format="应付：￥#,##0.##元" class="text--color-highlight text-title"></c:money>
+	     			<c:row name="pay-action" class="align-both-ends align-items-end">
+	     				<c:money data-source="$(actual_amount)" format="应付：￥#,##0.##元" class="text--color-highlight title-text-size"></c:money>
 	     				<c:container class="container--tag-mark" name="pay-order" link-to-url="/wxaService/customerStartPayOrder/$(id)/">
 	     					<c:text class="padding--left-near padding--right-near padding--top-small padding--bottom-small">立即支付</c:text>
 	     				</c:container>
@@ -44,126 +46,125 @@
      </c:page>
 	
 	<!-- 订单详情 -->
-	<c:page name="customer-order-detail" title="订单详情" class="full-height">
+	<c:page name="customer-order-detail" title="订单详情">
 		<c:data-source borrowForfeit="$(borrowing_expired_sku)"/>
 		<c:data-source book="$(book_copy)"/>
 		<c:data-source memberService="$(member_service_bundle_sku)" />
 		<c:data-source user="$(customer)"/>
 		<c:data-source order="$(main_order)"/>
 		<c:data-source payment="$(main_order_payment)"/>
+		<c:column class="flex--1">
 		
-		<c:row name="line-item-block" class="default-list-item-card" data-source="$(order.line_item)">
-			<c:image class="image--size-summary" src-url="$(cover_image)">商品图片</c:image>
-			<c:column class="flex--0 padding--left-near">
-				<c:text class="text-title" data-source="$(name)"></c:text>
-				<c:text class="text--color-info" data-source="$(summary)"></c:text>
-				<c:text class="text--size-big"></c:text>
-				<c:money name="item-price" data-source="$(raw_price)" format="￥#,##0.00#"
-					class="text--color-highlight text--size-big text--strong pin-to-left-bottom" ></c:money>
-				<!-- <c:row class="align-both-ends pin-to-left-bottom">
-					<c:money name="item-pay-value" class="text-size-main text-color-marked-main" data-source="$(item_discount)"></c:money>
-					<c:money name="item-price" class="text-size-note text-color-note" data-source="$(raw_price)"></c:money>
-				</c:row> -->
+			<c:row name="line-item-block" class="default-list-item-card" data-source="$(order.line_item)">
+				<c:image class="image--size-summary" src-url="$(cover_image)">商品图片</c:image>
+				<c:column class="flex--1 padding--left-near align-both-ends">
+					<c:column class="flex--1">
+						<c:text class="text-title" data-source="$(name)"></c:text>
+						<c:text class="text--color-info" data-source="$(summary)"></c:text>
+						<c:text class="text--size-big"></c:text>
+					</c:column>
+					<c:money name="item-price" data-source="$(raw_price)" format="￥#,##0.00#"
+						class="text--color-highlight text--size-big text--strong" ></c:money>
+				</c:column>
+			</c:row>
+			
+			<c:column name="borrow-record-block" class="text--color-info">
+				<c:container class="container--empty"/>
+				<c:row class="default-list-item-block">
+					<c:text class="text--color-default text-title">商品：图书借阅</c:text>
+				</c:row>
+				<c:row class="default-list-item-block align-both-ends">
+					<c:text>借书门店</c:text>
+					<c:text data-source="$(borrowForfeit.borrowing_history.lending_store.store_name)"></c:text>
+				</c:row>
+				<c:row class="default-list-item-block align-both-ends">
+					<c:text>借书日期</c:text>
+					<c:date data-source="$(borrowForfeit.borrowing_history.lending_datetime)" format="yyyy.MM.dd"></c:date>
+				</c:row>
+				<c:row class="default-list-item-block align-both-ends">
+					<c:text>免费阅读至</c:text>
+					<c:date data-source="$(borrowForfeit.borrowing_history.free_lending_expired_datetime)" format="yyyy.MM.dd"></c:date>
+				</c:row>
+				<c:row class="default-list-item-block align-both-ends">
+					<c:text>还书门店</c:text>
+					<c:text data-source="$(borrowForfeit.borrowing_history.return_store.store_name)"></c:text>
+				</c:row>
+				<c:row class="default-list-item-block align-both-ends">
+					<c:text>还书日期</c:text>
+					<c:date data-source="$(borrowForfeit.borrowing_history.return_datetime)" format="yyyy.MM.dd"></c:date>
+				</c:row>
+				<c:row class="default-list-item-block align-both-ends">
+					<c:text>逾期天数</c:text>
+					<c:text data-source="$(borrowForfeit.expired_days)"></c:text>
+				</c:row>
+				<c:row class="default-list-item-block align-both-ends">
+					<c:text>逾期费用</c:text>
+					<c:money data-source="$(borrowForfeit.expired_fee)" format="￥ #,##0.##"></c:money>
+				</c:row>
 			</c:column>
-		</c:row>
-		
-		<c:column name="borrow-record-block" class="text--color-info">
-			<c:container class="container--empty"/>
-			<c:row class="default-list-item-block">
-				<c:text class="text--color-default text-title">商品：图书借阅</c:text>
-			</c:row>
-			<c:row class="default-list-item-blockalign-both-ends">
-				<c:text>借书门店</c:text>
-				<c:text data-source="$(borrowForfeit.borrowing_history.lending_store.store_name)"></c:text>
-			</c:row>
-			<c:row class="default-list-item-block align-both-ends">
-				<c:text>借书日期</c:text>
-				<c:date data-source="$(borrowForfeit.borrowing_history.lending_datetime)" format="yyyy.MM.dd"></c:date>
-			</c:row>
-			<c:row class="default-list-item-block align-both-ends">
-				<c:text>免费阅读至</c:text>
-				<c:date data-source="$(borrowForfeit.borrowing_history.free_lending_expired_datetime)" format="yyyy.MM.dd"></c:date>
-			</c:row>
-			<c:row class="default-list-item-block align-both-ends">
-				<c:text>还书门店</c:text>
-				<c:text data-source="$(borrowForfeit.borrowing_history.return_store.store_name)"></c:text>
-			</c:row>
-			<c:row class="default-list-item-block align-both-ends">
-				<c:text>还书日期</c:text>
-				<c:date data-source="$(borrowForfeit.borrowing_history.return_datetime)" format="yyyy.MM.dd"></c:date>
-			</c:row>
-			<c:row class="default-list-item-block align-both-ends">
-				<c:text>逾期天数</c:text>
-				<c:text data-source="$(borrowForfeit.expired_days)"></c:text>
-			</c:row>
-			<c:row class="default-list-item-block align-both-ends">
-				<c:text>逾期费用</c:text>
-				<c:money data-source="$(borrowForfeit.expired_fee)" format="￥ #,##0.##"></c:money>
-			</c:row>
-			<c:container class="container--empty"/>
+			
+			<c:column name="member-service-block" class="text--color-info">
+				<c:container class="container--empty"/>
+				<c:row class="default-list-item-block">
+					<c:text class="text--color-default text-title">商品：会员服务</c:text>
+				</c:row>
+				<c:row class="default-list-item-block align-both-ends">
+					<c:text>会员生效日期:</c:text>
+					<c:date data-source="$(user.member_service_start_date)" format="yyyy.MM.dd"></c:date>
+				</c:row>
+				<c:row class="default-list-item-block align-both-ends">
+					<c:text>会员到期日期:</c:text>
+					<c:date data-source="$(user.member_service_expire_date)" format="yyyy.MM.dd"></c:date>
+				</c:row>
+				<c:container class="container--empty"/>
+			</c:column>
+			
+			<c:column name="order-block" class="text--color-info">
+				<c:container class="container--empty"/>
+				<c:row class="default-list-item-block">
+					<c:text class="text--color-default text-title">订单信息</c:text>
+					<c:text class="padding--top-small" data-source="($(order.main_order_status))"></c:text>
+				</c:row>
+				<c:row class="default-list-item-block align-both-ends">
+					<c:text>订单编号:</c:text>
+					<c:text data-source="$(order.id)"></c:text>
+				</c:row>
+				<c:row class="default-list-item-block align-both-ends">
+					<c:text>下单时间:</c:text>
+					<c:date data-source="$(order.create_time)" format="yyyy-MM-dd HH:mm:ss"></c:date>
+				</c:row>
+				<c:row class="default-list-item-block align-both-ends">
+					<c:text>商品金额</c:text>
+					<c:money data-source="$(order.original_amount)" format="￥ #,##0.00#"></c:money>
+				</c:row>
+				<c:row class="default-list-item-block align-both-ends">
+					<c:text>实付金额</c:text>
+					<c:money class="text--color-highlight text--strong" data-source="$(order.actual_amount)" format="￥ #,##0.00#"></c:money>
+				</c:row>
+			</c:column>
+			
+			<c:column name="payment-block" class="text--color-info flex--1">
+				<c:container class="container--empty"/>
+				<c:row class="default-list-item-block">
+					<c:text class="text--color-default text-title">支付信息</c:text>
+					<c:text class="padding--top-small" data-source="($(payment.payment_status))"></c:text>
+				</c:row>
+				<c:row class="default-list-item-block align-both-ends">
+					<c:text>支付方式:</c:text>
+					<c:text data-source="$(payment.payment_method)"></c:text>
+				</c:row>
+				<c:row class="default-list-item-block align-both-ends">
+					<c:text>支付时间:</c:text>
+					<c:date data-source="$(payment.last_update_time)" format="yyyy.MM.dd HH:mm:ss"></c:date>
+				</c:row>
+				<c:row class="default-list-item-block align-both-ends">
+					<c:text>实付金额</c:text>
+					<c:money class="text--color-highlight text--strong" data-source="$(payment.paid_amount)" format="￥ #,##0.00#"></c:money>
+				</c:row>
+			</c:column>
 		</c:column>
-		
-		<c:column name="member-service-block" class="text--color-info">
-			<c:container class="container--empty"/>
-			<c:row class="default-list-item-block">
-				<c:text class="text--color-default text-title">商品：会员服务</c:text>
-			</c:row>
-			<c:row class="default-list-item-block align-both-ends">
-				<c:text>会员生效日期:</c:text>
-				<c:date data-source="$(user.member_service_start_date)" format="yyyy.MM.dd"></c:date>
-			</c:row>
-			<c:row class="default-list-item-block align-both-ends">
-				<c:text>会员到期日期:</c:text>
-				<c:date data-source="$(user.member_service_expire_date)" format="yyyy.MM.dd"></c:date>
-			</c:row>
-			<c:container class="container--empty"/>
-		</c:column>
-		
-		<c:column name="order-block" class="text--color-info">
-			<c:container class="container--empty"/>
-			<c:row class="default-list-item-block">
-				<c:text class="text--color-default text-title">订单信息</c:text>
-				<c:text class="padding--top-small" data-source="($(order.main_order_status))"></c:text>
-			</c:row>
-			<c:row class="default-list-item-block align-both-ends">
-				<c:text>订单编号:</c:text>
-				<c:text data-source="$(order.id)"></c:text>
-			</c:row>
-			<c:row class="default-list-item-block align-both-ends">
-				<c:text>下单时间:</c:text>
-				<c:date data-source="$(order.create_time)" format="yyyy-MM-dd HH:mm:ss"></c:date>
-			</c:row>
-			<c:row class="default-list-item-block align-both-ends">
-				<c:text>商品金额</c:text>
-				<c:money data-source="$(order.original_amount)" format="￥ #,##0.00#"></c:money>
-			</c:row>
-			<c:row class="default-list-item-block align-both-ends">
-				<c:text>实付金额</c:text>
-				<c:money class="text--color-highlight text--strong" data-source="$(order.actual_amount)" format="￥ #,##0.00#"></c:money>
-			</c:row>
-		</c:column>
-		
-		<c:column name="payment-block" class="text--color-info flex--1">
-			<c:container class="container--empty"/>
-			<c:row class="default-list-item-block">
-				<c:text class="text--color-default text-title">支付信息</c:text>
-				<c:text class="padding--top-small" data-source="($(payment.payment_status))"></c:text>
-			</c:row>
-			<c:row class="default-list-item-block align-both-ends">
-				<c:text>支付方式:</c:text>
-				<c:text data-source="$(payment.payment_method)"></c:text>
-			</c:row>
-			<c:row class="default-list-item-block align-both-ends">
-				<c:text>支付时间:</c:text>
-				<c:date data-source="$(payment.last_update_time)" format="yyyy.MM.dd HH:mm:ss"></c:date>
-			</c:row>
-			<c:row class="default-list-item-block align-both-ends">
-				<c:text>实付金额</c:text>
-				<c:money class="text--color-highlight text--strong" data-source="$(payment.paid_amount)" format="￥ #,##0.00#"></c:money>
-			</c:row>
-		</c:column>
-		
-		<c:row class="buttons-row flex--0 pin-to-bottom full-width">
+		<c:container class="container--bottom-space"/>
+		<c:row class="buttons-row row-fixed-bottom">
 			<c:button class="bottom-link-button" link-to-url="/wxaService/viewHomePage/">
 				<c:image src-url="/images/toHome-a.png" />
 				<c:text>回首页</c:text>
@@ -181,40 +182,42 @@
     	<c:data-source order="$(main_order)"/>
     	<c:data-source payment="$(main_order_payment)"/>
     	
-    	<c:row name="line-item-block" class="padding--far" data-source="$(order.line_item)">
+    	<c:row name="line-item-block" class="default-list-item-block" data-source="$(order.line_item)">
 			<c:image class="image--size-summary" src-url="$(cover_image)">商品图片</c:image>
-			<c:column class="flex--0 padding--left-near">
-				<c:text class="text-title" data-source="$(name)"></c:text>
-				<c:text class="text--color-info" data-source="$(summary)"></c:text>
-				<c:text class="text--strong"></c:text>
+			<c:column class="flex--1 padding--left-near">
+				<c:column class="flex--1">
+					<c:text class="text-title" data-source="$(name)"></c:text>
+					<c:text class="text--color-info" data-source="$(summary)"></c:text>
+					<c:text class="text--strong"></c:text>
+				</c:column>
 				<c:money name="item-price" data-source="$(raw_price)" format="￥#,##0.00#"
-					class="text--color-highlight text--strong pin-to-left-bottom" ></c:money>
+					class="text--color-highlight text--strong" ></c:money>
 			</c:column>
 		</c:row>
 		<c:container class="container--empty"/>
-		<c:column class="padding--far text--color-info">
+		<c:column class="default-list-item-block text--color-info">
 	    	<c:row class="align-both-ends">
 	    		<c:text>商品金额</c:text>
 	    		<c:money class="text--strong" data-source="$(order.original_amount)"></c:money>
 	    	</c:row>
 	    	<c:row class="align-both-ends">
 	    		<c:text>实付金额</c:text>
-	    		<c:money class="text--color-highlight text--strong text--size-big" data-source="$(order.actual_amount)"></c:money>
+	    		<c:money class="text--color-highlight title-text-size" data-source="$(order.actual_amount)"></c:money>
 	    	</c:row>
     	</c:column>
     	
     	
-    	<c:form class="flex--1 full-height stick-buttons-bottom">
+    	<c:form class="flex--1">
     		<c:column class="default-content-block-lr-padding middle-content-block-tb-padding flex--1">
 	    		<c:field type="hidden" name="order-id" label="订单号" data-source="$(order.id)"></c:field>
-	    		<c:field type="radio" name="payment_method" label="请选择支付方式" content="wechat">
+	    		<c:field id="select-pay-method" type="radio" name="payment_method" label="请选择支付方式" content="wechat">
 					<c:option value="wechat" display-text="微信支付" checked="true"></c:option>
 	    			<c:option value="wallet" display-text="余额支付"></c:option>
 	    			<c:option value="agency" display-text="好友代付"></c:option>
 				</c:field>
     		</c:column>
-    		
-    		<c:row class="buttons-row flex--0 pin-to-bottom full-width">
+    		<c:container class="container--bottom-space"/>
+    		<c:row class="buttons-row row-fixed-bottom">
 				<c:button class="bottom-link-button" link-to-url="/wxaService/viewHomePage/">
 					<c:image src-url="/images/cancel.png" />
 					<c:text>取消</c:text>

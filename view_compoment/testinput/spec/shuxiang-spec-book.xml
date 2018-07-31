@@ -87,15 +87,16 @@
 		    		<c:ugc-control title-block="屏蔽" title-report="举报" class="flex--0 text--strong text--color-highlight" 
 		    				link-to-url="/wxaService/ugcContentControl/$(id)/book/">···</c:ugc-control>
 				</c:row>
-				<c:text max-line="8" class="text--color-info" data-source="$(review_content)"/>
+				<c:text class="text--color-info" data-source="$(review_content)"/>
 			</c:column>
 		</c:column>
 		
 		<c:form class="review_form">
 			<c:field type="hidden" name="book_id" label="" data-source="$(bookData.id)"/>
 			<c:field type="hidden" name="book_copy_id" label="" data-source="$(bookCopyData.id)"/>
-			<c:field type="longtext" name="review_content" label=""  placeholder="发表评论" max-value="1024"/>
-			<c:row class="buttons-row">
+			<c:field type="longtext" name="review_content" label=""  placeholder="微评论" max-value="100"/>
+			<c:container class="container--bottom-space"/>
+			<c:row class="buttons-row row-fixed-bottom">
 				<c:action name="review" class="bottom-link-button" link-to-url="/wxaService/postBookReview/">
 					<c:image src-url="/images/review.png" />
 					<c:text>评论</c:text>
