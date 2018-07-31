@@ -3,7 +3,7 @@
 	
 	<!-- *************************** footer ********************************* -->
 	<!-- 动态/大家 -->
-	<c:page name="book-review-list" title="书评列表">
+	<c:page name="book-review-list" title="大家">
 		<c:data-source plaza="$(book_plaza)" />
 		<c:column data-source="$(plaza.book_review)">
 			<c:column class="default-list-item-card">
@@ -45,15 +45,15 @@
 		<c:data-source user="$(customer)"/>
 		
 		<c:column data-source="$(user.customer_footprint)">
-			<c:column class="padding--default">
+			<c:column class="default-list-item-card">
 				<c:row class="align-both-ends" name="footprint">
 					<c:row>
 						<c:font-icon class="text-size-small">clock-o</c:font-icon>
 						<c:date class="text-title" data-source="$(create_time)" format="fuzz_after_1_hour"></c:date>
 					</c:row>
-					<c:text class="text-title" data-source="$(title)" format="15,..."></c:text>
+					<c:text class="text-title" data-source="$(title)" format="20,..."></c:text>
 				</c:row>
-				<c:row name="related-item" class="padding--top-near">
+				<c:row name="related-item" class="review-card">
 					<c:column>
 						<c:image class="image--size-thumbnail" src-url="$(item_image)"></c:image>
 					</c:column>
@@ -62,7 +62,7 @@
 						<c:text class="text--color-info" data-source="$(item_description)"></c:text>
 					</c:column>
 				</c:row>
-				<c:rich-text class="text--color-info" data-source="$(description)" max-line="4"/>
+				<c:text class="text--color-info" data-source="$(description)" max-line="4"/>
 			</c:column>
 			<c:container class="container--empty"></c:container>
 		</c:column>

@@ -80,8 +80,25 @@
 		<!-- 名称和图像 -->
 		<c:column class="padding--far align-center">
 			<c:text class="text-title" data-source="$(product.product_name)"></c:text>
-			<c:image class="image--size-main" src-url="$(product.product_cover_image)"/>
 		</c:column>
+		<!-- 产品选择 -->
+		<c:row name="sku-list" class="padding--far list-as-grid-row each-row-2">
+			<c:row name="sku-card" class="grid-cell" data-source="$(product.member_service_bundle_sku)" target-id="$(id)">
+				<c:column class="text--color-info member-service-sku-card">
+					<c:row>
+						<c:text class="text-title text--color-default" data-source="$(member_service_name)"></c:text>
+					</c:row>
+					<c:row>
+						<c:text data-source="$(service_period_months)个月"></c:text>
+					</c:row>
+					<c:row>
+						<c:money class="text--color-highlight text--size-middle text--strong padding--right-near" data-source="$(sale_price)"></c:money>
+						<c:money class="text-list-price" data-source="$(list_price)"></c:money>
+					</c:row>
+				</c:column>
+			</c:row>
+			<c:row name="tailed-cell-1" class="grid-cell"/>
+		</c:row>
 		<c:container class="container--empty"></c:container>
 		<!-- 介绍 -->
 		<c:row class="padding--far">
@@ -102,32 +119,23 @@
 			<c:row name="tailed-cell-02" class="grid-cell"/>
 		</c:row>
 		<c:container class="container--empty"></c:container>
-		<!-- 产品选择 -->
-		<c:row name="sku-list" class="padding--far list-as-grid-row each-row-2">
-			<c:row name="sku-card" class="grid-cell" data-source="$(product.member_service_bundle_sku)" target-id="$(id)">
-				<c:column class="text--color-info member-service-sku-card">
-					<c:row>
-						<c:text class="text-title text--color-default" data-source="$(member_service_name)"></c:text>
-					</c:row>
-					<c:row>
-						<c:text data-source="$(service_period_months)个月"></c:text>
-					</c:row>
-					<c:row>
-						<c:money class="text--color-highlight text--size-middle text--strong padding--right-near" data-source="$(sale_price)"></c:money>
-						<c:money class="text-list-price" data-source="$(list_price)"></c:money>
-					</c:row>
-				</c:column>
-			</c:row>
-			<c:row name="tailed-cell-1" class="grid-cell"/>
-		</c:row>
 		
-		<c:form>
-			<c:field name="sku" type="radio" visible="false"/>
-			<c:column name="need_mobile_number">
-				<c:field name="mobile_number" type="vcode" label="手机号码"/>
-				<c:field name="sms_code" type="text" min-value="6" max-value="8" label="短信验证码"/>
+		
+		<c:form class="member-service-form-container">
+			<c:column class="flex--1">
+				<c:field name="sku" type="radio" visible="false"/>
+				<c:column name="need_mobile_number">
+					<c:field name="mobile_number" type="vcode" label="手机号码"/>
+					<c:field name="sms_code" type="text" min-value="6" max-value="8" label="短信验证码"/>
+				</c:column>
 			</c:column>
-			<c:action class="btn btn--green btn--full" link-to-url="/wxaService/placeMemberServiceOrder/">确认购买</c:action>
+			<c:container class="container--bottom-space"/>
+			<c:row class="buttons-row row-fixed-bottom">
+				<c:action class="bottom-link-button" link-to-url="/wxaService/placeMemberServiceOrder/">
+					<c:image src-url="/images/submit.png" />
+					<c:text>确认购买</c:text>
+				</c:action>
+			</c:row>
 		</c:form>
 	</c:page>
     <!-- 我的： 权益 -->
@@ -244,22 +252,25 @@
 		</c:row>
 	</c:page>
 	<!-- 我的 余额总计和充值入口 -->
-	<c:page name="customer-account-detail" title="我的余额" front-color="#000000" background-color="#4BB86E">
+	<c:page name="customer-account-detail" title="我的余额">
 		<c:data-source user="$(customer)" />
-		<c:row class="fill-space-white">
-		</c:row>
-		<c:column class="align-center background-green">
-			<c:text class="white-text text-title">当前余额（元）</c:text>
-			<c:money class="balance-money" data-source="$(user.account_balance)" format="#,##0.00"></c:money>
+		<c:column class="flex--1">
+			<c:column class="align-center">
+				<c:text class="text-title">当前余额（元）</c:text>
+				<c:money class="balance-money" data-source="$(user.account_balance)" format="#,##0.00"></c:money>
+			</c:column>
+			<c:container class="container--empty"></c:container>
+			<c:row class="padding--default align-both-ends border--bottom" link-to-url="/wxaService/customerAccountHistory/">
+				<c:text>明细</c:text>
+				<c:font-icon>caret-right</c:font-icon>
+			</c:row>
 		</c:column>
-		<c:container class="container--empty"></c:container>
-		<c:row class="padding--default align-both-ends border--bottom" link-to-url="/wxaService/customerAccountHistory/">
-			<c:text>明细</c:text>
-			<c:font-icon>caret-right</c:font-icon>
-		</c:row>
-		
-		<c:row class="fixed-at-bottom">
-			<c:button class="btn btn--full btn--green" link-to-url="/wxaService/customerStartRecharge/">充值</c:button>
+		<c:container class="container--bottom-space"/>
+    	<c:row class="buttons-row row-fixed-bottom">
+			<c:button class="bottom-link-button" link-to-url="/wxaService/customerStartRecharge/">
+				<c:image src-url="/images/recharge.png" />
+				<c:text>充值</c:text>
+			</c:button>
 		</c:row>
 		
 	</c:page>
