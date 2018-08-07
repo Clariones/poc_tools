@@ -6,8 +6,9 @@
 		<c:data-source shop="$(store)" />
 
 		<c:row name="header-bar" link-to-url="/wxaService/storeList/" class="homepage-header-row">
-				<c:text class="title-text-size" data-source="$(shop.store_name)"></c:text>
-				<c:text class="title-text-size text--color-highlight">&lt;切换&gt;</c:text>
+				<c:font-icon>map-marker</c:font-icon>
+				<c:text class="title-text-size" data-source="$(shop.store_subname)-$(shop.store_name)" format="20,..."></c:text>
+				<c:font-icon>angle-right</c:font-icon>
 			<!-- 搜索功能暂时没用 <c:container class="container-horizontal align-right"> <c:search api-url="/wxaService/searchInHomePage/">搜索</c:search> 
 				</c:container> -->
 		</c:row>
@@ -30,7 +31,7 @@
 				<c:image src-url="/images/buyBook-a.png" />
 				<c:text>买书</c:text>
 			</c:column>
-			<c:column link-to-url="/wxaService/wantShareBook/$(shop.id)/fromhome/">
+			<c:column link-to-url="/wxaService/wantShareBook/$(shop.id)/tostore/">
 				<c:image src-url="/images/shareBook-a.png" />
 				<c:text>共享</c:text>
 			</c:column>
@@ -49,24 +50,24 @@
 			</c:row>
 		</c:row>
 		<c:column class="homepage-campaign-list">
-			<c:row data-source="$(shop.campaign)" link-to-url="/wxaService/campaignDetail/$(id)/" class="homepage-campaign-block">
-				<c:column class="list-item-left-block">
+			<c:row name="homepage-campaign-block" data-source="$(shop.campaign)" link-to-url="/wxaService/campaignDetail/$(id)/" class="homepage-campaign-block">
+				<c:column class="campaign-image">
 					<c:image class="image--fill" src-url="$(campaign_image)"></c:image>
 				</c:column>
 				<c:column class="list-item-right-block align-both-ends flex--1" name="campaign-info-block">
 					<c:column>
-						<c:text class="title-text-size text--color-default" data-source="$(campaign_name)" format="8,...">标题</c:text>
-						<c:row class="content-text-size text--color-info" >
+						<c:text class="campaign-title" data-source="$(campaign_name)" format="8,...">标题</c:text>
+						<c:row class="campaign-time" >
 							<c:date name="campaign-hold-time" data-source="$(campaign_start_time)" format="yyyy-MM-dd HH:mm">时间</c:date>
 							<c:text>~</c:text>
 							<c:date name="campaign-finish-time" data-source="$(campaign_finish_time)" format="HH:mm">时间</c:date>
 						</c:row>
-						<c:text class="content-text-size text--color-info" data-source="$(campaign_hold_address)" format="2,...,8">地点</c:text>
+						<c:text class="campaign-address" data-source="$(campaign_hold_address)" format="2,...,8">地点</c:text>
 					</c:column>
 					
 					<c:row class="align-both-ends">
 						<c:text name="register-info" class="reg-cnt" data-source="$(_by_key_reg_cnt)/$(available_register_quantity)人" ></c:text>
-						<c:text name="register-status" class="tag-mark-1">立即报名</c:text>
+						<c:text name="register-status" class="compaign-status" data-source="$(_by_key_calculatedStatusName)">立即报名</c:text>
 					</c:row>
 				</c:column>
 			</c:row>
@@ -83,25 +84,10 @@
         			<c:image class="image--fill" src-url="$(store_image)"></c:image>
         		</c:column>
         		<c:column name="store-desc-block" class="list-item-right-block">
-        			<c:text class="title-text-size padding--bottom-near" data-source="$(store_name)">名称</c:text>
-        			<c:row class="content-text-size text--color-info adjust-to-left-4px">
-        				<!-- 
-        				 <c:image class="flag-image-size" src-url="/images/time.png" />
-        				 -->
-        				 <c:font-icon>clock-o</c:font-icon>
-        				<c:text class="text-no-wrapper" data-source="$(store_open_time)" format="30,...">营业时间</c:text>
-        			</c:row>
-        			<c:row class="content-text-size text--color-info align-both-ends adjust-to-left-4px">
-	        			<c:row class="flex--0 margin--right-small">
-	        				<!-- <c:image class="flag-image-size" src-url="/images/location.png" /> -->
-	        				<c:font-icon>map-marker</c:font-icon>
-	        				<c:text class="text--color-info text-no-wrapper" data-source="$(store_address) $(store_room_number)" format="16,...">地址</c:text>
-        				</c:row>
-        				<!-- <c:column class="flex-**-0 align-right">
-					        <c:text name="store-distance" class="distance-flag" data-source="$(_by_key_distance)">距离</c:text>
-        				</c:column> -->
-        				<!-- <c:text name="store-distance"  data-source="$(_by_key_distance)">距离</c:text> -->
-        			</c:row>
+        			<c:text class="title-text-size text--color-default" data-source="$(store_name)">名称</c:text>
+        			<c:text class="title-text-size text--color-default" data-source="$(store_subname)">名称</c:text>
+        			<c:text class="text--color-info text-no-wrapper" data-source="$(store_open_time)" >营业时间</c:text>
+        			<c:text class="text--color-info text-no-wrapper" data-source="$(store_address) $(store_room_number)">地址</c:text>
         			<c:text name="store-distance" class="distance-flag" data-source="$(_by_key_distance)">距离</c:text>
         		</c:column>
         	</c:row>

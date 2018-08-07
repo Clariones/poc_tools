@@ -47,7 +47,7 @@
 		<c:column data-source="$(user.customer_footprint)">
 			<c:column class="default-list-item-card">
 				<c:row class="align-both-ends" name="footprint">
-					<c:row>
+					<c:row class="align-items-center">
 						<c:font-icon class="text-size-small">clock-o</c:font-icon>
 						<c:date class="text-title" data-source="$(create_time)" format="fuzz_after_1_hour"></c:date>
 					</c:row>
@@ -62,7 +62,7 @@
 						<c:text class="text--color-info" data-source="$(item_description)"></c:text>
 					</c:column>
 				</c:row>
-				<c:text class="text--color-info" data-source="$(description)" max-line="4"/>
+				<c:text class="text--color-info" data-source="$(description)"/>
 			</c:column>
 			<c:container class="container--empty"></c:container>
 		</c:column>

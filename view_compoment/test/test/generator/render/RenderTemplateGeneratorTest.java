@@ -27,8 +27,9 @@ public class RenderTemplateGeneratorTest {
     public void test1() throws Exception {
 //        List<PageUiSpec> pages = parseTestFile("shuxiang-spec.xml");
 //        String fileName = "shuxiang-spec-working.xml";
-        String fileName = "some-manually-work.xml";
+//        String fileName = "some-manually-work.xml";
 //        String fileName = "shuxiang-spec-v2.xml";
+    	String fileName = "shuxiang-spec-order.xml";
         genCodeBySpecFile(fileName);
     }
     

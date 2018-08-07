@@ -231,7 +231,53 @@
     	</c:form>
     </c:page>
 	
-	
+	<!-- 支付成功 -->
+	<c:page name="order_pay_success" title="支付成功">
+    	<c:data-source order="$(main_order)"/>
+    	<c:data-source payment="$(main_order_payment)"/>
+    	<c:data-source banlance="var: object "/>
+    	
+    	<c:column class="pay_success_header_block">
+    		<c:row class="pay_success_header_row">
+    			<c:image class="pay_sucess_header_icon" src-url="images/success.png"/>
+    			<c:text class="pay_sucess_header_text">支付成功</c:text>
+    		</c:row>
+    	</c:column>
+    	<c:container class="container--empty"/>
+    	
+    	<c:column class="pay_success_content_block">
+    		<c:column class="pay_success_content_main_block">
+  				<c:column>
+	    			<c:text class="pay_success_content_main_block_title">成功支付</c:text>
+	    			<c:money class="pay_success_content_main_block_amount" data-source="$(payment.paid_amount)" format="￥#,##0.00"/>
+  				</c:column>
+    		</c:column>
+    		<c:row name="balance_block" class="pay_success_content_balance_block">
+    			<c:text class="name_text">当前余额</c:text>
+    			<c:money class="value_amount" data-source="$(payment.paid_amount)" format="￥#,##0.00"/>
+    		</c:row>
+    		<c:row class="pay_success_content_item">
+    			<c:text class="name_text">支付方式</c:text>
+    			<c:text class="value_text" data-source="$(payment.payment_method)" />
+    		</c:row>
+    		<c:row class="pay_success_content_item">
+    			<c:text class="name_text">支付时间</c:text>
+    			<c:date class="value_text" data-source="$(payment.last_update_time)" format="yyyy.MM.dd HH:mm"/>
+    		</c:row>
+    		<c:row class="pay_success_content_item">
+    			<c:text class="name_text">订单号码</c:text>
+    			<c:text class="value_text" data-source="$(order.id)" />
+    		</c:row>
+    	</c:column>
+    	
+    	<c:container class="container--bottom-space"/>
+   		<c:row class="buttons-row row-fixed-bottom">
+			<c:button class="bottom-link-button" link-to-url="/wxaService/viewHomePage/">
+				<c:image src-url="/images/toHome.png" />
+				<c:text>回书香</c:text>
+			</c:button>
+		</c:row>
+    </c:page>
 	
 
 	

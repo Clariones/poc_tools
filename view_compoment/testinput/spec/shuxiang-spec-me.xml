@@ -14,6 +14,7 @@
 			<c:text class="text-title" data-source="$(user.nick_name)"></c:text>
 			<c:row class="container--tag-mark">
 				<c:text class="text-size-main" data-source="$(user.member_service.product_name)" />
+				<c:date class="text-size-main padding--left-near" data-source="$(user.member_service_expire_date)" format=" 至MM.dd"/>
 			</c:row>
 			<!--  <c:money class="text-****-color-info" data-source="$(user.account_balance)" format="余额：￥#,##0.00#"></c:money> -->
 		</c:column>
@@ -99,36 +100,38 @@
 			</c:row>
 			<c:row name="tailed-cell-1" class="grid-cell"/>
 		</c:row>
-		<c:container class="container--empty"></c:container>
-		<!-- 介绍 -->
-		<c:row class="padding--far">
-			<c:rich-text data-source="$(product.product_description)"></c:rich-text>
-		</c:row>
-		<c:container class="container--empty"></c:container>
-		<!-- 权益展示 -->
-		<c:row name="item-list" class="padding--far list-as-grid-row each-row-3">
-			<c:column class="grid-cell cell-default-border text--color-info member-rights-card" data-source="$(info.member_rights_display_item)">
-				<c:row class="align-center">
-					<c:image src-url="$(image)" ></c:image>
-				</c:row>
-				<c:row class="fixed-height align-center">
-					<c:text data-source="$(summary)"></c:text>
-				</c:row>
-			</c:column>
-			<c:row name="tailed-cell-01" class="grid-cell"/>
-			<c:row name="tailed-cell-02" class="grid-cell"/>
-		</c:row>
-		<c:container class="container--empty"></c:container>
-		
-		
-		<c:form class="member-service-form-container">
+		<c:form class="flex--1">
 			<c:column class="flex--1">
-				<c:field name="sku" type="radio" visible="false"/>
-				<c:column name="need_mobile_number">
-					<c:field name="mobile_number" type="vcode" label="手机号码"/>
-					<c:field name="sms_code" type="text" min-value="6" max-value="8" label="短信验证码"/>
+				<c:column class="member-service-form-container">
+					<c:field name="sku" type="radio" visible="false"/>
+					<c:column name="need_mobile_number">
+						<c:field name="mobile_number" type="vcode" label="手机号码"/>
+						<c:field name="sms_code" type="text" min-value="6" max-value="8" label="短信验证码"/>
+					</c:column>
 				</c:column>
+				
+				<!-- 介绍 -->
+				<c:container class="container--empty"></c:container>
+				<c:row class="padding--far">
+					<c:rich-text data-source="$(product.product_description)"></c:rich-text>
+				</c:row>
+				<c:container class="container--empty"></c:container>
+				<!-- 权益展示 -->
+				<c:row name="item-list" class="padding--far list-as-grid-row each-row-3">
+					<c:column class="grid-cell cell-default-border text--color-info member-rights-card" data-source="$(info.member_rights_display_item)">
+						<c:row class="align-center">
+							<c:image src-url="$(image)" ></c:image>
+						</c:row>
+						<c:row class="fixed-height align-center">
+							<c:text data-source="$(summary)"></c:text>
+						</c:row>
+					</c:column>
+					<c:row name="tailed-cell-01" class="grid-cell"/>
+					<c:row name="tailed-cell-02" class="grid-cell"/>
+				</c:row>
+		
 			</c:column>
+			
 			<c:container class="container--bottom-space"/>
 			<c:row class="buttons-row row-fixed-bottom">
 				<c:action class="bottom-link-button" link-to-url="/wxaService/placeMemberServiceOrder/">
@@ -141,6 +144,7 @@
     <!-- 我的： 权益 -->
 	<c:page name="customer-member-rights" title="我的权益">
 		<c:data-source info="$(member_rights_display)"/>
+		<c:data-source product="$(member_service_product)"/>
 		<!-- 名称和图像 -->
 		<c:column class="padding--far align-center">
 			<c:text class="text-title" data-source="$(info.name)"></c:text>
@@ -152,17 +156,22 @@
 		</c:row>
 		<c:container class="container--empty"></c:container>
 		<!-- 权益展示 -->
-		<c:row name="item-list" class="list-as-grid-row each-row-3">
-			<c:column class="grid-cell cell-default-border text--color-info member-rights-card" data-source="$(info.member_rights_display_item)">
-				<c:row class="align-center">
-					<c:image src-url="$(image)" ></c:image>
-				</c:row>
-				<c:row class="fixed-height align-center">
-					<c:text data-source="$(summary)"></c:text>
-				</c:row>
+		<c:row class="member_right_detail_block">
+			<c:column class="member_right_item_name_column">
+				<c:text class="content_text">name-1</c:text>
+				<c:text class="content_text">name-2</c:text>
+				<c:text class="content_text">name-3</c:text>
+				<c:text class="content_text">name-4</c:text>
+				<c:text class="content_text">name-5</c:text>
 			</c:column>
-			<c:row name="tailed-cell-01" class="grid-cell"/>
-			<c:row name="tailed-cell-02" class="grid-cell"/>
+			<c:column class="member_right_item_value_column">
+				<c:text class="content_text" data-source="$(product.product_name)"/>
+				<c:money class="content_text" data-source="$(product.overdue_pay)元/天"/>
+				<c:text class="content_text" data-source="$(product.book_purchasing_discount_rate)折"/>
+				<c:text class="content_text" data-source="$(product.book_borrowing_count)本"/>
+				<c:money class="content_text" data-source="$(product.book_borrowing_limit_price)元"/>
+				<c:text class="content_text" data-source="$(product.free_borrowing_days)天"/>
+			</c:column>
 		</c:row>
 	</c:page>
 	<!-- 我的 借阅 -->
@@ -278,31 +287,32 @@
 	<!-- 我的：我参与过的活动 -->
 	<c:page name="customer-campaign-list" title="我的活动">
     	<c:data-source user="$(customer)"/>
-		
-		<c:column data-source="$(user.campaign_register_history)" >
-			<c:row class="padding--far" link-to-url="/wxaService/campaignDetail/$(campaign.id)/">
-				<c:column class="flex--5-2">
-					<c:image src-url="$(campaign.campaign_image)"></c:image>
-					<c:text class="text--color-highlight pin-to-left-top background--float-tag"
-						data-source="$(campaign.campaign_status)">状态</c:text>
+		<c:column class="homepage-campaign-list">
+			<c:row name="homepage-campaign-block" data-source="$(user.campaign_register_history)"
+					 link-to-url="/wxaService/campaignDetail/$(campaign.id)/" class="homepage-campaign-block">
+				<c:column class="campaign-image">
+					<c:image class="image--fill" src-url="$(campaign.campaign_image)"></c:image>
 				</c:column>
-				<c:column class="flex--5-3 padding--left-default" name="campaign-info-block">
-					<c:text class="text--size-middle text--color-default" data-source="$(campaign.campaign_name)">标题</c:text>
-					<c:row class="text--size-default text--color-info" >
-						<c:date name="campaign-hold-time" data-source="$(campaign.campaign_start_time)" format="yyyy-MM-dd HH:mm">时间</c:date>
-						<c:text>~</c:text>
-						<c:date name="campaign-finish-time" data-source="$(campaign.campaign_finish_time)" format="HH:mm">时间</c:date>
-					</c:row>
-					<c:text class="text--size-default text--color-info" data-source="$(campaign.campaign_hold_address)" format="2,...,12">地点</c:text>
+				<c:column class="list-item-right-block align-both-ends flex--1" name="campaign-info-block">
+					<c:column>
+						<c:text class="campaign-title" data-source="$(campaign.campaign_name)" format="8,...">标题</c:text>
+						<c:row class="campaign-time" >
+							<c:date name="campaign-hold-time" data-source="$(campaign.campaign_start_time)" format="yyyy-MM-dd HH:mm">时间</c:date>
+							<c:text>~</c:text>
+							<c:date name="campaign-finish-time" data-source="$(campaign.campaign_finish_time)" format="HH:mm">时间</c:date>
+						</c:row>
+						<c:text class="campaign-address" data-source="$(campaign.campaign_hold_address)" format="2,...,8">地点</c:text>
+					</c:column>
+					
 					<c:row class="align-both-ends">
-						<c:text name="register-info" class="text--color-highlight" data-source="$(campaign._by_key_reg_cnt)/$(campaign.available_register_quantity)人" ></c:text>
-						<c:text name="register-status" class="text--color-info" data-source="$(cancelled)">报名情况</c:text>
+						<c:text name="register-info" class="reg-cnt" data-source="$(campaign._by_key_reg_cnt)/$(campaign.available_register_quantity)人" ></c:text>
+						<c:text name="register-status" class="compaign-status" data-source="$(campaign._by_key_calculatedStatusName)">立即报名</c:text>
 					</c:row>
 				</c:column>
+				<c:container class="container--empty"/>
 			</c:row>
-			<c:container class="container--empty"/>
-    	</c:column>
-    	
+		</c:column>
+		
     	<c:row name="nothing" class="padding--far">
     		<c:text class="text-title">您还没有参与过任何活动</c:text>
     	</c:row>
@@ -428,11 +438,11 @@
    		</c:row>
    		<c:row class="default-list-item-block text--color-info align-both-ends border--bottom">
    				<c:text>手机号码</c:text>
-   				<c:text data-source="$(user.mobile_number)">手机号码</c:text>
+   				<c:text data-source="$(user.mobile_number)" format="3,******">手机号码</c:text>
    		</c:row>
    		<c:row class="default-list-item-block text--color-info align-both-ends border--bottom">
    				<c:text>身份证号码</c:text>
-   				<c:text data-source="$(user.identity_card_number)">身份证号码</c:text>
+   				<c:text data-source="$(user.identity_card_number)" format="8,******">身份证号码</c:text>
    		</c:row>
    		<c:row class="default-list-item-block text--color-info align-both-ends border--bottom">
    				<c:text>家庭地址</c:text>

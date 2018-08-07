@@ -3,7 +3,7 @@
 	
 	<!-- *************************** 图书 ********************************* -->
 	<!-- 图书详情 -->
-	<c:page name="book-detail" title="书籍详情" front-color="#000000" background-color="#c4d0d9">
+	<c:page name="book-detail" title="书籍详情">
 		<c:data-source bookData="$(book)" />
 		<c:data-source bookCopyData="$(book_copy)" />
 		<c:data-source platform="$(book_sharing_platform)" />
@@ -28,12 +28,12 @@
 		</c:column>
 		<c:container class="container--empty"></c:container>
 		<!-- 书内容 -->
-		<c:column class="book-summary-block">
+		<c:column name="book-summary" class="book-summary-block">
 			<c:row>
 				<c:image class="book-detail-icon" src-url="/images/bookSummary.png"/>
 				<c:text class="title-text-size text--color-default">本书简介</c:text>
 			</c:row>
-			<c:text  data-source="$(bookData.book_summary)" max-line="8"></c:text>
+			<c:text  data-source="$(bookData.book_summary)" ></c:text>
 		</c:column>
 		<!-- 推荐 -->
 		<c:column class="book-recommendation-block">
@@ -79,7 +79,7 @@
 						<c:text class="text--size-middle" data-source="$(reviewer.nick_name)"></c:text>
 	    				<c:date class="text--color-info text--size-small" data-source="$(review_publish_datetime)" format="fuzz_after_1_hour"/>
 					</c:column>
-					<c:row class="flex--0 text--size-middle text--color-highlight padding--right-far" stat-in-page="true" 
+					<c:row name="praise-review" class="flex--0 text--size-middle text--color-highlight padding--right-far" stat-in-page="true" 
 							link-to-url="/wxaService/praiseBookReview/book/$(bookData.id)/$(id)/$(_by_key_thumbUp)/">
 	    				<c:font-icon name="thumbup">heart-o</c:font-icon>
 	    				<c:text data-source="$(_by_key_praiseCount)"/>
@@ -94,13 +94,12 @@
 		<c:form class="review_form">
 			<c:field type="hidden" name="book_id" label="" data-source="$(bookData.id)"/>
 			<c:field type="hidden" name="book_copy_id" label="" data-source="$(bookCopyData.id)"/>
-			<c:field type="longtext" name="review_content" label=""  placeholder="微评论" max-value="100"/>
 			<c:container class="container--bottom-space"/>
 			<c:row class="buttons-row row-fixed-bottom">
-				<c:action name="review" class="bottom-link-button" link-to-url="/wxaService/postBookReview/">
+				<c:button name="review" class="bottom-link-button" link-to-url="/wxaService/bookReviewForm/$(bookData.id)/$(bookCopyData.id)/">
 					<c:image src-url="/images/review.png" />
 					<c:text>评论</c:text>
-				</c:action>
+				</c:button>
 				<c:container name="buy-BX" class="short-ver-line"/>
 				<c:button name="buy" class="bottom-link-button" link-to-url="/wxaService/customerBuyBook/$(bookCopyData.id)/">
 					<c:image src-url="/images/buy.png" />
@@ -185,7 +184,36 @@
 		</c:row>
 	</c:page>
 	
-
-    
+	<c:page name="book-review-form" title="发表评论">
+		<c:data-source bookData="$(book)"/>
+		<c:data-source bookCopyData="$(book_copy)"/>
+		
+		<c:column class="book-review-form-header">
+			<c:text class="book-name" data-source="$(bookData.book_name)" />
+		</c:column>
+		<c:container class="container--empty"/>
+		
+		<c:form name="book-review">
+			<c:column class="book-review-form-content">
+				<c:column>
+					<c:field type="hidden" name="book_id" label="" data-source="$(bookData.id)"/>
+					<c:field type="hidden" name="book_copy_id" label="" data-source="$(bookCopyData.id)"/>
+					<c:field type="longtext" name="review_content" label=""  placeholder="微评论" max-value="100"/>
+				</c:column>
+			
+				<c:row class="buttons-row row-fixed-bottom">
+					<c:button name="unregister-campaign" class="bottom-link-button"	link-to-url="/wxaService/bookDetail/$(bookData.id)/">
+						<c:image src-url="/images/cancel.png" />
+						<c:text>取消</c:text>
+					</c:button>
+					<c:container class="short-ver-line"/>
+					<c:action class="bottom-link-button" link-to-url="/wxaService/postBookReview/">
+						<c:image src-url="/images/review.png" />
+						<c:text>发表</c:text>
+					</c:action>
+				</c:row>
+			</c:column>
+		</c:form>
+	</c:page>
 	
 </root>
