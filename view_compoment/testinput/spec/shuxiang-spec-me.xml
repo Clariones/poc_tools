@@ -78,28 +78,32 @@
 		<c:data-source product="$(member_service_product)"/>
 		<c:data-source info="$(member_rights_display)"/>
 		
-		<!-- 名称和图像 -->
-		<c:column class="padding--far align-center">
-			<c:text class="text-title" data-source="$(product.product_name)"></c:text>
-		</c:column>
-		<!-- 产品选择 -->
-		<c:row name="sku-list" class="padding--far list-as-grid-row each-row-2">
-			<c:row name="sku-card" class="grid-cell" data-source="$(product.member_service_bundle_sku)" target-id="$(id)">
-				<c:column class="text--color-info member-service-sku-card">
-					<c:row>
-						<c:text class="text-title text--color-default" data-source="$(member_service_name)"></c:text>
+		<c:column class="select-member-service-header">
+			<!-- 名称和到期日期 -->
+			<c:row class="title">
+				<c:image class="round-image" src-url="/images/levels.png"></c:image>
+				<c:text class="name" data-source="$(user.member_service.product_name)" />
+				<c:date class="expiredate" data-source="$(user.member_service_expire_date)" format="(yyyy.MM.dd到期)"/>
+			</c:row>
+			<!-- sku列表 -->
+			<c:row name="sku-list" class="sku-list">
+				<c:column name="sku-card" class="sku-card" data-source="$(product.member_service_bundle_sku)" target-id="$(id)">
+					<c:row class="title-and-check-flag">
+						<c:text class="title" data-source="$(member_product.product_name)"/>
+						<c:font-icon class="check-flag-active">check</c:font-icon>
+						<c:font-icon class="check-flag-unset">check</c:font-icon>
 					</c:row>
-					<c:row>
-						<c:text data-source="$(service_period_months)个月"></c:text>
+					<c:row class="month-and-money">
+						<c:money class="money" data-source="$(sale_price)"></c:money>
+						<c:text class="month" data-source="/$(service_period_months)个月"></c:text>
 					</c:row>
-					<c:row>
-						<c:money class="text--color-highlight text--size-middle text--strong padding--right-near" data-source="$(sale_price)"></c:money>
-						<c:money class="text-list-price" data-source="$(list_price)"></c:money>
+					<c:row class="list-price-row">
+						<c:text>原价</c:text>
+						<c:money class="money" data-source="$(list_price)"></c:money>
 					</c:row>
 				</c:column>
 			</c:row>
-			<c:row name="tailed-cell-1" class="grid-cell"/>
-		</c:row>
+		</c:column>
 		<c:form class="flex--1">
 			<c:column class="flex--1">
 				<c:column class="member-service-form-container">
@@ -110,24 +114,30 @@
 					</c:column>
 				</c:column>
 				
-				<!-- 介绍 -->
-				<c:container class="container--empty"></c:container>
-				<c:row class="padding--far">
-					<c:rich-text data-source="$(product.product_description)"></c:rich-text>
-				</c:row>
 				<c:container class="container--empty"></c:container>
 				<!-- 权益展示 -->
-				<c:row name="item-list" class="padding--far list-as-grid-row each-row-3">
-					<c:column class="grid-cell cell-default-border text--color-info member-rights-card" data-source="$(info.member_rights_display_item)">
-						<c:row class="align-center">
-							<c:image src-url="$(image)" ></c:image>
-						</c:row>
-						<c:row class="fixed-height align-center">
-							<c:text data-source="$(summary)"></c:text>
-						</c:row>
+				<c:text class="rights-header">等级特权</c:text>
+				<c:row class="member_right_detail_block">
+					<c:column class="member_right_item_name_column">
+						<c:text class="content_text">特权</c:text>
+						<c:text class="content_text">借阅图书数量</c:text>
+						<c:text class="content_text">借阅免费时间</c:text>
+						<c:text class="content_text">借阅超期费用</c:text>
+						<c:text class="content_text">借阅图书价值</c:text>
+						<c:text class="content_text">购买图书折扣</c:text>
+						<c:text class="content_text">报名会员活动</c:text>
+						<c:text class="content_text">申请共享图书</c:text>
 					</c:column>
-					<c:row name="tailed-cell-01" class="grid-cell"/>
-					<c:row name="tailed-cell-02" class="grid-cell"/>
+					<c:column class="member_right_item_value_column">
+						<c:text name="name" class="content_text" data-source="$(product.product_name)"/>
+						<c:text name="count-limit" class="content_text" data-source="$(product.book_borrowing_count)本"/>
+						<c:text name="days" class="content_text" data-source="$(product.free_borrowing_days)天"/>
+						<c:text name="overdue" class="content_text" data-source="$(product.overdue_pay)元/天"/>
+						<c:money name="amount-limit" class="content_text" data-source="$(product.book_borrowing_limit_price)" format="#,##0.##元"/>
+						<c:text name="ratio" class="content_text" data-source="$(product._by_key_discountRate)折"/>
+						<c:font-icon class="content_text">check</c:font-icon>
+						<c:font-icon class="content_text">check</c:font-icon>
+					</c:column>
 				</c:row>
 		
 			</c:column>
@@ -143,35 +153,66 @@
 	</c:page>
     <!-- 我的： 权益 -->
 	<c:page name="customer-member-rights" title="我的权益">
+		<c:data-source platform="$(book_sharing_platform)" />
+		<c:data-source user="$(customer)"/>
 		<c:data-source info="$(member_rights_display)"/>
 		<c:data-source product="$(member_service_product)"/>
-		<!-- 名称和图像 -->
-		<c:column class="padding--far align-center">
-			<c:text class="text-title" data-source="$(info.name)"></c:text>
+		<!-- 名称和头像 -->
+		<c:column class="customer-brief-header">
+			<c:image class="round-image" src-url="$(user.logo_image)"></c:image>
+			<c:text data-source="$(user.nick_name)"></c:text>
+			<c:row>
+				<c:text class="name" data-source="$(user.member_service.product_name)" />
+				<c:date class="expiredate" data-source="$(user.member_service_expire_date)" format="(yyyy.MM.dd到期)"/>
+			</c:row>
 		</c:column>
+		<!-- 可升级、续费的产品 -->
 		<c:container class="container--empty"></c:container>
-		<!-- 介绍 -->
-		<c:row class="padding--far">
-			<c:rich-text data-source="$(info.summary)"></c:rich-text>
-		</c:row>
-		<c:container class="container--empty"></c:container>
+		<c:column class="member-service-product-simple-list">
+			<c:text>会员服务</c:text>
+			<c:column name="product-info" data-source="$(platform.member_service_product)">
+				<c:row class="member-service-product-info-block" >
+					<c:image src-url="/images/royal_crown.png"/>
+					<c:column class="description">
+						<c:text data-source="$(product_name)"/>
+						<c:text data-source="$(product_description)"/>
+					</c:column>
+					<c:button link-to-url="/wxaService/selectMemberService/$(id)/" data-source="$(_by_key_actionName)"></c:button>
+				</c:row>
+				<c:row name="seperator" class="seperator"/>
+			</c:column>
+		</c:column>
 		<!-- 权益展示 -->
+		<c:container class="container--empty"></c:container>
+		<c:text class="rights-header">等级特权</c:text>
 		<c:row class="member_right_detail_block">
 			<c:column class="member_right_item_name_column">
-				<c:text class="content_text">name-1</c:text>
-				<c:text class="content_text">name-2</c:text>
-				<c:text class="content_text">name-3</c:text>
-				<c:text class="content_text">name-4</c:text>
-				<c:text class="content_text">name-5</c:text>
+				<c:text class="content_text">特权</c:text>
+				<c:text class="content_text">借阅图书数量</c:text>
+				<c:text class="content_text">借阅免费时间</c:text>
+				<c:text class="content_text">借阅超期费用</c:text>
+				<c:text class="content_text">借阅图书价值</c:text>
+				<c:text class="content_text">购买图书折扣</c:text>
+				<c:text class="content_text">报名会员活动</c:text>
+				<c:text class="content_text">申请共享图书</c:text>
 			</c:column>
 			<c:column class="member_right_item_value_column">
-				<c:text class="content_text" data-source="$(product.product_name)"/>
-				<c:money class="content_text" data-source="$(product.overdue_pay)元/天"/>
-				<c:text class="content_text" data-source="$(product.book_purchasing_discount_rate)折"/>
-				<c:text class="content_text" data-source="$(product.book_borrowing_count)本"/>
-				<c:money class="content_text" data-source="$(product.book_borrowing_limit_price)元"/>
-				<c:text class="content_text" data-source="$(product.free_borrowing_days)天"/>
+				<c:text name="name" class="content_text" data-source="$(product.product_name)"/>
+				<c:text name="count-limit" class="content_text" data-source="$(product.book_borrowing_count)本"/>
+				<c:text name="days" class="content_text" data-source="$(product.free_borrowing_days)天"/>
+				<c:text name="overdue" class="content_text" data-source="$(product.overdue_pay)元/天"/>
+				<c:money name="amount-limit" class="content_text" data-source="$(product.book_borrowing_limit_price)" format="#,##0.##元"/>
+				<c:text name="ratio" class="content_text" data-source="$(product._by_key_discountRate)折"/>
+				<c:font-icon class="content_text">check</c:font-icon>
+				<c:font-icon class="content_text">check</c:font-icon>
 			</c:column>
+		</c:row>
+		<c:container class="container--bottom-space"/>
+		<c:row class="buttons-row row-fixed-bottom">
+			<c:button class="bottom-link-button" link-to-url="/wxaService/viewHomePage/">
+				<c:image src-url="/images/toHome.png" />
+				<c:text>回首页</c:text>
+			</c:button>
 		</c:row>
 	</c:page>
 	<!-- 我的 借阅 -->
