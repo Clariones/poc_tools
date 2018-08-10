@@ -58,7 +58,7 @@
 		<c:container class="container--empty"></c:container>
 		
 	    <c:column name="review-list" class="campaign-detail-review-header">
-		    <c:text class="text-title">评论</c:text>
+		    <c:text class="text-title">微评</c:text>
 		</c:column>
 		<c:column class="default-content-block-lr-padding middle-content-block-tb-padding border--bottom" data-source="$(campaign.campaign_review)">
 			<c:row class="review-card padding--bottom-near"> <!-- 标题行 -->

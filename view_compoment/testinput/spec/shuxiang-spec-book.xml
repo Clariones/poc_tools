@@ -70,7 +70,7 @@
 		<!-- 书评列表 -->
 		<c:column name="book-review-list" class="book-review-list-block">
 			<c:column name="review-list" class="default-content-block-lr-padding">
-			    <c:text class="title-text-size" data-source="评论 ($(bookData._by_key_reviewCount))">评论</c:text>
+			    <c:text class="title-text-size" data-source="小札 ($(bookData._by_key_reviewCount))">小札</c:text>
 			</c:column>
 			<c:column class="default-list-item-block" data-source="$(bookData.book_review)">
 				<c:row class="review-card padding--bottom-near"> <!-- 标题行 -->
@@ -96,9 +96,14 @@
 			<c:field type="hidden" name="book_copy_id" label="" data-source="$(bookCopyData.id)"/>
 			<c:container class="container--bottom-space"/>
 			<c:row class="buttons-row row-fixed-bottom">
+				<c:button name="homepage" class="bottom-link-button" link-to-url="/wxaService/viewHomePage/">
+					<c:image src-url="/images/toHome.png" />
+					<c:text>去书香</c:text>
+				</c:button>
+				<c:container name="homepage-BX" class="short-ver-line"/>
 				<c:button name="review" class="bottom-link-button" link-to-url="/wxaService/bookReviewForm/$(bookData.id)/$(bookCopyData.id)/">
 					<c:image src-url="/images/review.png" />
-					<c:text>评论</c:text>
+					<c:text>小札</c:text>
 				</c:button>
 				<c:container name="buy-BX" class="short-ver-line"/>
 				<c:button name="buy" class="bottom-link-button" link-to-url="/wxaService/customerBuyBook/$(bookCopyData.id)/">
@@ -108,6 +113,51 @@
 				<c:container name="borrow-BX" class="short-ver-line"/>
 				<c:button name="borrow" class="bottom-link-button" link-to-url="/wxaService/customerBorrowBook/$(bookCopyData.id)/">
 					<c:image src-url="/images/bookBorrow.png" />
+					<c:text>借阅</c:text>
+				</c:button>
+			</c:row>
+		</c:form>
+
+	</c:page>
+	<!-- 简单的图书详情 -->
+	<c:page name="simple-book-detail" title="书籍详情">
+		<c:data-source bookData="$(book)" />
+		<c:data-source bookCopyData="$(book_copy)" />
+		<c:data-source platform="$(book_sharing_platform)" />
+		<c:data-source borrowRecord="$(borrowing_history)" />
+		<c:data-source message="var: string" />
+
+		<c:toast data-source="$(message)" />
+		<!-- 图书封面图像 -->
+		<c:row class="align-center book-detail-image">
+			<c:image class="image--size-main" src-url="$(bookData.book_cover)" />
+		</c:row>
+		<!-- 图书基本属性 -->
+		<c:column name="book-info-block" class="book-info-block">
+			<c:text class="title-text-size text--color-default" data-source="$(bookData.book_name)">名称</c:text>
+			<c:text data-source="作者: $(bookData.book_author)">作者</c:text>
+			<!-- 
+			<c:text data-source="出版社: $(bookData.book_publisher)">出版社</c:text>
+			<c:date data-source="$(bookData.book_pubdate)" format="出版时间: yyyy-MM">出版时间</c:date>
+			<c:money data-source="$(bookData.list_price)" format="定价：￥#,##0.00">定价</c:money>
+			 -->
+			<c:text  data-source="ISBN: $(bookData.book_isbn13)">ISBN</c:text>
+			<c:text name="isbn10" data-source="ISBN: $(bookData.book_isbn10)">ISBN</c:text>
+		</c:column>
+		<c:container class="container--empty"></c:container>
+		
+		<c:form class="review_form">
+			<c:field type="hidden" name="book_id" label="" data-source="$(bookData.id)"/>
+			<c:field type="hidden" name="book_copy_id" label="" data-source="$(bookCopyData.id)"/>
+			<c:container class="container--bottom-space"/>
+			<c:row class="buttons-row row-fixed-bottom">
+				<c:button name="homepage" class="bottom-link-button" link-to-url="/wxaService/viewHomePage/">
+					<c:image src-url="/images/toHome.png" />
+					<c:text>去书香</c:text>
+				</c:button>
+				<c:container name="borrow-BX" class="short-ver-line"/>
+				<c:button name="borrow" class="bottom-link-button" link-to-url="/wxaService/customerDoBorrowBook/$(bookCopyData.id)/">
+					<c:image src-url="/images/borrowBook-a.png" />
 					<c:text>借阅</c:text>
 				</c:button>
 			</c:row>
@@ -184,7 +234,7 @@
 		</c:row>
 	</c:page>
 	
-	<c:page name="book-review-form" title="发表评论">
+	<c:page name="book-review-form" title="发表书札">
 		<c:data-source bookData="$(book)"/>
 		<c:data-source bookCopyData="$(book_copy)"/>
 		
@@ -198,7 +248,7 @@
 				<c:column>
 					<c:field type="hidden" name="book_id" label="" data-source="$(bookData.id)"/>
 					<c:field type="hidden" name="book_copy_id" label="" data-source="$(bookCopyData.id)"/>
-					<c:field type="longtext" name="review_content" label=""  placeholder="微评论" max-value="100"/>
+					<c:field type="longtext" name="review_content" label=""  placeholder="小札的内容" max-value="100"/>
 				</c:column>
 			
 				<c:row class="buttons-row row-fixed-bottom">

@@ -37,37 +37,37 @@
 				<c:row class="align-center">
 					<c:image src-url="/images/rights.png"></c:image>
 				</c:row>
-				<c:text class="text-size-section-title text-color-main">我的权益</c:text>
+				<c:text class="text-size-section-title text-color-main">会员权益</c:text>
 			</c:column>
 			<c:column class="grid-cell cell-default-border" link-to-url="/wxaService/customerBorrowHistory/">
 				<c:row class="align-center">
 					<c:image src-url="/images/books.png"></c:image>
 				</c:row>
-				<c:text class="text-size-section-title text-color-main">我的借阅</c:text>
+				<c:text class="text-size-section-title text-color-main">图书借阅</c:text>
 			</c:column>
 			<c:column class="grid-cell cell-default-border" link-to-url="/wxaService/customerCampaingList/">
 				<c:row class="align-center">
 					<c:image src-url="/images/campaign.png"></c:image>
 				</c:row>
-				<c:text class="text-size-section-title text-color-main">我的活动</c:text>
+				<c:text class="text-size-section-title text-color-main">活动记录</c:text>
 			</c:column>
 			<c:column class="grid-cell cell-default-border" link-to-url="/wxaService/customerAccountDetail/">
 				<c:row class="align-center">
 					<c:image src-url="/images/wallet.png"></c:image>
 				</c:row>
-				<c:text class="text-size-section-title text-color-main">我的余额</c:text>
+				<c:text class="text-size-section-title text-color-main">账户余额</c:text>
 			</c:column>
 			<c:column class="grid-cell cell-default-border" link-to-url="/wxaService/customerReviewList/">
 				<c:row class="align-center">
 					<c:image src-url="/images/myReview.png"></c:image>
 				</c:row>
-				<c:text class="text-size-section-title text-color-main">我的书评</c:text>
+				<c:text class="text-size-section-title text-color-main">阅书小札</c:text>
 			</c:column>
 			<c:column class="grid-cell cell-default-border" link-to-url="/wxaService/customerOrderList/needPay/">
 				<c:row class="align-center">
 					<c:image src-url="/images/order.png"></c:image>
 				</c:row>
-				<c:text class="text-size-section-title text-color-main">我的订单</c:text>
+				<c:text class="text-size-section-title text-color-main">订单列表</c:text>
 			</c:column>
 		</c:row>
 	</c:page>
