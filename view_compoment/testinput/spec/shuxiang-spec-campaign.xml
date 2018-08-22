@@ -4,13 +4,21 @@
 	<c:page name="campaign-detail" title="活动详情">
     	<c:data-source campaign="$(campaign)"/>
     	<c:data-source customer="$(customer)"/>
+    	<c:data-source message="var: string"/>
     	
+    	<c:toast data-source="$(message)" image="/images/success.png"/>
+    	<c:image class="campaign-image-in-detail-page image--full" src-url="$(campaign.campaign_image)"/>
     	<c:column class="default-content-block-lr-padding middle-content-block-tb-padding">
 	    	<c:text	class="text-title" data-source="$(campaign.campaign_name)">名称</c:text>
 	    	<c:row class="align-both-ends padding--top-near">
-	    		<c:text class="text-status" data-source="$(campaign._by_key_calculatedStatusName)">状态</c:text>
+	    		<c:column class="campaign-status-image" >
+		    		<c:image name="campaign-register" src-url="/images/campaign-register.png"/>
+		    		<c:image name="campaign-running" src-url="/images/campaign-running.png"/>
+		    		<c:image name="campaign-closed" src-url="/images/campaign-closed.png"/>
+		    		<c:image name="campaign-cancelled" src-url="/images/campaign-cancelled.png"/>
+	    		</c:column>
 	    		<c:row class="flex--0" stat-in-page="true">
-			    	<c:row name="praise-campaign" stat-in-page="true" class="flex--0 text--color-highlight text--size-middle" link-to-url="/wxaService/praiseCampaign/$(campaign.id)/$(campaign._by_key_alreadyPraised)/">
+			    	<c:row name="praise-campaign" stat-in-page="true" class="flex--0 text--color-default text--size-middle" link-to-url="/wxaService/praiseCampaign/$(campaign.id)/$(campaign._by_key_alreadyPraised)/">
 				    	<c:font-icon name="campaign-like">heart-o</c:font-icon>
 				    	<c:text data-source="$(campaign._by_key_praiseCount)"></c:text>
 			    	</c:row>
@@ -29,9 +37,11 @@
 	    		<c:text>结束时间：</c:text>
 	    		<c:date data-source="$(campaign.campaign_finish_time)" format="yyyy-MM-dd HH:mm"></c:date>
 	    	</c:row>
-	    	<c:row name="campaign-images" class="padding--top-default">
-	    		<c:image class="image--size-list-thumbnail image--fill" data-source="$(campaign.campaign_image)"></c:image>
+	    	<!-- 
+	    	<c:row name="campaign-images" class="padding-**-top-default">
+	    		<c:image class="image-**-size-list-thumbnail image-**-fill" data-source="$(campaign.campaign_image)"></c:image>
 	    	</c:row>
+	    	 -->
     	</c:column>
     	<c:container class="container--empty"></c:container>
     	
@@ -67,12 +77,12 @@
 					<c:text class="text--size-middle" data-source="$(reviewer.nick_name)"></c:text>
     				<c:date class="text--color-info text--size-small" data-source="$(last_update_time)" format="fuzz_after_1_hour"/>
 				</c:column>
-				<c:row name="praise-review" class="flex--0 text--size-middle text--color-highlight padding--right-far" stat-in-page="true" 
+				<c:row name="praise-review" class="flex--0 text--size-middle text--color-default padding--right-far" stat-in-page="true" 
 						link-to-url="/wxaService/praiseCampaignReview/campaign/$(campaign.id)/$(id)/$(_by_key_thumbsUp)/">
-    				<c:font-icon name="my-comment-icon">comment-o</c:font-icon>
+    				<c:font-icon name="my-comment-icon">heart-o</c:font-icon>
     				<c:text data-source="$(_by_key_praiseCount)"/>
 	    		</c:row>
-	    		<c:ugc-control title-block="屏蔽" title-report="举报" class="flex--0 text--strong text--color-highlight" link-to-url="/wxaService/ugcContentControl/$(id)/campaign/">···</c:ugc-control>
+	    		<c:ugc-control title-block="屏蔽" title-report="举报" class="flex--0 text--strong text--color-default" link-to-url="/wxaService/ugcContentControl/$(id)/campaign/">···</c:ugc-control>
 			</c:row>
 			<c:text class="text--color-info" data-source="$(review_content)"/>
 		</c:column>
@@ -82,25 +92,30 @@
 				<c:field type="hidden" name="campaign_id" label="" data-source="$(campaign.id)"/>
 				<c:container class="container--bottom-space"/>
 				<c:row class="buttons-row row-fixed-bottom">
+					<c:button name="to-home" class="bottom-link-button" link-to-url="/wxaService/viewHomePage/">
+						<c:image src-url="/images/toHome.png" />
+						<c:text>去书香</c:text>
+					</c:button>
+					<c:container name="to-home-BX" class="short-ver-line"/>
 					<c:button class="bottom-link-button" link-to-url="/wxaService/campaignReviewForm/$(campaign.id)/">
 						<c:image src-url="/images/review.png" />
 						<c:text>微评</c:text>
 					</c:button>
 					<c:container class="short-ver-line"/>
 					<c:button type="share" class="bottom-link-button" sharing-title="$(campaign.campaign_name)" 
-									image-url="$(campaign.campaign_image)" link-to-url="/wxaService/campaignDetail/$(campaign.id)/">
+									image-url="$(campaign.campaign_image)" link-to-url="/wxaService/campaignDetailShared/$(campaign.id)/">
 						<c:image src-url="/images/share.png" />
 						<c:text>分享</c:text>
 					</c:button>
 					<c:container name="register-campaign-BX" class="short-ver-line"/>
-					<c:button name="register-campaign" class="bottom-link-button" link-to-url="/wxaService/campaignApplyResult/$(campaign.id)/reg/">
+					<c:button name="register-campaign" stat-in-page="true" class="bottom-link-button" link-to-url="/wxaService/campaignApplyResult/$(campaign.id)/reg/">
 						<c:image src-url="/images/register.png" />
-						<c:text>报名</c:text>
+						<c:text>报名活动</c:text>
 					</c:button>
 					<c:container name="unregister-campaign-BX" class="short-ver-line"/>
-					<c:button name="unregister-campaign" class="bottom-link-button"	link-to-url="/wxaService/campaignApplyResult/$(campaign.id)/unreg/">
+					<c:button name="unregister-campaign" stat-in-page="true" class="bottom-link-button"	link-to-url="/wxaService/campaignApplyResult/$(campaign.id)/unreg/">
 						<c:image src-url="/images/cancel.png" />
-						<c:text>取消</c:text>
+						<c:text>取消报名</c:text>
 					</c:button>
 				</c:row>
 			</c:column>
@@ -125,33 +140,37 @@
 	</c:page>
     <!-- 活动：门店的所有活动 -->
     <c:page name="campaign-list" title="全部活动">
-		<c:data-source store="$(store)" />
+		<c:data-source shop="$(store)" />
 		<c:row class="padding--far align-center">
-			<c:text data-source="$(store.store_subname)~$(store.store_name)"></c:text>
+			<c:text data-source="$(shop.store_subname)-$(shop.store_name)"></c:text>
 		</c:row>
-		<c:container class="container--empty"/>
-		
-		<c:row name="homepage-campaign-block" data-source="$(store.campaign)" link-to-url="/wxaService/campaignDetail/$(id)/" class="homepage-campaign-block">
-			<c:column class="campaign-image">
-				<c:image class="image--fill" src-url="$(campaign_image)"></c:image>
-			</c:column>
-			<c:column class="list-item-right-block align-both-ends flex--1" name="campaign-info-block">
-				<c:column>
-					<c:text class="campaign-title" data-source="$(campaign_name)" format="8,...">标题</c:text>
-					<c:row class="campaign-time" >
-						<c:date name="campaign-hold-time" data-source="$(campaign_start_time)" format="yyyy-MM-dd HH:mm">时间</c:date>
-						<c:text>~</c:text>
-						<c:date name="campaign-finish-time" data-source="$(campaign_finish_time)" format="HH:mm">时间</c:date>
-					</c:row>
-					<c:text class="campaign-address" data-source="$(campaign_hold_address)" format="2,...,8">地点</c:text>
+
+		<c:column class="homepage-campaign-list">
+			<c:row name="homepage-campaign-block" data-source="$(shop.campaign)" link-to-url="/wxaService/campaignDetail/$(id)/" class="homepage-campaign-block">
+				<c:column class="campaign-image">
+					<c:image class="image--full" src-url="$(campaign_image)"></c:image>
 				</c:column>
-				
-				<c:row class="align-both-ends">
-					<c:text name="register-info" class="reg-cnt" data-source="$(_by_key_reg_cnt)/$(available_register_quantity)人" ></c:text>
-					<c:text name="register-status" class="compaign-status" data-source="$(_by_key_calculatedStatusName)">立即报名</c:text>
-				</c:row>
-			</c:column>
-		</c:row>
+				<c:column class="list-item-right-block" name="campaign-info-block">
+					<c:column>
+						<c:text class="campaign-title" data-source="$(campaign_name)" format="12,...">标题</c:text>
+						<c:row class="campaign-time" >
+							<c:date name="campaign-hold-time" data-source="$(campaign_start_time)" format="yyyy-MM-dd HH:mm">时间</c:date>
+							<c:text>~</c:text>
+							<c:date name="campaign-finish-time" data-source="$(campaign_finish_time)" format="HH:mm">时间</c:date>
+						</c:row>
+						<c:text class="campaign-address" data-source="$(campaign_hold_address)" format="2,...,13">地点</c:text>
+					</c:column>
+					
+					<c:row >
+						<c:text name="register-info" class="reg-cnt" data-source="$(_by_key_reg_cnt)/$(available_register_quantity)人" ></c:text>
+						<c:text name="register-status" class="compaign-status" data-source="$(_by_key_calculatedStatusName)">立即报名</c:text>
+					</c:row>
+				</c:column>
+			</c:row>
+		</c:column>
+		<c:column name="nothing_campaign" class="nothing-content-block">
+			<c:text class="text-size-main text-color-marked-main">该服务网点暂未发布活动。</c:text>
+		</c:column>
 	</c:page>
 	
 	<!-- 活动：报名结果 -->
@@ -190,7 +209,7 @@
 				<c:text>分享</c:text>
 			</c:button>
 			<c:container class="short-ver-line"/>
-			<c:button class="bottom-link-button" link-to-url="./wxaService/campaignDetail/$(campaign.id)/">
+			<c:button class="bottom-link-button" link-to-url="/wxaService/campaignDetail/$(campaign.id)/">
 				<c:image src-url="/images/detail.png" />
 				<c:text>详情</c:text>
 			</c:button>
@@ -209,15 +228,15 @@
 			<c:column class="campaign-review-form-content">
 				<c:column>
 					<c:field type="hidden" name="campaign_id" label="" data-source="$(campaign.id)"/>
-					<c:field type="longtext" name="review_content" label=""  placeholder="微评论" max-value="100" />
+					<c:field type="longtext" name="review_content" label=""  placeholder="请输入评论内容" max-value="200" />
 				</c:column>
 			
 				<c:row class="buttons-row row-fixed-bottom">
-					<c:button name="unregister-campaign" class="bottom-link-button"	link-to-url="/wxaService/campaignDetail/$(campaign.id)/">
+<!-- 					<c:button name="unregister-campaign" class="bottom-link-button"	link-to-url="/wxaService/campaignDetail/$(campaign.id)/">
 						<c:image src-url="/images/cancel.png" />
 						<c:text>取消</c:text>
 					</c:button>
-					<c:container class="short-ver-line"/>
+					<c:container class="short-ver-line"/> -->
 					<c:action class="bottom-link-button" link-to-url="/wxaService/postCampaignReview/">
 						<c:image src-url="/images/review.png" />
 						<c:text>发表</c:text>

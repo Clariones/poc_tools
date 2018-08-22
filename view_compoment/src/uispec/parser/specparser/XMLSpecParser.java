@@ -74,11 +74,15 @@ public class XMLSpecParser extends BaseSpecParser {
 
         List<BaseUiSpecElement> childSpecs = new ArrayList<BaseUiSpecElement>();
         for (Map<String, Object> child : children) {
-            BaseUiSpecElement childSpec = parseUiSpecElement(root, child);
-            if (childSpec == null) {
-                continue;
+        	try {
+	            BaseUiSpecElement childSpec = parseUiSpecElement(root, child);
+	            if (childSpec == null) {
+	                continue;
+	            }
+	            childSpecs.add(childSpec);
+        	} catch (Exception e) {
+                throw new Exception("Exception at line " + specData.get("__line"), e);
             }
-            childSpecs.add(childSpec);
         }
         uiSpecElement.setChildren(childSpecs);
         return uiSpecElement;

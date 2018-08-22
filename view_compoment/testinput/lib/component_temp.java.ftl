@@ -99,7 +99,8 @@
         me.setContent(data);
 	<#else>
         me.setContent("${uiSpec.elementTextContent!}");
-	</#if>
+	</#if><#if uiSpec.image??>
+		me.setImg("${uiSpec.image}");</#if>
         <@gen_component_chidren_ifhas uiSpec/>
 </#macro>
 

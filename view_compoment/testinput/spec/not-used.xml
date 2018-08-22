@@ -74,7 +74,7 @@
 	                        时间
 	                    </c:date>
 	                </c:row>
-	                <c:row class="no-flex-weight"  stat-in-page="true" link-to-url="/wxaService/praiseBookReview/bookcopy/$(bookCopyData.id)/$(id)/$(_by_key_thumbUp)/">
+	                <c:row class="no-flex-weight text--color-default"  stat-in-page="true" link-to-url="/wxaService/praiseBookReview/bookcopy/$(bookCopyData.id)/$(id)/$(_by_key_thumbUp)/">
 	                    <c:font-icon name="thumbUp" class="text-size-note">heart-o</c:font-icon>
 	                    <c:text class="small-left-space small-right-space">赞</c:text>
 	                    <c:text name="praise-count" class="text-size-note"
@@ -92,7 +92,7 @@
         </c:column>
     </c:page>
     
-    <c:page name="customer-campaign-history" title="我的活动">
+    <c:page name="customer-campaign-history" title="活动记录">
 		<c:data-source user="$(customer)"/>
 		
 		<c:column>

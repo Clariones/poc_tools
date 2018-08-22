@@ -13,15 +13,15 @@
 						<c:text class="text--size-middle" data-source="$(reviewer.nick_name)"></c:text>
 	    				<c:date class="text--color-info text--size-small" data-source="$(review_publish_datetime)" format="fuzz_after_1_hour"/>
 					</c:column>
-					<c:row class="flex--0 text--size-middle text--color-highlight padding--right-far" stat-in-page="true" 
+					<c:row class="flex--0 text--size-middle text--color-default padding--right-far" stat-in-page="true" 
 							link-to-url="/wxaService/praiseBookReview/book/$(book_info.id)/$(id)/$(_by_key_thumbUp)/">
 	    				<c:font-icon name="thumbup">heart-o</c:font-icon>
 	    				<c:text data-source="$(_by_key_praiseCount)"/>
 		    		</c:row>
-		    		<c:ugc-control title-block="屏蔽" title-report="举报" class="flex--0 text--strong text--color-highlight" 
+		    		<c:ugc-control title-block="屏蔽" title-report="举报" class="flex--0 text--strong text--color-default" 
 		    				link-to-url="/wxaService/ugcContentControl/$(id)/book/">···</c:ugc-control>
 				</c:row>
-				<c:text max-line="8" class="text--color-info" data-source="$(review_content)"/>
+				<c:text class="text--color-info" data-source="$(review_content)"/>
 				<c:row class="border padding--small" link-to-url="/wxaService/bookDetailPage/$(book_info.id)/">
 					<c:image class="image--size-summary flex--0" src-url="$(book_info.book_cover)" />
 					<c:column class="flex--1 padding--left-near">
@@ -33,7 +33,7 @@
 			<c:container class="container--empty"/>
 		</c:column>
 		
-		<c:row name="nothing">
+		<c:row name="nothing" class="nothing-content-block">
 			<c:text class="text-title">最近比较安静...</c:text>
 		</c:row>
 		
@@ -45,30 +45,30 @@
 		<c:data-source user="$(customer)"/>
 		
 		<c:column data-source="$(user.customer_footprint)">
-			<c:column class="default-list-item-card">
-				<c:row class="align-both-ends" name="footprint">
-					<c:row class="align-items-center">
-						<c:font-icon class="text-size-small">clock-o</c:font-icon>
-						<c:date class="text-title" data-source="$(create_time)" format="fuzz_after_1_hour"></c:date>
+			<c:column class="foot-print-item-container">
+				<c:row class="foot-print-item-title-row" name="footprint">
+					<c:row class="foot-print-title-time">
+						<c:image src-url="/images/time-dark.png" />
+						<c:date data-source="$(create_time)" format="fuzz_after_1_hour"></c:date>
 					</c:row>
-					<c:text class="text-title" data-source="$(title)" format="20,..."></c:text>
+					<c:text class="foot-print-title-name" data-source="$(title)" format="20,..."></c:text>
 				</c:row>
-				<c:row name="related-item" class="review-card">
+				<c:text class="foot-print-item-desc" data-source="$(description)"/>
+				<c:row name="related-item" class="foot-print-item-sku-card" link-to-url="/wxaService/onFootprintClicked/$(id)/">
 					<c:column>
-						<c:image class="image--size-thumbnail" src-url="$(item_image)"></c:image>
+						<c:image class="foot-print-item-sku-image" src-url="$(item_image)"></c:image>
 					</c:column>
-					<c:column class="padding--left-default">
-						<c:text class="text-title" data-source="$(item_title)" format="10,...,3"></c:text>
-						<c:text class="text--color-info" data-source="$(item_description)"></c:text>
+					<c:column class="foot-print-item-sku-info">
+						<c:text class="foot-print-item-sku-title" data-source="$(item_title)" format="10,...,3"></c:text>
+						<c:text class="foot-print-item-sku-desc" data-source="$(item_description)"></c:text>
 					</c:column>
 				</c:row>
-				<c:text class="text--color-info" data-source="$(description)"/>
 			</c:column>
 			<c:container class="container--empty"></c:container>
 		</c:column>
 
-		<c:column name="nothing" class="padding--default">
-			<c:text class="text-title">您还没有留下任何足迹</c:text>
+		<c:column name="nothing" class="nothing-content-block">
+			<c:text class="text-title">这里记录的是您的时间之旅！</c:text>
 		</c:column>
 	</c:page>
 </root>
