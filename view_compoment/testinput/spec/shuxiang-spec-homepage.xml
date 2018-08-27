@@ -225,7 +225,7 @@
 	    						<c:option value="true" display-text="我同意"/>
 	    					</c:field>
 	    					<c:column class="align-center">
-	    						<c:text class="user-agreement-link" link-to-url="/wxaService/bookSharingAgreement/">《书香社区共享图书条款》</c:text>
+	    						<c:text class="user-agreement-link" link-to-url="/wxaService/bookSharingAgreement/">《图书共享和捐赠条款》</c:text>
 	    					</c:column>
 	    			</c:row>
     			</c:column>

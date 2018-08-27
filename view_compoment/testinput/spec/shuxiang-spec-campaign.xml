@@ -70,7 +70,7 @@
 	    <c:column name="review-list" class="campaign-detail-review-header">
 		    <c:text class="text-title">微评</c:text>
 		</c:column>
-		<c:column class="default-content-block-lr-padding middle-content-block-tb-padding border--bottom" data-source="$(campaign.campaign_review)">
+		<c:column name="review-list-item" class="default-content-block-lr-padding middle-content-block-tb-padding border--bottom" data-source="$(campaign.campaign_review)">
 			<c:row class="review-card padding--bottom-near"> <!-- 标题行 -->
 				<c:image class="image--size-review-logo flex--0 round-image" src-url="$(reviewer.logo_image)"/>
 				<c:column class="flex--1 padding--left-near">

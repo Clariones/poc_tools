@@ -116,6 +116,14 @@
 					<c:column name="need_mobile_number">
 						<c:field name="mobile_number" type="vcode" label="手机号码"/>
 						<c:field name="sms_code" type="text" min-value="6" max-value="8" label="短信验证码"/>
+						<c:row class="text-size-note align-center user-agreement">
+							<c:field name="agreed" type="checkbox" label="">
+								<c:option value="true" display-text="我同意"/>
+	    					</c:field>
+	    					<c:column class="align-center">
+	    						<c:text class="user-agreement-link" link-to-url="/wxaService/memberServiceAgreement/$(product.id)/">《会员服务协议》</c:text>
+	    					</c:column>
+						</c:row>
 					</c:column>
 				</c:column>
 				
@@ -573,5 +581,27 @@
    				<c:text>提交</c:text>
     		</c:action>
    		</c:form>
+    </c:page>
+    
+    <!-- 首页： 会员服务协议 -->
+     <c:page name="member-service-agreement" title="共享图书协议" class="full-height">
+    	<c:data-source config="$(platform_configuration)"/>
+    	<c:data-source product="$(member_service_product)"/>
+    	
+    	<c:column class="full-height">
+    		<c:column class="useragreement-header-block">
+    			<c:text>《书香社区会员服务协议》</c:text>
+    		</c:column>
+    		<c:column class="flex--1 useragreement-content-block">
+    			 <c:rich-text name="agreement" data-source="$(config.member_service_agreement)">协议内容</c:rich-text>
+    		</c:column>
+    	</c:column>
+    	<c:container class="container--bottom-space"/>
+   		<c:row class="buttons-row row-fixed-bottom">
+			<c:button class="bottom-link-button" link-to-url="/wxaService/selectMemberService/$(product.id)/">
+				<c:image src-url="/images/toHome.png" />
+				<c:text>返回</c:text>
+			</c:button>
+		</c:row>
     </c:page>
 </root>
