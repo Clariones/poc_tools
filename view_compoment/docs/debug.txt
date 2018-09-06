@@ -1,0 +1,2 @@
+grep "font-icon" * | grep -v '<!--' | awk -F'>' '{print $2}' | awk -F'<' '{print $1}' | sort | uniq -c
+可以统计用了哪些 font-icon

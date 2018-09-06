@@ -211,7 +211,7 @@
 		
 		<c:column class="borrow-book-done-header">
 			<c:row class="">
-				<c:image src-url="/images/success.png"/>
+				<c:image src-url="/images/borrow_success.png"/>
 				<c:column>
 					<c:text class="title-text-size">借书成功</c:text>
 					<c:text class="text--color-info" data-source="已借$(alreadyBorrowed)本，还可以借$(stillCanBorrow)本"/>

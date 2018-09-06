@@ -8,9 +8,12 @@
 		<c:data-source platform="$(book_sharing_platform)" />
 		<c:data-source config="$(platform_configuration)" />
 
-		<c:column class="customer-brief-header" link-to-url="/wxaService/viewCustomerProfile/">
-			<c:image class="round-image" src-url="$(user.logo_image)"></c:image>
-			<c:text data-source="$(user.nick_name)"></c:text>
+		<c:column class="customer-brief-header"> <!-- link-to-url="/wxaService/viewCustomerProfile/" was removed -->
+			<c:button type="getUserInfo" stat-in-page="true" 
+	    		call-back-url="/wxaService/updateUserInfoFromMeHome/" class="btn-refresh-user-info">
+				<c:image class="round-image" src-url="$(user.logo_image)"></c:image>
+				<c:text data-source="$(user.nick_name)"></c:text>
+			</c:button>
 			<c:row>
 				<c:text class="name" data-source="$(user.member_service.product_name)" />
 				<c:date class="expiredate" data-source="$(user.member_service_expire_date)" format="(yyyy.MM.dd到期)"/>
@@ -23,7 +26,7 @@
 			<c:row class="padding--top-near scroll-x">
 				<c:column class="padding--right-small" data-source="$(platform.member_service_product)"
 					link-to-url="/wxaService/selectMemberService/$(id)/">
-					<c:image class="image--size-list-thumbnail image--fill" src-url="$(product_cover_image)"></c:image>
+					<c:image class="image--size-list-thumbnail image--fill msp-image" src-url="$(product_cover_image)"></c:image>
 					<c:text data-source="$(product_name)"></c:text>
 				</c:column>
 			</c:row>
@@ -534,11 +537,13 @@
    				<c:text data-source="$(user.family_address)">家庭地址</c:text>
    		</c:row>
    		<c:container class="container--empty"/>
-   		
-   		<c:button name="submitForm" class="bottom-link-button" link-to-url="/wxaService/editCustomerProfile/">
+   		<c:container class="container--bottom-space"/>
+   		<c:row class="buttons-row row-fixed-bottom">
+   			<c:button name="submitForm" class="bottom-link-button" link-to-url="/wxaService/editCustomerProfile/">
   				<c:image src-url="/images/detail.png"/>
   				<c:text>更新个人信息</c:text>
-   		</c:button>
+   			</c:button>
+   		</c:row>
     </c:page>
     <!-- 我的：编辑个人信息 -->
 	<c:page name="edit-customer-profile" title="个人信息" >
@@ -576,22 +581,25 @@
 	   				placeholder="请输入您的家庭地址"
 	   				data-source="$(user.family_address)" max-value="200"/>
    			</c:column>
-   			<c:action name="submitForm" class="form-submit-button" link-to-url="/wxaService/updateCustomerProfile/">
-   				<c:image src-url="/images/submit.png"/>
-   				<c:text>提交</c:text>
-    		</c:action>
+   			<c:container class="container--bottom-space"/>
+   			<c:row class="buttons-row row-fixed-bottom">
+	   			<c:action name="submitForm" class="form-submit-button" link-to-url="/wxaService/updateCustomerProfile/">
+	   				<c:image src-url="/images/submit.png"/>
+	   				<c:text>提交</c:text>
+	    		</c:action>
+	    	</c:row>
    		</c:form>
     </c:page>
     
     <!-- 首页： 会员服务协议 -->
-     <c:page name="member-service-agreement" title="共享图书协议" class="full-height">
+     <c:page name="member-service-agreement" title="会员服务协议" class="full-height">
     	<c:data-source config="$(platform_configuration)"/>
     	<c:data-source product="$(member_service_product)"/>
     	
-    	<c:column class="full-height">
-    		<c:column class="useragreement-header-block">
+    	<c:column>
+    		<!-- <c:column class="useragreement-header-block">
     			<c:text>《书香社区会员服务协议》</c:text>
-    		</c:column>
+    		</c:column> -->
     		<c:column class="flex--1 useragreement-content-block">
     			 <c:rich-text name="agreement" data-source="$(config.member_service_agreement)">协议内容</c:rich-text>
     		</c:column>

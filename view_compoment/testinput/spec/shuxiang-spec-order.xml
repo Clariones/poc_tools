@@ -12,7 +12,7 @@
      		<c:option value="closed" display-text="已完成"/>
      		<c:option value="all" display-text="全部"/>
      	</c:tabs>
-     	<c:column>
+     	<c:column name="order-list-block">
      		<c:column data-source="$(user.main_order)">
 		     	<c:column class="padding--far" link-to-url="/wxaService/customerOrderDetail/$(id)/">
 		     		<c:text class="text--size-middle" data-source="订单编号：$(id)">订单编号</c:text>

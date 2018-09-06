@@ -261,9 +261,9 @@
      <c:page name="book-sharing-agreement" title="共享图书协议" class="full-height">
     	<c:data-source config="$(platform_configuration)"/>
     	<c:column class="full-height">
-    		<c:column class="useragreement-header-block">
+    		<!-- <c:column class="useragreement-header-block">
     			<c:text>《书香社区共享图书条款》</c:text>
-    		</c:column>
+    		</c:column> -->
     		<c:column class="flex--1 useragreement-content-block">
     			 <c:rich-text name="agreement" data-source="$(config.book_sharing_agreement)">协议内容</c:rich-text>
     		</c:column>
