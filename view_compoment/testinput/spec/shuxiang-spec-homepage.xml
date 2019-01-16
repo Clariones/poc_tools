@@ -175,7 +175,7 @@
 		</c:column>
 		
 		<c:column name="expired-unpaid" class="align-center borrow-book-page">
-			<c:text>您有超期罚金未支付</c:text>
+			<c:text>您有超期费用未支付</c:text>
 			<c:text>不能借阅新的图书</c:text>
 			<c:image class="can-not-borrow-image padding--top-far padding--bottom-far" src-url="/images/can_not_borrow_book.png"></c:image>
 			<c:button class="btn btn--green btn--half" link-to-url="/wxaService/customerBorrowHistory/">查看借阅详情</c:button>

@@ -317,7 +317,7 @@ public class RenderTemplateGenerator {
     }
 
     public void produce(Map<String, Object> data, Writer out) throws Exception {
-        Configuration config = new Configuration(Configuration.VERSION_2_3_28);
+        Configuration config = new Configuration(Configuration.VERSION_2_3_25);
         config.setDirectoryForTemplateLoading(getTemplateBaseFolder());
         config.setDefaultEncoding("UTF-8");
         Template template = config.getTemplate(getTemplateFileName());

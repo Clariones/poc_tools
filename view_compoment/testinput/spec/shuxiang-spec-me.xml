@@ -254,8 +254,9 @@
 					<c:text name="borrowing-status" class="pin-to-left-bottom" data-source="$(_by_key_status)">状态</c:text>
 				</c:column>
 			</c:row>
+			<c:container class="container--bottom-space"/>
 		</c:column>
-		
+			
 		<c:column name="nothing" class="nothing-content-block">
 			<c:text class="text-size-main text-color-marked-main">还没有借阅过吗？去试试不一样的阅读体验吧！</c:text>
 		</c:column>
@@ -329,21 +330,25 @@
 				<c:container class="short-ver-line"/>
 				<c:button class="bottom-link-button" link-to-url="/wxaService/customerStartPayOrder/$(record._by_key_orderId)/">
 					<c:image src-url="/images/pay.png" />
-					<c:text>支付罚金</c:text>
+					<c:text>支付费用</c:text>
 				</c:button>
 			</c:row>
 		</c:row>
 		<c:row name="internal_has_order" class="bdar_internal_has_order">
 			<c:container class="container--bottom-space"/>
 			<c:row class="buttons-row row-fixed-bottom">
-				<c:button class="bottom-link-button" link-to-url="/wxaService/bookReviewForm/$(record.book.id)/$(record.book_copy.id)/">
+				<!-- <c:button class="bottom-link-button" link-to-url="/wxaService/bookReviewForm/$(record.book.id)/$(record.book_copy.id)/">
 					<c:image src-url="/images/review.png" />
 					<c:text>札记</c:text>
+				</c:button> -->
+				<c:button name="buy-book" class="bottom-link-button" link-to-url="/wxaService/customerBuyBook/$(record.book_copy.id)/">
+					<c:image src-url="/images/buy.png" />
+					<c:text>直接购买</c:text>
 				</c:button>
-				<c:container class="short-ver-line"/>
-				<c:button class="bottom-link-button" link-to-url="/wxaService/customerStartPayOrder/$(record._by_key_orderId)/">
+				<c:container name="pay-order-sep" class="short-ver-line"/>
+				<c:button name="pay-order" class="bottom-link-button" link-to-url="/wxaService/customerStartPayOrder/$(record._by_key_orderId)/">
 					<c:image src-url="/images/pay.png" />
-					<c:text>支付罚金</c:text>
+					<c:text>支付费用</c:text>
 				</c:button>
 			</c:row>
 		</c:row>

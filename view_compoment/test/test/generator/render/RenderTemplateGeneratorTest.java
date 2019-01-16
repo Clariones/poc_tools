@@ -65,7 +65,7 @@ public class RenderTemplateGeneratorTest {
         // "/works/jobs/sx_shequ/workspace/poc_ui_codegen/test_ui_specs.json";
         String templateFolder = "./testinput/";
         System.setProperty("skynet.model", "shuxiang");
-        String workspacePath = "/works/jobs/shuxiang/workspace";
+        String workspacePath = "/works/jobs/shuxiang_v2/workspace";
 		System.setProperty("skynet.output.basefolder", workspacePath);
         File outputBaseFolder = new File(workspacePath + "/shuxiang-biz-suite/bizcore/WEB-INF/shuxiang_custom_src/com/terapico/shuxiang/wxalayout");
         
